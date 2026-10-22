@@ -1,0 +1,13 @@
+[project]
+name = "vibe-search"
+version = "0.1.0"
+requires-python = ">=3.12"
+
+[project.scripts]
+vibe = "vibe.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]

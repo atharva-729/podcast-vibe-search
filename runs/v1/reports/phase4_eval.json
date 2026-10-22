@@ -1,0 +1,82 @@
+{
+ "category": [
+  {
+   "query": "calm guided relaxation",
+   "expected": "Health & Fitness",
+   "half": "A",
+   "random": 0.15384615384615385,
+   "embedding only": 0.8,
+   "features only": 0.8,
+   "hybrid": 0.9
+  },
+  {
+   "query": "comedians joking around",
+   "expected": "Comedy",
+   "half": "A",
+   "random": 0.15384615384615385,
+   "embedding only": 0.9,
+   "features only": 0.7,
+   "hybrid": 0.9
+  },
+  {
+   "query": "crime story narration",
+   "expected": "True Crime",
+   "half": "A",
+   "random": 0.10256410256410256,
+   "embedding only": 0.3,
+   "features only": 0.1,
+   "hybrid": 0.5
+  },
+  {
+   "query": "sports talk",
+   "expected": "Sports",
+   "half": "A",
+   "random": 0.10256410256410256,
+   "embedding only": 0.6,
+   "features only": 0.1,
+   "hybrid": 0.8
+  },
+  {
+   "query": "news headlines briefing",
+   "expected": "News",
+   "half": "B",
+   "random": 0.15384615384615385,
+   "embedding only": 0.9,
+   "features only": 0.3,
+   "hybrid": 0.8
+  },
+  {
+   "query": "a bedtime story for children",
+   "expected": "Kids & Family",
+   "half": "B",
+   "random": 0.07692307692307693,
+   "embedding only": 0.2,
+   "features only": 0.0,
+   "hybrid": 0.0
+  },
+  {
+   "query": "music with singing and instruments",
+   "expected": "Music",
+   "half": "B",
+   "random": 0.10256410256410256,
+   "embedding only": 0.2,
+   "features only": 0.2,
+   "hybrid": 0.5
+  },
+  {
+   "query": "soft whispering to help you sleep",
+   "expected": "Health & Fitness",
+   "half": "B",
+   "random": 0.15384615384615385,
+   "embedding only": 0.9,
+   "features only": 0.2,
+   "hybrid": 1.0
+  }
+ ],
+ "same_show": {
+  "embedding only": 0.4099999999999999,
+  "features only": 0.19400000000000003,
+  "hybrid": 0.42999999999999994,
+  "random": 0.02145922746781116
+ }
+}

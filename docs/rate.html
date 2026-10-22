@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Listening Test</title>
+<style>
+:root { --bg: #0d1016; --bg2: #141922; --bg3: #1c2230; --rule: #2a3241; --fg: #ece8df; --soft: #c9c4b8; --mut: #8d95a3;
+  --ok: #2fd3a7; --bad: #ff6a5e; --hl: #f6b93b; --s1: #3987e5; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 15px/1.55 system-ui, "Segoe UI", sans-serif; }
+.wrap { max-width: 720px; margin: 0 auto; padding: 28px 16px 60px; }
+h1 { font: 600 1.5rem Georgia, serif; margin: 0 0 6px; }
+.mut { color: var(--mut); }
+.bar { height: 6px; background: var(--bg3); border-radius: 3px; margin: 18px 0 6px; overflow: hidden; }
+.bar i { display: block; height: 100%; background: var(--s1); width: 0; transition: width .2s; }
+.card { background: var(--bg2); border: 1px solid var(--rule); border-radius: 12px; padding: 20px; margin-top: 14px; }
+.k { font: 500 11px ui-monospace, Consolas, monospace; letter-spacing: .12em; text-transform: uppercase; color: var(--mut); }
+.query { font: 600 1.35rem/1.3 Georgia, serif; margin: 6px 0 16px; }
+audio { width: 100%; }
+.btns { display: grid; grid-template-columns: 1fr 1fr 0.7fr; gap: 10px; margin-top: 16px; }
+button { font: inherit; cursor: pointer; border-radius: 10px; border: 1px solid var(--rule); background: var(--bg3); color: var(--fg); padding: 14px 10px; }
+button.y { border-color: var(--ok); color: var(--ok); font-weight: 600; }
+button.n { border-color: var(--bad); color: var(--bad); font-weight: 600; }
+button.sel { background: var(--fg); color: var(--bg); }
+button:disabled { opacity: .4; cursor: default; }
+.nav { display: flex; justify-content: space-between; margin-top: 12px; }
+.nav button { padding: 8px 14px; }
+.help { font-size: 13px; color: var(--mut); margin-top: 10px; }
+table { border-collapse: collapse; width: 100%; margin-top: 10px; font-variant-numeric: tabular-nums; }
+td, th { text-align: left; padding: 7px 6px; border-bottom: 1px solid var(--rule); font-size: 14px; }
+th { color: var(--mut); font-weight: 400; } td.n, th.n { text-align: right; }
+.big { font: 600 2.2rem Georgia, serif; color: var(--ok); }
+.ok { color: var(--ok); } .no { color: var(--bad); }
+.saved { font-size: 12px; color: var(--mut); text-align: right; margin-top: 6px; min-height: 1.2em; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Listening test · round 2 (centred search)</h1>
+  <p class="mut">For each search, listen to the clip and decide: <b>does it sound like what was asked for?</b>
+    Judge the <b>sound</b> (mood, energy, voices, laughter, music), not whether you like it. Show names are hidden until the end so they don't sway you.</p>
+  <div class="bar"><i id="bar"></i></div>
+  <div class="mut" id="prog" style="font-size:13px"></div>
+
+  <div class="card" id="rate">
+    <div class="k">The search was</div>
+    <div class="query" id="query"></div>
+    <audio id="audio" controls autoplay></audio>
+    <div class="btns">
+      <button class="y" id="b-y">✓ Matches <span class="mut">(Y)</span></button>
+      <button class="n" id="b-n">✗ Doesn't match <span class="mut">(N)</span></button>
+      <button id="b-u">? Not sure <span class="mut">(U)</span></button>
+    </div>
+    <div class="nav"><button id="back">← Back</button><button id="replay">↺ Replay (R)</button></div>
+    <div class="help">Tip: you don't need the full 20 seconds; answer as soon as you can tell. Close the tab anytime; progress is saved.</div>
+  </div>
+  <div class="saved" id="saved"></div>
+
+  <div class="card" id="done" style="display:none"></div>
+</div>
+
+<script src="data.js"></script>
+<script>
+(() => {
+const D = window.VIBE, SH = D.shows, SEG = D.segments;
+const byId = Object.fromEntries(SEG.map((s, i) => [s.id, i]));
+// v2 rates the centred search. Clips already rated in v1 (same search, same clip) keep that rating, so only new ones are asked.
+const PER_QUERY = 4, KEY = "vibe-listening-test-v2";
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"}[c]));
+const mmss = t => `${Math.floor(t / 60)}:${String(Math.floor(t % 60)).padStart(2, "0")}`;
+
+// 12 demo queries x top 4 = 48 clips. Shuffle order within each query (fixed seed) so rank doesn't bias.
+let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+const items = [];
+Object.entries(D.queries).forEach(([q, d]) => {
+  const top = d.top.slice(0, PER_QUERY).map((t, rank) => ({q, id: t.id, rank: rank + 1}));
+  for (let i = top.length - 1; i > 0; i--) { const j = Math.floor(rnd() * (i + 1)); [top[i], top[j]] = [top[j], top[i]]; }
+  items.push(...top);
+});
+
+let ratings = {};
+try { ratings = JSON.parse(localStorage.getItem(KEY) || "{}"); } catch (e) {}
+const prior = D.ratings_v1 || {}, carried = new Set();
+items.forEach(it => { const k = it.q + "|" + it.id; if (!ratings[k] && prior[k]) { ratings[k] = prior[k]; carried.add(k); } });
+// Only the clips without a carried-over rating are asked.
+const todo = items.filter(it => !carried.has(it.q + "|" + it.id));
+items.splice(0, items.length, ...todo, ...items.filter(it => carried.has(it.q + "|" + it.id)));
+const ASK = todo.length;
+let pos = items.findIndex(it => !ratings[it.q + "|" + it.id]); if (pos < 0 || pos >= ASK) pos = ASK;
+
+function save() {
+  try { localStorage.setItem(KEY, JSON.stringify(ratings)); } catch (e) {}
+  const payload = {saved_at: new Date().toISOString(), per_query: PER_QUERY, items: items.map(it => ({...it, show: SH[SEG[byId[it.id]].s].name,
+    start_s: SEG[byId[it.id]].t})), ratings};
+  fetch("/rate", {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(payload)})
+    .then(r => r.json()).then(r => $("saved").textContent = r.ok ? `Saved (${r.saved} rated)` : "")
+    .catch(() => $("saved").textContent = "Saved in this browser only (server not reachable)");
+}
+
+function show() {
+  const n = todo.filter(it => ratings[it.q + "|" + it.id]).length;
+  $("bar").style.width = `${Math.min(100, n / Math.max(1, ASK) * 100)}%`;
+  if (pos >= ASK) return finish();
+  const it = items[pos];
+  $("prog").textContent = `New clip ${pos + 1} of ${ASK} · ${carried.size} clips kept their earlier rating`;
+  $("query").textContent = `“${it.q}”`;
+  $("audio").src = `/audio/${it.id}.mp3`; $("audio").play().catch(() => {});
+  const r = ratings[it.q + "|" + it.id];
+  ["y", "n", "u"].forEach(k => $(`b-${k}`).classList.toggle("sel", r === k));
+  $("back").disabled = pos === 0;
+}
+
+function rate(v) {
+  if (pos >= ASK) return;
+  const it = items[pos]; ratings[it.q + "|" + it.id] = v; save(); pos++; show();
+}
+
+function finish() {
+  $("rate").style.display = "none"; $("done").style.display = "block"; $("prog").textContent = "All done";
+  const rows = Object.keys(D.queries).map(q => {
+    const its = items.filter(it => it.q === q), rs = its.map(it => ratings[it.q + "|" + it.id]);
+    return {q, y: rs.filter(r => r === "y").length, n: rs.filter(r => r === "n").length, u: rs.filter(r => r === "u").length, its};
+  });
+  const Y = rows.reduce((a, r) => a + r.y, 0), N = rows.reduce((a, r) => a + r.n, 0), U = rows.reduce((a, r) => a + r.u, 0);
+  $("done").innerHTML = `<div class="k">Result</div>
+    <div class="big">${Y} of ${Y + N}</div>
+    <p>clips sounded like what was searched for (<b>${Math.round(Y / Math.max(1, Y + N) * 100)}%</b>)${U ? `, plus ${U} you weren't sure about` : ""}.
+    Ratings are saved to <code>reports/listening_test.json</code>. Tell Claude you're done.</p>
+    <table><tr><th>Search</th><th class="n">✓</th><th class="n">✗</th><th class="n">?</th></tr>
+    ${rows.map(r => `<tr><td>“${esc(r.q)}”<div class="mut" style="font-size:12px">${r.its.map(it => {
+      const s = SEG[byId[it.id]], v = ratings[it.q + "|" + it.id];
+      return `<span class="${v === "y" ? "ok" : v === "n" ? "no" : ""}">${esc(SH[s.s].name.replace(/:.*$/, ""))} @ ${mmss(s.t)}</span>`; }).join(" · ")}</div></td>
+      <td class="n ok">${r.y}</td><td class="n no">${r.n}</td><td class="n">${r.u}</td></tr>`).join("")}</table>
+    <p style="margin-top:14px"><button id="redo">Change an answer</button></p>`;
+  $("redo").onclick = () => { pos = Math.max(0, ASK - 1); $("done").style.display = "none"; $("rate").style.display = "block"; show(); };
+  // Before (raw embeddings) vs after (centred), from the earlier test.
+  const v1 = D.listening_v1 || [], y1 = v1.filter(x => x.v === "y").length, n1 = v1.filter(x => x.v === "y" || x.v === "n").length;
+  if (n1) $("done").insertAdjacentHTML("afterbegin", `<p class="mut" style="margin:0 0 8px">Before centring: <b>${y1} of ${n1}</b>. After: <b style="color:var(--ok)">${Y} of ${Y + N}</b>.</p>`);
+}
+
+$("b-y").onclick = () => rate("y"); $("b-n").onclick = () => rate("n"); $("b-u").onclick = () => rate("u");
+$("back").onclick = () => { if (pos > 0) { pos--; show(); } };
+$("replay").onclick = () => { $("audio").currentTime = 0; $("audio").play(); };
+document.addEventListener("keydown", e => {
+  const k = e.key.toLowerCase();
+  if (k === "y") rate("y"); else if (k === "n") rate("n"); else if (k === "u") rate("u");
+  else if (k === "r") $("replay").click(); else if (k === "arrowleft") $("back").click();
+});
+show();
+})();
+</script>
+</body>
+</html>

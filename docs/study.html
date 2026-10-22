@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Listening Study</title>
+<style>
+:root { --bg: #0d1016; --bg2: #141922; --bg3: #1c2230; --rule: #2a3241; --fg: #ece8df; --soft: #c9c4b8; --mut: #8d95a3;
+  --ok: #2fd3a7; --bad: #ff6a5e; --s1: #3987e5; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 15px/1.55 system-ui, "Segoe UI", sans-serif; }
+.wrap { max-width: 720px; margin: 0 auto; padding: 28px 16px 60px; }
+h1 { font: 600 1.5rem Georgia, serif; margin: 0 0 6px; }
+.mut { color: var(--mut); }
+.bar { height: 6px; background: var(--bg3); border-radius: 3px; margin: 18px 0 6px; overflow: hidden; }
+.bar i { display: block; height: 100%; background: var(--s1); width: 0; transition: width .2s; }
+.card { background: var(--bg2); border: 1px solid var(--rule); border-radius: 12px; padding: 20px; margin-top: 14px; }
+.k { font: 500 11px ui-monospace, Consolas, monospace; letter-spacing: .12em; text-transform: uppercase; color: var(--mut); }
+.query { font: 600 1.35rem/1.3 Georgia, serif; margin: 6px 0 16px; }
+audio { width: 100%; }
+.btns { display: grid; grid-template-columns: 1fr 1fr 0.7fr; gap: 10px; margin-top: 16px; }
+button { font: inherit; cursor: pointer; border-radius: 10px; border: 1px solid var(--rule); background: var(--bg3); color: var(--fg); padding: 14px 10px; }
+button.y { border-color: var(--ok); color: var(--ok); font-weight: 600; }
+button.n { border-color: var(--bad); color: var(--bad); font-weight: 600; }
+button.sel { background: var(--fg); color: var(--bg); }
+button:disabled { opacity: .4; cursor: default; }
+.nav { display: flex; justify-content: space-between; margin-top: 12px; }
+.nav button { padding: 8px 14px; }
+.help { font-size: 13px; color: var(--mut); margin-top: 10px; }
+.saved { font-size: 12px; color: var(--mut); text-align: right; margin-top: 6px; min-height: 1.2em; }
+.big { font: 600 2rem Georgia, serif; color: var(--ok); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Listening study</h1>
+  <p class="mut">Same question as before: <b>does the clip sound like the search?</b> Judge the <b>sound</b> (mood, energy, voices,
+    laughter, music). Some searches are just one or two words; judge them the same way (e.g. “music”: is there music?).
+    You won't see which version of search found a clip.</p>
+  <div class="bar"><i id="bar"></i></div>
+  <div class="mut" id="prog" style="font-size:13px"></div>
+  <div class="card" id="rate">
+    <div class="k">The search was</div>
+    <div class="query" id="query"></div>
+    <audio id="audio" controls autoplay></audio>
+    <div class="btns">
+      <button class="y" id="b-y">✓ Matches <span class="mut">(Y)</span></button>
+      <button class="n" id="b-n">✗ Doesn't match <span class="mut">(N)</span></button>
+      <button id="b-u">? Not sure <span class="mut">(U)</span></button>
+    </div>
+    <div class="nav"><button id="back">← Back</button><button id="replay">↺ Replay (R)</button></div>
+    <div class="help">If the main feeling of the search is missing, it's a No, even if some details match. Progress is saved; close the tab anytime.</div>
+  </div>
+  <div class="saved" id="saved"></div>
+  <div class="card" id="done" style="display:none"></div>
+</div>
+<script>
+(async () => {
+const $ = id => document.getElementById(id);
+const KEY = "vibe-listening-study-v1";
+const Q = await (await fetch("study_queue.json", {cache: "no-store"})).json(), items = Q.items;
+let ratings = {};
+try { ratings = JSON.parse(localStorage.getItem(KEY) || "{}"); } catch (e) {}
+let pos = items.findIndex(it => !ratings[it.q + "|" + it.id]); if (pos < 0) pos = items.length;
+
+function save() {
+  try { localStorage.setItem(KEY, JSON.stringify(ratings)); } catch (e) {}
+  fetch("/rate?name=study", {method: "POST", headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({saved_at: new Date().toISOString(), items, ratings})})
+    .then(r => r.json()).then(r => $("saved").textContent = r.ok ? `Saved (${r.saved} rated)` : "")
+    .catch(() => $("saved").textContent = "Saved in this browser only (server not reachable)");
+}
+function show() {
+  const n = items.filter(it => ratings[it.q + "|" + it.id]).length;
+  $("bar").style.width = `${n / items.length * 100}%`;
+  if (pos >= items.length) return finish();
+  const it = items[pos];
+  $("prog").textContent = `Clip ${pos + 1} of ${items.length}`;
+  $("query").textContent = `“${it.q}”`;
+  $("audio").src = `/audio/${it.id}.mp3`; $("audio").play().catch(() => {});
+  const r = ratings[it.q + "|" + it.id];
+  ["y", "n", "u"].forEach(k => $(`b-${k}`).classList.toggle("sel", r === k));
+  $("back").disabled = pos === 0;
+}
+function rate(v) { if (pos >= items.length) return; const it = items[pos]; ratings[it.q + "|" + it.id] = v; save(); pos++; show(); }
+function finish() {
+  $("rate").style.display = "none"; $("done").style.display = "block"; $("prog").textContent = "All done";
+  const n = items.filter(it => ratings[it.q + "|" + it.id]).length;
+  $("done").innerHTML = `<div class="big">Done: ${n} of ${items.length} rated</div>
+    <p>Saved to <code>reports/listening_study.json</code>. Tell Claude you're done; the results go on the demo page.</p>
+    <p><button id="redo">Change an answer</button></p>`;
+  $("redo").onclick = () => { pos = items.length - 1; $("done").style.display = "none"; $("rate").style.display = "block"; show(); };
+}
+$("b-y").onclick = () => rate("y"); $("b-n").onclick = () => rate("n"); $("b-u").onclick = () => rate("u");
+$("back").onclick = () => { if (pos > 0) { pos--; show(); } };
+$("replay").onclick = () => { $("audio").currentTime = 0; $("audio").play(); };
+document.addEventListener("keydown", e => {
+  const k = e.key.toLowerCase();
+  if (k === "y") rate("y"); else if (k === "n") rate("n"); else if (k === "u") rate("u");
+  else if (k === "r") $("replay").click(); else if (k === "arrowleft") $("back").click();
+});
+show();
+})();
+</script>
+</body>
+</html>

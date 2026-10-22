@@ -1,0 +1,38 @@
+paths:
+  models: models            # local Hugging Face cache (gitignored)
+  audio_cache: data/audio_cache
+  index: index
+  runs: runs
+  reports: reports
+
+models:
+  # Local copies (imported from bundle.zip; the proxy blocks the HF CDN).
+  # Phase 1 candidates (shared audio-text space)
+  embed_a: models/google--embeddinggemma-2
+  embed_b: models/laion--clap-htsat-unfused
+  whisper: models/Systran--faster-whisper-small
+  whisper_compute: int8
+
+llm:
+  base_url: ""            # OpenAI-compatible endpoint; set it in config.local.yaml (not committed)
+  model: gpt-5-mini
+  params: {reasoning_effort: minimal}
+  daily_budget_usd: 0.80
+  price_per_mtok: {input: 0.25, cached_input: 0.025, output: 2.00}  # gpt-5-mini list price
+
+audio:
+  sample_rate: 16000
+  trim_minutes: 15
+  segment_s: 20
+  hop_s: 20                 # demo cut: no overlap
+  window_s: [120, 600]      # overnight cut: minutes 2-10 (skips intros/ads)
+  index_episodes_per_show: 3  # overnight cut: all 3 downloaded episodes
+  episodes_per_show: 3
+  min_episode_minutes: 10
+
+rank:
+  w_vibe: 0.4
+  w_feature: 0.4
+  w_topic: 0.2
+  max_per_show: 2
+  center: false             # centring closes the modality gap but a listener preferred raw (33 vs 27 of 48); see PROJECT_STATUS.md

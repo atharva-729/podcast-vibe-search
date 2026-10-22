@@ -1,0 +1,27 @@
+# Core data
+numpy
+pandas
+pyarrow
+pyyaml
+requests
+feedparser
+
+# Audio + features
+librosa
+soundfile
+pillow            # EmbeddingGemma 2 processor needs PIL
+
+# Models (CPU)
+torch
+torchvision       # EmbeddingGemma 2 loads its video processor even if unused
+transformers
+sentence-transformers
+huggingface_hub
+faster-whisper
+
+# Demo (Phase 5)
+umap-learn
+
+# Dev
+pytest
+truststore

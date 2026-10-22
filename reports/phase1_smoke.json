@@ -1,0 +1,1449 @@
+{
+ "summary": {
+  "clap": {
+   "vibe_hit_rate": 0.5142857142857143,
+   "prompts_won": 3,
+   "s_per_segment": 0.3670824829737345,
+   "compute_min_per_audio_hour": 1.1012474489212036
+  },
+  "gemma": {
+   "vibe_hit_rate": 0.7000000000000001,
+   "prompts_won": 8,
+   "s_per_segment": 3.1194692794481913,
+   "compute_min_per_audio_hour": 9.358407838344574
+  },
+  "random_baseline_hit_rate": 0.12833333333333335
+ },
+ "baseline": {
+  "people laughing": 0.07,
+  "calm soft voice": 0.19666666666666666,
+  "music playing": 0.12,
+  "one person speaking slowly": 0.19666666666666666,
+  "two people arguing": 0.09666666666666666,
+  "whispering": 0.10333333333333333,
+  "rain and nature sounds": 0.10333333333333333,
+  "a storyteller reading a story to children": 0.10333333333333333,
+  "a news anchor reading the headlines": 0.11,
+  "excited sports commentary": 0.11,
+  "quiet meditation with long pauses": 0.09333333333333334,
+  "dramatic narration of a crime": 0.08666666666666667,
+  "friends chatting casually": 0.2866666666666667,
+  "guitar and singing": 0.12
+ },
+ "results": {
+  "clap": {
+   "people laughing": [
+    {
+     "rank": 1,
+     "show": "Conan O\u2019Brien Needs A Friend",
+     "vibe": "comedy chat",
+     "at": "11:40",
+     "sim": 0.316,
+     "hit": true,
+     "clip": "reports/phase1_listen/people-laughing/clap_1_conan_11m40.mp3"
+    },
+    {
+     "rank": 2,
+     "show": "Conan O\u2019Brien Needs A Friend",
+     "vibe": "comedy chat",
+     "at": "05:50",
+     "sim": 0.218,
+     "hit": true,
+     "clip": "reports/phase1_listen/people-laughing/clap_2_conan_05m50.mp3"
+    },
+    {
+     "rank": 3,
+     "show": "Conan O\u2019Brien Needs A Friend",
+     "vibe": "comedy chat",
+     "at": "10:50",
+     "sim": 0.203,
+     "hit": true,
+     "clip": "reports/phase1_listen/people-laughing/clap_3_conan_10m50.mp3"
+    },
+    {
+     "rank": 4,
+     "show": "SmartLess",
+     "vibe": "comedy chat",
+     "at": "07:00",
+     "sim": 0.184,
+     "hit": true,
+     "clip": "reports/phase1_listen/people-laughing/clap_4_smartless_07m00.mp3"
+    },
+    {
+     "rank": 5,
+     "show": "Off Menu with Ed Gamble and James Acaster",
+     "vibe": "comedy chat",
+     "at": "04:40",
+     "sim": 0.166,
+     "hit": true,
+     "clip": "reports/phase1_listen/people-laughing/clap_5_off-menu_04m40.mp3"
+    }
+   ],
+   "calm soft voice": [
+    {
+     "rank": 1,
+     "show": "Tara Brach",
+     "vibe": "sleep/meditation",
+     "at": "10:30",
+     "sim": 0.378,
+     "hit": true,
+     "clip": "reports/phase1_listen/calm-soft-voice/clap_1_tara-brach_10m30.mp3"
+    },
+    {
+     "rank": 2,
+     "show": "ASMR by GentleWhispering",
+     "vibe": "asmr/ambient",
+     "at": "11:40",
+     "sim": 0.26,
+     "hit": true,
+     "clip": "reports/phase1_listen/calm-soft-voice/clap_2_gentle-whispering_11m40.mp3"
+    },
+    {
+     "rank": 3,
+     "show": "ASMR by GentleWhispering",
+     "vibe": "asmr/ambient",
+     "at": "10:30",
+     "sim": 0.223,
+     "hit": true,
+     "clip": "reports/phase1_listen/calm-soft-voice/clap_3_gentle-whispering_10m30.mp3"
+    },
+    {
+     "rank": 4,
+     "show": "ASMR by GentleWhispering",
+     "vibe": "asmr/ambient",
+     "at": "01:50",
+     "sim": 0.216,
+     "hit": true,
+     "clip": "reports/phase1_listen/calm-soft-voice/clap_4_gentle-whispering_01m50.mp3"
+    },
+    {
+     "rank": 5,
+     "show": "Get Sleepy: stories for sleep",
+     "vibe": "sleep/meditation",
+     "at": "07:40",
+     "sim": 0.196,
+     "hit": true,
+     "clip": "reports/phase1_listen/calm-soft-voice/clap_5_get-sleepy_07m40.mp3"
+    }
+   ],
+   "loud crowd": [
+    {
+     "rank": 1,
+     "show": "Slow Radio",
+     "vibe": "asmr/ambient",
+     "at": "04:30",
+     "sim": 0.141,
+     "hit": false,
+     "clip": "reports/phase1_listen/loud-crowd/clap_1_slow-radio_04m30.mp3"
+    },
+    {
+     "rank": 2,
+     "show": "Slow Radio",
+     "vibe": "asmr/ambient",
+     "at": "03:20",
+     "sim": 0.136,
+     "hit": false,
+     "clip": "reports/phase1_listen/loud-crowd/clap_2_slow-radio_03m20.mp3"
+    },
+    {
+     "rank": 3,
+     "show": "Relaxing Nature Sounds",
+     "vibe": "asmr/ambient",
+     "at": "03:40",
+     "sim": 0.096,
+     "hit": false,
+     "clip": "reports/phase1_listen/loud-crowd/clap_3_relaxing-nature_03m40.mp3"
+    },
+    {
+     "rank": 4,
+     "show": "Slow Radio",
+     "vibe": "asmr/ambient",
+     "at": "13:40",
+     "sim": 0.089,
+     "hit": false,
+     "clip": "reports/phase1_listen/loud-crowd/clap_4_slow-radio_13m40.mp3"
+    },
+    {
+     "rank": 5,
+     "show": "Relaxing Nature Sounds",
+     "vibe": "asmr/ambient",
+     "at": "01:30",
+     "sim": 0.068,
+     "hit": false,
+     "clip": "reports/phase1_listen/loud-crowd/clap_5_relaxing-nature_01m30.mp3"
+    }
+   ],
+   "music playing": [
+    {
+     "rank": 1,
+     "show": "Casefile True Crime",
+     "vibe": "true crime",
+     "at": "03:40",
+     "sim": 0.291,
+     "hit": false,
+     "clip": "reports/phase1_listen/music-playing/clap_1_casefile_03m40.mp3"
+    },
+    {
+     "rank": 2,
+     "show": "Song Exploder",
+     "vibe": "music-heavy",
+     "at": "13:00",
+     "sim": 0.283,
+     "hit": true,
+     "clip": "reports/phase1_listen/music-playing/clap_2_song-exploder_13m00.mp3"
+    },
+    {
+     "rank": 3,
+     "show": "Get Sleepy: stories for sleep",
+     "vibe": "sleep/meditation",
+     "at": "07:40",
+     "sim": 0.281,
+     "hit": false,
+     "clip": "reports/phase1_listen/music-playing/clap_3_get-sleepy_07m40.mp3"
+    },
+    {
+     "rank": 4,
+     "show": "Crime Junkie",
+     "vibe": "true crime",
+     "at": "01:10",
+     "sim": 0.279,
+     "hit": false,
+     "clip": "reports/phase1_listen/music-playing/clap_4_crime-junkie_01m10.mp3"
+    },
+    {
+     "rank": 5,
+     "show": "The Story Seeds Podcast",
+     "vibe": "kids stories",
+     "at": "04:00",
+     "sim": 0.275,
+     "hit": false,
+     "clip": "reports/phase1_listen/music-playing/clap_5_story-seeds_04m00.mp3"
+    }
+   ],
+   "one person speaking slowly": [
+    {
+     "rank": 1,
+     "show": "Tara Brach",
+     "vibe": "sleep/meditation",
+     "at": "10:30",
+     "sim": 0.511,
+     "hit": true,
+     "clip": "reports/phase1_listen/one-person-speaking-slowly/clap_1_tara-brach_10m30.mp3"
+    },
+    {
+     "rank": 2,
+     "show": "Nothing much happens: bedtime stories to help you sleep",
+     "vibe": "sleep/meditation",
+     "at": "13:00",
+     "sim": 0.312,
+     "hit": true,
+     "clip": "reports/phase1_listen/one-person-speaking-slowly/clap_2_nothing-much-happens_13m00.mp3"
+    },
+    {
+     "rank": 3,
+     "show": "Nothing much happens: bedtime stories to help you sleep",
+     "vibe": "sleep/meditation",
+     "at": "06:20",
+     "sim": 0.31,
+     "hit": true,
+     "clip": "reports/phase1_listen/one-person-speaking-slowly/clap_3_nothing-much-happens_06m20.mp3"
+    },
+    {
+     "rank": 4,
+     "show": "ASMR by GentleWhispering",
+     "vibe": "asmr/ambient",
+     "at": "11:40",
+     "sim": 0.307,
+     "hit": true,
+     "clip": "reports/phase1_listen/one-person-speaking-slowly/clap_4_gentle-whispering_11m40.mp3"
+    },
+    {
+     "rank": 5,
+     "show": "Nothing much happens: bedtime stories to help you sleep",
+     "vibe": "sleep/meditation",
+     "at": "04:30",
+     "sim": 0.301,
+     "hit": true,
+     "clip": "reports/phase1_listen/one-person-speaking-slowly/clap_5_nothing-much-happens_04m30.mp3"
+    }
+   ],
+   "two people arguing": [
+    {
+     "rank": 1,
+     "show": "All Songs Considered",
+     "vibe": "music-heavy",
+     "at": "08:20",
+     "sim": 0.645,
+     "hit": false,
+     "clip": "reports/phase1_listen/two-people-arguing/clap_1_all-songs-considered_08m20.mp3"
+    },
+    {
+     "rank": 2,
+     "show": "Men In Blazers",
+     "vibe": "sports banter",
+     "at": "10:00",
+     "sim": 0.57,
+     "hit": false,
+     "clip": "reports/phase1_listen/two-people-arguing/clap_2_men-in-blazers_10m00.mp3"
+    },
+    {
+     "rank": 3,
+     "show": "Conan O\u2019Brien Needs A Friend",
+     "vibe": "comedy chat",
+     "at": "11:40",
+     "sim": 0.527,
+     "hit": false,
+     "clip": "reports/phase1_listen/two-people-arguing/clap_3_conan_11m40.mp3"
+    },
+    {
+     "rank": 4,
+     "show": "Morbid",
+     "vibe": "true crime",
+     "at": "07:50",
+     "sim": 0.512,
+     "hit": false,
+     "clip": "reports/phase1_listen/two-people-arguing/clap_4_morbid_07m50.mp3"
+    },
+    {
+     "rank": 5,
+     "show": "Football Daily",
+     "vibe": "sports banter",
+     "at": "09:00",
+     "sim": 0.511,
+     "hit": false,
+     "clip": "reports/phase1_listen/two-people-arguing/clap_5_football-daily_09m00.mp3"
+    }
+   ],
+   "whispering": [
+    {
+     "rank": 1,
+     "show": "ASMR by GentleWhispering",
+     "vibe": "asmr/ambient",
+     "at": "11:40",
+     "sim": 0.56,
+     "hit": true,
+     "clip": "reports/phase1_listen/whispering/clap_1_gentle-whispering_11m40.mp3"
+    },
+    {
+     "rank": 2,
+     "show": "ASMR by GentleWhispering",
+     "vibe": "asmr/ambient",
+     "at": "00:40",
+     "sim": 0.535,
+     "hit": true,
+     "clip": "reports/phase1_listen/whispering/clap_2_gentle-whispering_00m40.mp3"
+    },
+    {
+     "rank": 3,
+     "show": "ASMR by GentleWhispering",
+     "vibe": "asmr/ambient",
+     "at": "10:30",
+     "sim": 0.533,
+     "hit": true,
+     "clip": "reports/phase1_listen/whispering/clap_3_gentle-whispering_10m30.mp3"
+    },
+    {
+     "rank": 4,
+     "show": "ASMR For Sleep And Relaxation",
+     "vibe": "asmr/ambient",
+     "at": "09:00",
+     "sim": 0.472,
+     "hit": true,
+     "clip": "reports/phase1_listen/whispering/clap_4_asmr-sleep-relax_09m00.mp3"
+    },
+    {
+     "rank": 5,
+     "show": "ASMR by GentleWhispering",
+     "vibe": "asmr/ambient",
+     "at": "12:50",
+     "sim": 0.449,
+     "hit": true,
+     "clip": "reports/phase1_listen/whispering/clap_5_gentle-whispering_12m50.mp3"
+    }
+   ],
+   "rain and nature sounds": [
+    {
+     "rank": 1,
+     "show": "Relaxing Nature Sounds",
+     "vibe": "asmr/ambient",
+     "at": "09:20",
+     "sim": 0.396,
+     "hit": true,
+     "clip": "reports/phase1_listen/rain-and-nature-sounds/clap_1_relaxing-nature_09m20.mp3"
+    },
+    {
+     "rank": 2,
+     "show": "Relaxing Nature Sounds",
+     "vibe": "asmr/ambient",
+     "at": "01:00",
+     "sim": 0.396,
+     "hit": true,
+     "clip": "reports/phase1_listen/rain-and-nature-sounds/clap_2_relaxing-nature_01m00.mp3"
+    },
+    {
+     "rank": 3,
+     "show": "Relaxing Nature Sounds",
+     "vibe": "asmr/ambient",
+     "at": "07:00",
+     "sim": 0.38,
+     "hit": true,
+     "clip": "reports/phase1_listen/rain-and-nature-sounds/clap_3_relaxing-nature_07m00.mp3"
+    },
+    {
+     "rank": 4,
+     "show": "Get Sleepy: stories for sleep",
+     "vibe": "sleep/meditation",
+     "at": "02:40",
+     "sim": 0.327,
+     "hit": false,
+     "clip": "reports/phase1_listen/rain-and-nature-sounds/clap_4_get-sleepy_02m40.mp3"
+    },
+    {
+     "rank": 5,
+     "show": "Get Sleepy: stories for sleep",
+     "vibe": "sleep/meditation",
+     "at": "04:00",
+     "sim": 0.309,
+     "hit": false,
+     "clip": "reports/phase1_listen/rain-and-nature-sounds/clap_5_get-sleepy_04m00.mp3"
+    }
+   ],
+   "a storyteller reading a story to children": [
+    {
+     "rank": 1,
+     "show": "The Story Seeds Podcast",
+     "vibe": "kids stories",
+     "at": "04:00",
+     "sim": 0.395,
+     "hit": true,
+     "clip": "reports/phase1_listen/a-storyteller-reading-a-story-to-childre/clap_1_story-seeds_04m00.mp3"
+    },
+    {
+     "rank": 2,
+     "show": "Open to Debate",
+     "vibe": "debate",
+     "at": "09:30",
+     "sim": 0.393,
+     "hit": false,
+     "clip": "reports/phase1_listen/a-storyteller-reading-a-story-to-childre/clap_2_open-to-debate_09m30.mp3"
+    },
+    {
+     "rank": 3,
+     "show": "Open to Debate",
+     "vibe": "debate",
+     "at": "13:20",
+     "sim": 0.384,
+     "hit": false,
+     "clip": "reports/phase1_listen/a-storyteller-reading-a-story-to-childre/clap_3_open-to-debate_13m20.mp3"
+    },
+    {
+     "rank": 4,
+     "show": "Song Exploder",
+     "vibe": "music-heavy",
+     "at": "14:20",
+     "sim": 0.382,
+     "hit": false,
+     "clip": "reports/phase1_listen/a-storyteller-reading-a-story-to-childre/clap_4_song-exploder_14m20.mp3"
+    },
+    {
+     "rank": 5,
+     "show": "The Daily",
+     "vibe": "news briefing",
+     "at": "01:10",
+     "sim": 0.372,
+     "hit": false,
+     "clip": "reports/phase1_listen/a-storyteller-reading-a-story-to-childre/clap_5_the-daily_01m10.mp3"
+    }
+   ],
+   "a news anchor reading the headlines": [
+    {
+     "rank": 1,
+     "show": "Fresh Air",
+     "vibe": "interview",
+     "at": "00:50",
+     "sim": 0.38,
+     "hit": false,
+     "clip": "reports/phase1_listen/a-news-anchor-reading-the-headlines/clap_1_fresh-air_00m50.mp3"
+    },
+    {
+     "rank": 2,
+     "show": "Moral Maze",
+     "vibe": "debate",
+     "at": "00:20",
+     "sim": 0.366,
+     "hit": false,
+     "clip": "reports/phase1_listen/a-news-anchor-reading-the-headlines/clap_2_moral-maze_00m20.mp3"
+    },
+    {
+     "rank": 3,
+     "show": "The Journal.",
+     "vibe": "news briefing",
+     "at": "06:40",
+     "sim": 0.359,
+     "hit": true,
+     "clip": "reports/phase1_listen/a-news-anchor-reading-the-headlines/clap_3_the-journal_06m40.mp3"
+    },
+    {
+     "rank": 4,
+     "show": "All Songs Considered",
+     "vibe": "music-heavy",
+     "at": "08:10",
+     "sim": 0.354,
+     "hit": false,
+     "clip": "reports/phase1_listen/a-news-anchor-reading-the-headlines/clap_4_all-songs-considered_08m10.mp3"
+    },
+    {
+     "rank": 5,
+     "show": "The Daily",
+     "vibe": "news briefing",
+     "at": "01:10",
+     "sim": 0.336,
+     "hit": true,
+     "clip": "reports/phase1_listen/a-news-anchor-reading-the-headlines/clap_5_the-daily_01m10.mp3"
+    }
+   ],
+   "excited sports commentary": [
+    {
+     "rank": 1,
+     "show": "The Journal.",
+     "vibe": "news briefing",
+     "at": "08:40",
+     "sim": 0.478,
+     "hit": false,
+     "clip": "reports/phase1_listen/excited-sports-commentary/clap_1_the-journal_08m40.mp3"
+    },
+    {
+     "rank": 2,
+     "show": "Open to Debate",
+     "vibe": "debate",
+     "at": "07:30",
+     "sim": 0.474,
+     "hit": false,
+     "clip": "reports/phase1_listen/excited-sports-commentary/clap_2_open-to-debate_07m30.mp3"
+    },
+    {
+     "rank": 3,
+     "show": "All Songs Considered",
+     "vibe": "music-heavy",
+     "at": "07:40",
+     "sim": 0.458,
+     "hit": false,
+     "clip": "reports/phase1_listen/excited-sports-commentary/clap_3_all-songs-considered_07m40.mp3"
+    },
+    {
+     "rank": 4,
+     "show": "Open to Debate",
+     "vibe": "debate",
+     "at": "09:30",
+     "sim": 0.454,
+     "hit": false,
+     "clip": "reports/phase1_listen/excited-sports-commentary/clap_4_open-to-debate_09m30.mp3"
+    },
+    {
+     "rank": 5,
+     "show": "Stories Podcast: A Bedtime Show for Kids of All Ages",
+     "vibe": "kids stories",
+     "at": "08:10",
+     "sim": 0.449,
+     "hit": false,
+     "clip": "reports/phase1_listen/excited-sports-commentary/clap_5_stories-podcast_08m10.mp3"
+    }
+   ],
+   "quiet meditation with long pauses": [
+    {
+     "rank": 1,
+     "show": "Tara Brach",
+     "vibe": "sleep/meditation",
+     "at": "10:30",
+     "sim": 0.372,
+     "hit": true,
+     "clip": "reports/phase1_listen/quiet-meditation-with-long-pauses/clap_1_tara-brach_10m30.mp3"
+    },
+    {
+     "rank": 2,
+     "show": "Get Sleepy: stories for sleep",
+     "vibe": "sleep/meditation",
+     "at": "07:40",
+     "sim": 0.188,
+     "hit": true,
+     "clip": "reports/phase1_listen/quiet-meditation-with-long-pauses/clap_2_get-sleepy_07m40.mp3"
+    },
+    {
+     "rank": 3,
+     "show": "Get Sleepy: stories for sleep",
+     "vibe": "sleep/meditation",
+     "at": "04:00",
+     "sim": 0.186,
+     "hit": true,
+     "clip": "reports/phase1_listen/quiet-meditation-with-long-pauses/clap_3_get-sleepy_04m00.mp3"
+    },
+    {
+     "rank": 4,
+     "show": "ASMR by GentleWhispering",
+     "vibe": "asmr/ambient",
+     "at": "01:20",
+     "sim": 0.182,
+     "hit": false,
+     "clip": "reports/phase1_listen/quiet-meditation-with-long-pauses/clap_4_gentle-whispering_01m20.mp3"
+    },
+    {
+     "rank": 5,
+     "show": "Get Sleepy: stories for sleep",
+     "vibe": "sleep/meditation",
+     "at": "02:40",
+     "sim": 0.172,
+     "hit": true,
+     "clip": "reports/phase1_listen/quiet-meditation-with-long-pauses/clap_5_get-sleepy_02m40.mp3"
+    }
+   ],
+   "dramatic narration of a crime": [
+    {
+     "rank": 1,
+     "show": "Moral Maze",
+     "vibe": "debate",
+     "at": "00:20",
+     "sim": 0.536,
+     "hit": false,
+     "clip": "reports/phase1_listen/dramatic-narration-of-a-crime/clap_1_moral-maze_00m20.mp3"
+    },
+    {
+     "rank": 2,
+     "show": "Song Exploder",
+     "vibe": "music-heavy",
+     "at": "01:10",
+     "sim": 0.52,
+     "hit": false,
+     "clip": "reports/phase1_listen/dramatic-narration-of-a-crime/clap_2_song-exploder_01m10.mp3"
+    },
+    {
+     "rank": 3,
+     "show": "Crime Junkie",
+     "vibe": "true crime",
+     "at": "07:20",
+     "sim": 0.503,
+     "hit": true,
+     "clip": "reports/phase1_listen/dramatic-narration-of-a-crime/clap_3_crime-junkie_07m20.mp3"
+    },
+    {
+     "rank": 4,
+     "show": "The Story Seeds Podcast",
+     "vibe": "kids stories",
+     "at": "04:00",
+     "sim": 0.502,
+     "hit": false,
+     "clip": "reports/phase1_listen/dramatic-narration-of-a-crime/clap_4_story-seeds_04m00.mp3"
+    },
+    {
+     "rank": 5,
+     "show": "Get Sleepy: stories for sleep",
+     "vibe": "sleep/meditation",
+     "at": "04:00",
+     "sim": 0.496,
+     "hit": false,
+     "clip": "reports/phase1_listen/dramatic-narration-of-a-crime/clap_5_get-sleepy_04m00.mp3"
+    }
+   ],
+   "friends chatting casually": [
+    {
+     "rank": 1,
+     "show": "Circle Round",
+     "vibe": "kids stories",
+     "at": "08:00",
+     "sim": 0.157,
+     "hit": false,
+     "clip": "reports/phase1_listen/friends-chatting-casually/clap_1_circle-round_08m00.mp3"
+    },
+    {
+     "rank": 2,
+     "show": "Tara Brach",
+     "vibe": "sleep/meditation",
+     "at": "10:30",
+     "sim": 0.146,
+     "hit": false,
+     "clip": "reports/phase1_listen/friends-chatting-casually/clap_2_tara-brach_10m30.mp3"
+    },
+    {
+     "rank": 3,
+     "show": "All Songs Considered",
+     "vibe": "music-heavy",
+     "at": "08:20",
+     "sim": 0.132,
+     "hit": false,
+     "clip": "reports/phase1_listen/friends-chatting-casually/clap_3_all-songs-considered_08m20.mp3"
+    },
+    {
+     "rank": 4,
+     "show": "ASMR by GentleWhispering",
+     "vibe": "asmr/ambient",
+     "at": "11:40",
+     "sim": 0.127,
+     "hit": false,
+     "clip": "reports/phase1_listen/friends-chatting-casually/clap_4_gentle-whispering_11m40.mp3"
+    },
+    {
+     "rank": 5,
+     "show": "Conan O\u2019Brien Needs A Friend",
+     "vibe": "comedy chat",
+     "at": "11:40",
+     "sim": 0.126,
+     "hit": true,
+     "clip": "reports/phase1_listen/friends-chatting-casually/clap_5_conan_11m40.mp3"
+    }
+   ],
+   "guitar and singing": [
+    {
+     "rank": 1,
+     "show": "Up First from NPR",
+     "vibe": "news briefing",
+     "at": "00:40",
+     "sim": 0.418,
+     "hit": false,
+     "clip": "reports/phase1_listen/guitar-and-singing/clap_1_up-first_00m40.mp3"
+    },
+    {
+     "rank": 2,
+     "show": "Song Exploder",
+     "vibe": "music-heavy",
+     "at": "01:50",
+     "sim": 0.412,
+     "hit": true,
+     "clip": "reports/phase1_listen/guitar-and-singing/clap_2_song-exploder_01m50.mp3"
+    },
+    {
+     "rank": 3,
+     "show": "Song Exploder",
+     "vibe": "music-heavy",
+     "at": "10:30",
+     "sim": 0.379,
+     "hit": true,
+     "clip": "reports/phase1_listen/guitar-and-singing/clap_3_song-exploder_10m30.mp3"
+    },
+    {
+     "rank": 4,
+     "show": "Circle Round",
+     "vibe": "kids stories",
+     "at": "08:00",
+     "sim": 0.349,
+     "hit": false,
+     "clip": "reports/phase1_listen/guitar-and-singing/clap_4_circle-round_08m00.mp3"
+    },
+    {
+     "rank": 5,
+     "show": "Song Exploder",
+     "vibe": "music-heavy",
+     "at": "13:00",
+     "sim": 0.345,
+     "hit": true,
+     "clip": "reports/phase1_listen/guitar-and-singing/clap_5_song-exploder_13m00.mp3"
+    }
+   ]
+  },
+  "gemma": {
+   "people laughing": [
+    {
+     "rank": 1,
+     "show": "Off Menu with Ed Gamble and James Acaster",
+     "vibe": "comedy chat",
+     "at": "04:40",
+     "sim": 0.66,
+     "hit": true,
+     "clip": "reports/phase1_listen/people-laughing/gemma_1_off-menu_04m40.mp3"
+    },
+    {
+     "rank": 2,
+     "show": "Conan O\u2019Brien Needs A Friend",
+     "vibe": "comedy chat",
+     "at": "11:40",
+     "sim": 0.656,
+     "hit": true,
+     "clip": "reports/phase1_listen/people-laughing/gemma_2_conan_11m40.mp3"
+    },
+    {
+     "rank": 3,
+     "show": "Conan O\u2019Brien Needs A Friend",
+     "vibe": "comedy chat",
+     "at": "14:30",
+     "sim": 0.639,
+     "hit": true,
+     "clip": "reports/phase1_listen/people-laughing/gemma_3_conan_14m30.mp3"
+    },
+    {
+     "rank": 4,
+     "show": "All Songs Considered",
+     "vibe": "music-heavy",
+     "at": "08:20",
+     "sim": 0.638,
+     "hit": false,
+     "clip": "reports/phase1_listen/people-laughing/gemma_4_all-songs-considered_08m20.mp3"
+    },
+    {
+     "rank": 5,
+     "show": "Armchair Expert with Dax Shepard",
+     "vibe": "interview",
+     "at": "01:50",
+     "sim": 0.636,
+     "hit": false,
+     "clip": "reports/phase1_listen/people-laughing/gemma_5_armchair-expert_01m50.mp3"
+    }
+   ],
+   "calm soft voice": [
+    {
+     "rank": 1,
+     "show": "Nothing much happens: bedtime stories to help you sleep",
+     "vibe": "sleep/meditation",
+     "at": "06:20",
+     "sim": 0.727,
+     "hit": true,
+     "clip": "reports/phase1_listen/calm-soft-voice/gemma_1_nothing-much-happens_06m20.mp3"
+    },
+    {
+     "rank": 2,
+     "show": "ASMR by GentleWhispering",
+     "vibe": "asmr/ambient",
+     "at": "10:30",
+     "sim": 0.696,
+     "hit": true,
+     "clip": "reports/phase1_listen/calm-soft-voice/gemma_2_gentle-whispering_10m30.mp3"
+    },
+    {
+     "rank": 3,
+     "show": "Get Sleepy: stories for sleep",
+     "vibe": "sleep/meditation",
+     "at": "07:40",
+     "sim": 0.683,
+     "hit": true,
+     "clip": "reports/phase1_listen/calm-soft-voice/gemma_3_get-sleepy_07m40.mp3"
+    },
+    {
+     "rank": 4,
+     "show": "ASMR by GentleWhispering",
+     "vibe": "asmr/ambient",
+     "at": "12:50",
+     "sim": 0.683,
+     "hit": true,
+     "clip": "reports/phase1_listen/calm-soft-voice/gemma_4_gentle-whispering_12m50.mp3"
+    },
+    {
+     "rank": 5,
+     "show": "ASMR by GentleWhispering",
+     "vibe": "asmr/ambient",
+     "at": "11:40",
+     "sim": 0.681,
+     "hit": true,
+     "clip": "reports/phase1_listen/calm-soft-voice/gemma_5_gentle-whispering_11m40.mp3"
+    }
+   ],
+   "loud crowd": [
+    {
+     "rank": 1,
+     "show": "Slow Radio",
+     "vibe": "asmr/ambient",
+     "at": "03:20",
+     "sim": 0.695,
+     "hit": false,
+     "clip": "reports/phase1_listen/loud-crowd/gemma_1_slow-radio_03m20.mp3"
+    },
+    {
+     "rank": 2,
+     "show": "Slow Radio",
+     "vibe": "asmr/ambient",
+     "at": "04:30",
+     "sim": 0.675,
+     "hit": false,
+     "clip": "reports/phase1_listen/loud-crowd/gemma_2_slow-radio_04m30.mp3"
+    },
+    {
+     "rank": 3,
+     "show": "Slow Radio",
+     "vibe": "asmr/ambient",
+     "at": "13:40",
+     "sim": 0.671,
+     "hit": false,
+     "clip": "reports/phase1_listen/loud-crowd/gemma_3_slow-radio_13m40.mp3"
+    },
+    {
+     "rank": 4,
+     "show": "Slow Radio",
+     "vibe": "asmr/ambient",
+     "at": "02:10",
+     "sim": 0.667,
+     "hit": false,
+     "clip": "reports/phase1_listen/loud-crowd/gemma_4_slow-radio_02m10.mp3"
+    },
+    {
+     "rank": 5,
+     "show": "Relaxing Nature Sounds",
+     "vibe": "asmr/ambient",
+     "at": "05:50",
+     "sim": 0.657,
+     "hit": false,
+     "clip": "reports/phase1_listen/loud-crowd/gemma_5_relaxing-nature_05m50.mp3"
+    }
+   ],
+   "music playing": [
+    {
+     "rank": 1,
+     "show": "Song Exploder",
+     "vibe": "music-heavy",
+     "at": "13:00",
+     "sim": 0.66,
+     "hit": true,
+     "clip": "reports/phase1_listen/music-playing/gemma_1_song-exploder_13m00.mp3"
+    },
+    {
+     "rank": 2,
+     "show": "Song Exploder",
+     "vibe": "music-heavy",
+     "at": "13:40",
+     "sim": 0.645,
+     "hit": true,
+     "clip": "reports/phase1_listen/music-playing/gemma_2_song-exploder_13m40.mp3"
+    },
+    {
+     "rank": 3,
+     "show": "Switched on Pop",
+     "vibe": "music-heavy",
+     "at": "12:40",
+     "sim": 0.641,
+     "hit": true,
+     "clip": "reports/phase1_listen/music-playing/gemma_3_switched-on-pop_12m40.mp3"
+    },
+    {
+     "rank": 4,
+     "show": "Switched on Pop",
+     "vibe": "music-heavy",
+     "at": "02:10",
+     "sim": 0.634,
+     "hit": true,
+     "clip": "reports/phase1_listen/music-playing/gemma_4_switched-on-pop_02m10.mp3"
+    },
+    {
+     "rank": 5,
+     "show": "Fresh Air",
+     "vibe": "interview",
+     "at": "06:10",
+     "sim": 0.632,
+     "hit": false,
+     "clip": "reports/phase1_listen/music-playing/gemma_5_fresh-air_06m10.mp3"
+    }
+   ],
+   "one person speaking slowly": [
+    {
+     "rank": 1,
+     "show": "Nothing much happens: bedtime stories to help you sleep",
+     "vibe": "sleep/meditation",
+     "at": "13:00",
+     "sim": 0.732,
+     "hit": true,
+     "clip": "reports/phase1_listen/one-person-speaking-slowly/gemma_1_nothing-much-happens_13m00.mp3"
+    },
+    {
+     "rank": 2,
+     "show": "ASMR by GentleWhispering",
+     "vibe": "asmr/ambient",
+     "at": "01:20",
+     "sim": 0.714,
+     "hit": true,
+     "clip": "reports/phase1_listen/one-person-speaking-slowly/gemma_2_gentle-whispering_01m20.mp3"
+    },
+    {
+     "rank": 3,
+     "show": "ASMR by GentleWhispering",
+     "vibe": "asmr/ambient",
+     "at": "01:50",
+     "sim": 0.714,
+     "hit": true,
+     "clip": "reports/phase1_listen/one-person-speaking-slowly/gemma_3_gentle-whispering_01m50.mp3"
+    },
+    {
+     "rank": 4,
+     "show": "ASMR by GentleWhispering",
+     "vibe": "asmr/ambient",
+     "at": "10:30",
+     "sim": 0.708,
+     "hit": true,
+     "clip": "reports/phase1_listen/one-person-speaking-slowly/gemma_4_gentle-whispering_10m30.mp3"
+    },
+    {
+     "rank": 5,
+     "show": "ASMR by GentleWhispering",
+     "vibe": "asmr/ambient",
+     "at": "08:00",
+     "sim": 0.708,
+     "hit": true,
+     "clip": "reports/phase1_listen/one-person-speaking-slowly/gemma_5_gentle-whispering_08m00.mp3"
+    }
+   ],
+   "two people arguing": [
+    {
+     "rank": 1,
+     "show": "Slow Radio",
+     "vibe": "asmr/ambient",
+     "at": "03:20",
+     "sim": 0.654,
+     "hit": false,
+     "clip": "reports/phase1_listen/two-people-arguing/gemma_1_slow-radio_03m20.mp3"
+    },
+    {
+     "rank": 2,
+     "show": "The Journal.",
+     "vibe": "news briefing",
+     "at": "05:10",
+     "sim": 0.648,
+     "hit": false,
+     "clip": "reports/phase1_listen/two-people-arguing/gemma_2_the-journal_05m10.mp3"
+    },
+    {
+     "rank": 3,
+     "show": "Moral Maze",
+     "vibe": "debate",
+     "at": "12:50",
+     "sim": 0.647,
+     "hit": true,
+     "clip": "reports/phase1_listen/two-people-arguing/gemma_3_moral-maze_12m50.mp3"
+    },
+    {
+     "rank": 4,
+     "show": "Slow Radio",
+     "vibe": "asmr/ambient",
+     "at": "13:40",
+     "sim": 0.64,
+     "hit": false,
+     "clip": "reports/phase1_listen/two-people-arguing/gemma_4_slow-radio_13m40.mp3"
+    },
+    {
+     "rank": 5,
+     "show": "SmartLess",
+     "vibe": "comedy chat",
+     "at": "13:50",
+     "sim": 0.637,
+     "hit": false,
+     "clip": "reports/phase1_listen/two-people-arguing/gemma_5_smartless_13m50.mp3"
+    }
+   ],
+   "whispering": [
+    {
+     "rank": 1,
+     "show": "Tara Brach",
+     "vibe": "sleep/meditation",
+     "at": "10:30",
+     "sim": 0.695,
+     "hit": false,
+     "clip": "reports/phase1_listen/whispering/gemma_1_tara-brach_10m30.mp3"
+    },
+    {
+     "rank": 2,
+     "show": "ASMR by GentleWhispering",
+     "vibe": "asmr/ambient",
+     "at": "12:50",
+     "sim": 0.687,
+     "hit": true,
+     "clip": "reports/phase1_listen/whispering/gemma_2_gentle-whispering_12m50.mp3"
+    },
+    {
+     "rank": 3,
+     "show": "ASMR by GentleWhispering",
+     "vibe": "asmr/ambient",
+     "at": "10:30",
+     "sim": 0.679,
+     "hit": true,
+     "clip": "reports/phase1_listen/whispering/gemma_3_gentle-whispering_10m30.mp3"
+    },
+    {
+     "rank": 4,
+     "show": "Nothing much happens: bedtime stories to help you sleep",
+     "vibe": "sleep/meditation",
+     "at": "06:20",
+     "sim": 0.679,
+     "hit": false,
+     "clip": "reports/phase1_listen/whispering/gemma_4_nothing-much-happens_06m20.mp3"
+    },
+    {
+     "rank": 5,
+     "show": "ASMR For Sleep And Relaxation",
+     "vibe": "asmr/ambient",
+     "at": "14:00",
+     "sim": 0.675,
+     "hit": true,
+     "clip": "reports/phase1_listen/whispering/gemma_5_asmr-sleep-relax_14m00.mp3"
+    }
+   ],
+   "rain and nature sounds": [
+    {
+     "rank": 1,
+     "show": "Relaxing Nature Sounds",
+     "vibe": "asmr/ambient",
+     "at": "07:00",
+     "sim": 0.71,
+     "hit": true,
+     "clip": "reports/phase1_listen/rain-and-nature-sounds/gemma_1_relaxing-nature_07m00.mp3"
+    },
+    {
+     "rank": 2,
+     "show": "Relaxing Nature Sounds",
+     "vibe": "asmr/ambient",
+     "at": "01:00",
+     "sim": 0.702,
+     "hit": true,
+     "clip": "reports/phase1_listen/rain-and-nature-sounds/gemma_2_relaxing-nature_01m00.mp3"
+    },
+    {
+     "rank": 3,
+     "show": "Relaxing Nature Sounds",
+     "vibe": "asmr/ambient",
+     "at": "09:20",
+     "sim": 0.698,
+     "hit": true,
+     "clip": "reports/phase1_listen/rain-and-nature-sounds/gemma_3_relaxing-nature_09m20.mp3"
+    },
+    {
+     "rank": 4,
+     "show": "Relaxing Nature Sounds",
+     "vibe": "asmr/ambient",
+     "at": "02:10",
+     "sim": 0.697,
+     "hit": true,
+     "clip": "reports/phase1_listen/rain-and-nature-sounds/gemma_4_relaxing-nature_02m10.mp3"
+    },
+    {
+     "rank": 5,
+     "show": "Relaxing Nature Sounds",
+     "vibe": "asmr/ambient",
+     "at": "01:10",
+     "sim": 0.695,
+     "hit": true,
+     "clip": "reports/phase1_listen/rain-and-nature-sounds/gemma_5_relaxing-nature_01m10.mp3"
+    }
+   ],
+   "a storyteller reading a story to children": [
+    {
+     "rank": 1,
+     "show": "Get Sleepy: stories for sleep",
+     "vibe": "sleep/meditation",
+     "at": "02:40",
+     "sim": 0.683,
+     "hit": false,
+     "clip": "reports/phase1_listen/a-storyteller-reading-a-story-to-childre/gemma_1_get-sleepy_02m40.mp3"
+    },
+    {
+     "rank": 2,
+     "show": "Stories Podcast: A Bedtime Show for Kids of All Ages",
+     "vibe": "kids stories",
+     "at": "00:10",
+     "sim": 0.668,
+     "hit": true,
+     "clip": "reports/phase1_listen/a-storyteller-reading-a-story-to-childre/gemma_2_stories-podcast_00m10.mp3"
+    },
+    {
+     "rank": 3,
+     "show": "Nothing much happens: bedtime stories to help you sleep",
+     "vibe": "sleep/meditation",
+     "at": "04:30",
+     "sim": 0.662,
+     "hit": false,
+     "clip": "reports/phase1_listen/a-storyteller-reading-a-story-to-childre/gemma_3_nothing-much-happens_04m30.mp3"
+    },
+    {
+     "rank": 4,
+     "show": "Fresh Air",
+     "vibe": "interview",
+     "at": "09:20",
+     "sim": 0.655,
+     "hit": false,
+     "clip": "reports/phase1_listen/a-storyteller-reading-a-story-to-childre/gemma_4_fresh-air_09m20.mp3"
+    },
+    {
+     "rank": 5,
+     "show": "Circle Round",
+     "vibe": "kids stories",
+     "at": "01:50",
+     "sim": 0.65,
+     "hit": true,
+     "clip": "reports/phase1_listen/a-storyteller-reading-a-story-to-childre/gemma_5_circle-round_01m50.mp3"
+    }
+   ],
+   "a news anchor reading the headlines": [
+    {
+     "rank": 1,
+     "show": "Up First from NPR",
+     "vibe": "news briefing",
+     "at": "08:20",
+     "sim": 0.67,
+     "hit": true,
+     "clip": "reports/phase1_listen/a-news-anchor-reading-the-headlines/gemma_1_up-first_08m20.mp3"
+    },
+    {
+     "rank": 2,
+     "show": "Up First from NPR",
+     "vibe": "news briefing",
+     "at": "06:30",
+     "sim": 0.661,
+     "hit": true,
+     "clip": "reports/phase1_listen/a-news-anchor-reading-the-headlines/gemma_2_up-first_06m30.mp3"
+    },
+    {
+     "rank": 3,
+     "show": "Up First from NPR",
+     "vibe": "news briefing",
+     "at": "08:40",
+     "sim": 0.655,
+     "hit": true,
+     "clip": "reports/phase1_listen/a-news-anchor-reading-the-headlines/gemma_3_up-first_08m40.mp3"
+    },
+    {
+     "rank": 4,
+     "show": "The Daily",
+     "vibe": "news briefing",
+     "at": "04:50",
+     "sim": 0.655,
+     "hit": true,
+     "clip": "reports/phase1_listen/a-news-anchor-reading-the-headlines/gemma_4_the-daily_04m50.mp3"
+    },
+    {
+     "rank": 5,
+     "show": "Up First from NPR",
+     "vibe": "news briefing",
+     "at": "11:00",
+     "sim": 0.649,
+     "hit": true,
+     "clip": "reports/phase1_listen/a-news-anchor-reading-the-headlines/gemma_5_up-first_11m00.mp3"
+    }
+   ],
+   "excited sports commentary": [
+    {
+     "rank": 1,
+     "show": "Armchair Expert with Dax Shepard",
+     "vibe": "interview",
+     "at": "00:40",
+     "sim": 0.709,
+     "hit": false,
+     "clip": "reports/phase1_listen/excited-sports-commentary/gemma_1_armchair-expert_00m40.mp3"
+    },
+    {
+     "rank": 2,
+     "show": "The Totally Football Show with James Richardson",
+     "vibe": "sports banter",
+     "at": "06:30",
+     "sim": 0.698,
+     "hit": true,
+     "clip": "reports/phase1_listen/excited-sports-commentary/gemma_2_totally-football_06m30.mp3"
+    },
+    {
+     "rank": 3,
+     "show": "The Totally Football Show with James Richardson",
+     "vibe": "sports banter",
+     "at": "01:10",
+     "sim": 0.697,
+     "hit": true,
+     "clip": "reports/phase1_listen/excited-sports-commentary/gemma_3_totally-football_01m10.mp3"
+    },
+    {
+     "rank": 4,
+     "show": "The Bill Simmons Podcast",
+     "vibe": "sports banter",
+     "at": "04:40",
+     "sim": 0.689,
+     "hit": true,
+     "clip": "reports/phase1_listen/excited-sports-commentary/gemma_4_bill-simmons_04m40.mp3"
+    },
+    {
+     "rank": 5,
+     "show": "Football Daily",
+     "vibe": "sports banter",
+     "at": "01:40",
+     "sim": 0.689,
+     "hit": true,
+     "clip": "reports/phase1_listen/excited-sports-commentary/gemma_5_football-daily_01m40.mp3"
+    }
+   ],
+   "quiet meditation with long pauses": [
+    {
+     "rank": 1,
+     "show": "Nothing much happens: bedtime stories to help you sleep",
+     "vibe": "sleep/meditation",
+     "at": "06:20",
+     "sim": 0.696,
+     "hit": true,
+     "clip": "reports/phase1_listen/quiet-meditation-with-long-pauses/gemma_1_nothing-much-happens_06m20.mp3"
+    },
+    {
+     "rank": 2,
+     "show": "Get Sleepy: stories for sleep",
+     "vibe": "sleep/meditation",
+     "at": "07:40",
+     "sim": 0.695,
+     "hit": true,
+     "clip": "reports/phase1_listen/quiet-meditation-with-long-pauses/gemma_2_get-sleepy_07m40.mp3"
+    },
+    {
+     "rank": 3,
+     "show": "Casefile True Crime",
+     "vibe": "true crime",
+     "at": "03:40",
+     "sim": 0.678,
+     "hit": false,
+     "clip": "reports/phase1_listen/quiet-meditation-with-long-pauses/gemma_3_casefile_03m40.mp3"
+    },
+    {
+     "rank": 4,
+     "show": "Get Sleepy: stories for sleep",
+     "vibe": "sleep/meditation",
+     "at": "09:00",
+     "sim": 0.664,
+     "hit": true,
+     "clip": "reports/phase1_listen/quiet-meditation-with-long-pauses/gemma_4_get-sleepy_09m00.mp3"
+    },
+    {
+     "rank": 5,
+     "show": "ASMR by GentleWhispering",
+     "vibe": "asmr/ambient",
+     "at": "08:00",
+     "sim": 0.664,
+     "hit": false,
+     "clip": "reports/phase1_listen/quiet-meditation-with-long-pauses/gemma_5_gentle-whispering_08m00.mp3"
+    }
+   ],
+   "dramatic narration of a crime": [
+    {
+     "rank": 1,
+     "show": "Casefile True Crime",
+     "vibe": "true crime",
+     "at": "10:40",
+     "sim": 0.683,
+     "hit": true,
+     "clip": "reports/phase1_listen/dramatic-narration-of-a-crime/gemma_1_casefile_10m40.mp3"
+    },
+    {
+     "rank": 2,
+     "show": "Criminal",
+     "vibe": "true crime",
+     "at": "01:20",
+     "sim": 0.681,
+     "hit": true,
+     "clip": "reports/phase1_listen/dramatic-narration-of-a-crime/gemma_2_criminal_01m20.mp3"
+    },
+    {
+     "rank": 3,
+     "show": "Crime Junkie",
+     "vibe": "true crime",
+     "at": "04:30",
+     "sim": 0.68,
+     "hit": true,
+     "clip": "reports/phase1_listen/dramatic-narration-of-a-crime/gemma_3_crime-junkie_04m30.mp3"
+    },
+    {
+     "rank": 4,
+     "show": "Get Sleepy: stories for sleep",
+     "vibe": "sleep/meditation",
+     "at": "14:00",
+     "sim": 0.679,
+     "hit": false,
+     "clip": "reports/phase1_listen/dramatic-narration-of-a-crime/gemma_4_get-sleepy_14m00.mp3"
+    },
+    {
+     "rank": 5,
+     "show": "Crime Junkie",
+     "vibe": "true crime",
+     "at": "07:20",
+     "sim": 0.675,
+     "hit": true,
+     "clip": "reports/phase1_listen/dramatic-narration-of-a-crime/gemma_5_crime-junkie_07m20.mp3"
+    }
+   ],
+   "friends chatting casually": [
+    {
+     "rank": 1,
+     "show": "Conan O\u2019Brien Needs A Friend",
+     "vibe": "comedy chat",
+     "at": "14:30",
+     "sim": 0.681,
+     "hit": true,
+     "clip": "reports/phase1_listen/friends-chatting-casually/gemma_1_conan_14m30.mp3"
+    },
+    {
+     "rank": 2,
+     "show": "The Story Seeds Podcast",
+     "vibe": "kids stories",
+     "at": "05:50",
+     "sim": 0.671,
+     "hit": false,
+     "clip": "reports/phase1_listen/friends-chatting-casually/gemma_2_story-seeds_05m50.mp3"
+    },
+    {
+     "rank": 3,
+     "show": "Morbid",
+     "vibe": "true crime",
+     "at": "07:50",
+     "sim": 0.671,
+     "hit": false,
+     "clip": "reports/phase1_listen/friends-chatting-casually/gemma_3_morbid_07m50.mp3"
+    },
+    {
+     "rank": 4,
+     "show": "Moral Maze",
+     "vibe": "debate",
+     "at": "12:50",
+     "sim": 0.663,
+     "hit": false,
+     "clip": "reports/phase1_listen/friends-chatting-casually/gemma_4_moral-maze_12m50.mp3"
+    },
+    {
+     "rank": 5,
+     "show": "Fresh Air",
+     "vibe": "interview",
+     "at": "13:20",
+     "sim": 0.659,
+     "hit": true,
+     "clip": "reports/phase1_listen/friends-chatting-casually/gemma_5_fresh-air_13m20.mp3"
+    }
+   ],
+   "guitar and singing": [
+    {
+     "rank": 1,
+     "show": "Song Exploder",
+     "vibe": "music-heavy",
+     "at": "11:40",
+     "sim": 0.692,
+     "hit": true,
+     "clip": "reports/phase1_listen/guitar-and-singing/gemma_1_song-exploder_11m40.mp3"
+    },
+    {
+     "rank": 2,
+     "show": "Song Exploder",
+     "vibe": "music-heavy",
+     "at": "13:00",
+     "sim": 0.673,
+     "hit": true,
+     "clip": "reports/phase1_listen/guitar-and-singing/gemma_2_song-exploder_13m00.mp3"
+    },
+    {
+     "rank": 3,
+     "show": "Song Exploder",
+     "vibe": "music-heavy",
+     "at": "01:50",
+     "sim": 0.66,
+     "hit": true,
+     "clip": "reports/phase1_listen/guitar-and-singing/gemma_3_song-exploder_01m50.mp3"
+    },
+    {
+     "rank": 4,
+     "show": "ASMR For Sleep And Relaxation",
+     "vibe": "asmr/ambient",
+     "at": "09:00",
+     "sim": 0.655,
+     "hit": false,
+     "clip": "reports/phase1_listen/guitar-and-singing/gemma_4_asmr-sleep-relax_09m00.mp3"
+    },
+    {
+     "rank": 5,
+     "show": "Fresh Air",
+     "vibe": "interview",
+     "at": "06:10",
+     "sim": 0.652,
+     "hit": false,
+     "clip": "reports/phase1_listen/guitar-and-singing/gemma_5_fresh-air_06m10.mp3"
+    }
+   ]
+  }
+ }
+}

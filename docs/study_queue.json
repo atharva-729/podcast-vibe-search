@@ -1,0 +1,419 @@
+{
+ "name": "study",
+ "items": [
+  {
+   "q": "news",
+   "id": "global-news_deb5fabf_023",
+   "rank": 0,
+   "start_s": 580.0
+  },
+  {
+   "q": "news",
+   "id": "up-first_126470c9_003",
+   "rank": 0,
+   "start_s": 180.0
+  },
+  {
+   "q": "news",
+   "id": "global-news_575ccfca_011",
+   "rank": 0,
+   "start_s": 340.0
+  },
+  {
+   "q": "news",
+   "id": "casefile_d3b0e512_006",
+   "rank": 0,
+   "start_s": 240.0
+  },
+  {
+   "q": "news",
+   "id": "left-right-center_07c66024_011",
+   "rank": 0,
+   "start_s": 340.0
+  },
+  {
+   "q": "news",
+   "id": "up-first_126470c9_001",
+   "rank": 0,
+   "start_s": 140.0
+  },
+  {
+   "q": "news",
+   "id": "up-first_126470c9_007",
+   "rank": 0,
+   "start_s": 260.0
+  },
+  {
+   "q": "news",
+   "id": "global-news_575ccfca_009",
+   "rank": 0,
+   "start_s": 300.0
+  },
+  {
+   "q": "laughter",
+   "id": "morbid_651940d8_009",
+   "rank": 0,
+   "start_s": 300.0
+  },
+  {
+   "q": "laughter",
+   "id": "conan_2dde838c_021",
+   "rank": 0,
+   "start_s": 540.0
+  },
+  {
+   "q": "laughter",
+   "id": "morbid_651940d8_005",
+   "rank": 0,
+   "start_s": 220.0
+  },
+  {
+   "q": "laughter",
+   "id": "smartless_fc612d6d_000",
+   "rank": 0,
+   "start_s": 120.0
+  },
+  {
+   "q": "laughter",
+   "id": "switched-on-pop_35b3af4c_005",
+   "rank": 0,
+   "start_s": 220.0
+  },
+  {
+   "q": "laughter",
+   "id": "circle-round_e909aa71_021",
+   "rank": 0,
+   "start_s": 540.0
+  },
+  {
+   "q": "laughter",
+   "id": "armchair-expert_5382e5b7_014",
+   "rank": 0,
+   "start_s": 400.0
+  },
+  {
+   "q": "serious news voice reading the headlines",
+   "id": "up-first_126470c9_007",
+   "rank": 0,
+   "start_s": 260.0
+  },
+  {
+   "q": "serious news voice reading the headlines",
+   "id": "crime-junkie_24713fd6_020",
+   "rank": 0,
+   "start_s": 520.0
+  },
+  {
+   "q": "crime",
+   "id": "casefile_d3b0e512_013",
+   "rank": 0,
+   "start_s": 380.0
+  },
+  {
+   "q": "crime",
+   "id": "morbid_651940d8_021",
+   "rank": 0,
+   "start_s": 540.0
+  },
+  {
+   "q": "crime",
+   "id": "crime-junkie_bf22de3d_017",
+   "rank": 0,
+   "start_s": 460.0
+  },
+  {
+   "q": "crime",
+   "id": "crime-junkie_24713fd6_017",
+   "rank": 0,
+   "start_s": 460.0
+  },
+  {
+   "q": "crime",
+   "id": "casefile_d3b0e512_010",
+   "rank": 0,
+   "start_s": 320.0
+  },
+  {
+   "q": "crime",
+   "id": "global-news_575ccfca_009",
+   "rank": 0,
+   "start_s": 300.0
+  },
+  {
+   "q": "sports",
+   "id": "bill-simmons_52b9e3b5_010",
+   "rank": 0,
+   "start_s": 320.0
+  },
+  {
+   "q": "sports",
+   "id": "wtf-maron_7b924f0a_007",
+   "rank": 0,
+   "start_s": 260.0
+  },
+  {
+   "q": "sports",
+   "id": "men-in-blazers_0a71fad6_005",
+   "rank": 0,
+   "start_s": 220.0
+  },
+  {
+   "q": "sports",
+   "id": "bill-simmons_451dd9fd_012",
+   "rank": 0,
+   "start_s": 360.0
+  },
+  {
+   "q": "sports",
+   "id": "off-menu_0bedc9ad_019",
+   "rank": 0,
+   "start_s": 500.0
+  },
+  {
+   "q": "sports",
+   "id": "men-in-blazers_0a71fad6_006",
+   "rank": 0,
+   "start_s": 240.0
+  },
+  {
+   "q": "sports",
+   "id": "bill-simmons_451dd9fd_007",
+   "rank": 0,
+   "start_s": 260.0
+  },
+  {
+   "q": "calm",
+   "id": "get-sleepy_174ad3b2_010",
+   "rank": 0,
+   "start_s": 320.0
+  },
+  {
+   "q": "calm",
+   "id": "tara-brach_c0463bfc_014",
+   "rank": 0,
+   "start_s": 400.0
+  },
+  {
+   "q": "calm",
+   "id": "nothing-much-happens_3f9ee5d1_011",
+   "rank": 0,
+   "start_s": 340.0
+  },
+  {
+   "q": "calm",
+   "id": "get-sleepy_13ac547f_007",
+   "rank": 0,
+   "start_s": 260.0
+  },
+  {
+   "q": "calm",
+   "id": "tara-brach_c0463bfc_017",
+   "rank": 0,
+   "start_s": 460.0
+  },
+  {
+   "q": "a children's story",
+   "id": "circle-round_ad9a2c84_022",
+   "rank": 0,
+   "start_s": 560.0
+  },
+  {
+   "q": "a children's story",
+   "id": "get-sleepy_174ad3b2_018",
+   "rank": 0,
+   "start_s": 480.0
+  },
+  {
+   "q": "a children's story",
+   "id": "story-seeds_f147f17d_016",
+   "rank": 0,
+   "start_s": 440.0
+  },
+  {
+   "q": "a children's story",
+   "id": "story-seeds_f147f17d_022",
+   "rank": 0,
+   "start_s": 560.0
+  },
+  {
+   "q": "a children's story",
+   "id": "nothing-much-happens_3f9ee5d1_002",
+   "rank": 0,
+   "start_s": 160.0
+  },
+  {
+   "q": "a children's story",
+   "id": "get-sleepy_174ad3b2_002",
+   "rank": 0,
+   "start_s": 160.0
+  },
+  {
+   "q": "a children's story",
+   "id": "stories-podcast_8212d2b4_015",
+   "rank": 0,
+   "start_s": 420.0
+  },
+  {
+   "q": "kids story with funny voices",
+   "id": "stories-podcast_8212d2b4_023",
+   "rank": 0,
+   "start_s": 580.0
+  },
+  {
+   "q": "upbeat music and singing",
+   "id": "desert-island-discs_2946e10f_013",
+   "rank": 0,
+   "start_s": 380.0
+  },
+  {
+   "q": "rain",
+   "id": "adam-buxton_5c2566e8_012",
+   "rank": 0,
+   "start_s": 360.0
+  },
+  {
+   "q": "rain",
+   "id": "circle-round_e909aa71_001",
+   "rank": 0,
+   "start_s": 140.0
+  },
+  {
+   "q": "rain",
+   "id": "adam-buxton_5c2566e8_013",
+   "rank": 0,
+   "start_s": 380.0
+  },
+  {
+   "q": "rain",
+   "id": "get-sleepy_174ad3b2_022",
+   "rank": 0,
+   "start_s": 560.0
+  },
+  {
+   "q": "rain",
+   "id": "song-exploder_1a57c228_008",
+   "rank": 0,
+   "start_s": 280.0
+  },
+  {
+   "q": "music",
+   "id": "stories-podcast_3ff2fd43_002",
+   "rank": 0,
+   "start_s": 160.0
+  },
+  {
+   "q": "music",
+   "id": "switched-on-pop_35b3af4c_000",
+   "rank": 0,
+   "start_s": 120.0
+  },
+  {
+   "q": "music",
+   "id": "fresh-air_d7648ae5_008",
+   "rank": 0,
+   "start_s": 280.0
+  },
+  {
+   "q": "music",
+   "id": "desert-island-discs_2946e10f_012",
+   "rank": 0,
+   "start_s": 360.0
+  },
+  {
+   "q": "music",
+   "id": "switched-on-pop_35b3af4c_007",
+   "rank": 0,
+   "start_s": 260.0
+  },
+  {
+   "q": "music",
+   "id": "switched-on-pop_7839d7b7_012",
+   "rank": 0,
+   "start_s": 360.0
+  },
+  {
+   "q": "music",
+   "id": "dissect_cde67a60_020",
+   "rank": 0,
+   "start_s": 520.0
+  },
+  {
+   "q": "football",
+   "id": "bill-simmons_451dd9fd_007",
+   "rank": 0,
+   "start_s": 260.0
+  },
+  {
+   "q": "football",
+   "id": "bill-simmons_451dd9fd_012",
+   "rank": 0,
+   "start_s": 360.0
+  },
+  {
+   "q": "football",
+   "id": "totally-football_c3501d0d_023",
+   "rank": 0,
+   "start_s": 580.0
+  },
+  {
+   "q": "football",
+   "id": "football-daily_b104aae9_014",
+   "rank": 0,
+   "start_s": 400.0
+  },
+  {
+   "q": "football",
+   "id": "football-daily_b104aae9_022",
+   "rank": 0,
+   "start_s": 560.0
+  },
+  {
+   "q": "football",
+   "id": "men-in-blazers_0a71fad6_009",
+   "rank": 0,
+   "start_s": 300.0
+  },
+  {
+   "q": "calm, slow, one voice, like a bedtime story",
+   "id": "nothing-much-happens_695d6681_013",
+   "rank": 0,
+   "start_s": 380.0
+  },
+  {
+   "q": "whispering",
+   "id": "nothing-much-happens_695d6681_020",
+   "rank": 0,
+   "start_s": 520.0
+  },
+  {
+   "q": "whispering",
+   "id": "gentle-whispering_2a536005_017",
+   "rank": 0,
+   "start_s": 460.0
+  },
+  {
+   "q": "whispering",
+   "id": "nothing-much-happens_3f9ee5d1_012",
+   "rank": 0,
+   "start_s": 360.0
+  },
+  {
+   "q": "whispering",
+   "id": "fresh-air_6e2abd6f_019",
+   "rank": 0,
+   "start_s": 500.0
+  },
+  {
+   "q": "whispering",
+   "id": "nothing-much-happens_3f9ee5d1_019",
+   "rank": 0,
+   "start_s": 500.0
+  },
+  {
+   "q": "whispering",
+   "id": "gentle-whispering_947b5686_002",
+   "rank": 0,
+   "start_s": 160.0
+  }
+ ]
+}

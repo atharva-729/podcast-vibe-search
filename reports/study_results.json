@@ -1,0 +1,182 @@
+{
+ "long": [
+  {
+   "strength": 0.0,
+   "yes": 33,
+   "rated": 48,
+   "missing": 0,
+   "per_query": {
+    "two friends laughing about football, late-night energy": 4,
+    "calm, slow, one voice, like a bedtime story": 4,
+    "heated argument, people talking over each other": 1,
+    "soft whispering, very quiet": 2,
+    "excited fast talking about sports": 3,
+    "serious news voice reading the headlines": 3,
+    "dramatic storytelling about a murder": 3,
+    "rain and nature sounds, no talking": 1,
+    "upbeat music and singing": 2,
+    "thoughtful slow interview about life": 3,
+    "kids story with funny voices": 4,
+    "relaxed chat between comedians, lots of laughs": 3
+   }
+  },
+  {
+   "strength": 0.25,
+   "yes": 32,
+   "rated": 48,
+   "missing": 0,
+   "per_query": {
+    "two friends laughing about football, late-night energy": 4,
+    "calm, slow, one voice, like a bedtime story": 4,
+    "heated argument, people talking over each other": 1,
+    "soft whispering, very quiet": 3,
+    "excited fast talking about sports": 3,
+    "serious news voice reading the headlines": 2,
+    "dramatic storytelling about a murder": 3,
+    "rain and nature sounds, no talking": 0,
+    "upbeat music and singing": 2,
+    "thoughtful slow interview about life": 3,
+    "kids story with funny voices": 4,
+    "relaxed chat between comedians, lots of laughs": 3
+   }
+  },
+  {
+   "strength": 0.5,
+   "yes": 32,
+   "rated": 48,
+   "missing": 0,
+   "per_query": {
+    "two friends laughing about football, late-night energy": 4,
+    "calm, slow, one voice, like a bedtime story": 4,
+    "heated argument, people talking over each other": 1,
+    "soft whispering, very quiet": 3,
+    "excited fast talking about sports": 2,
+    "serious news voice reading the headlines": 3,
+    "dramatic storytelling about a murder": 3,
+    "rain and nature sounds, no talking": 0,
+    "upbeat music and singing": 2,
+    "thoughtful slow interview about life": 3,
+    "kids story with funny voices": 4,
+    "relaxed chat between comedians, lots of laughs": 3
+   }
+  },
+  {
+   "strength": 0.75,
+   "yes": 33,
+   "rated": 48,
+   "missing": 0,
+   "per_query": {
+    "two friends laughing about football, late-night energy": 4,
+    "calm, slow, one voice, like a bedtime story": 4,
+    "heated argument, people talking over each other": 1,
+    "soft whispering, very quiet": 3,
+    "excited fast talking about sports": 2,
+    "serious news voice reading the headlines": 4,
+    "dramatic storytelling about a murder": 4,
+    "rain and nature sounds, no talking": 0,
+    "upbeat music and singing": 1,
+    "thoughtful slow interview about life": 3,
+    "kids story with funny voices": 4,
+    "relaxed chat between comedians, lots of laughs": 3
+   }
+  },
+  {
+   "strength": 1.0,
+   "yes": 27,
+   "rated": 48,
+   "missing": 0,
+   "per_query": {
+    "two friends laughing about football, late-night energy": 3,
+    "calm, slow, one voice, like a bedtime story": 4,
+    "heated argument, people talking over each other": 0,
+    "soft whispering, very quiet": 3,
+    "excited fast talking about sports": 0,
+    "serious news voice reading the headlines": 4,
+    "dramatic storytelling about a murder": 4,
+    "rain and nature sounds, no talking": 0,
+    "upbeat music and singing": 0,
+    "thoughtful slow interview about life": 3,
+    "kids story with funny voices": 3,
+    "relaxed chat between comedians, lots of laughs": 3
+   }
+  }
+ ],
+ "short": [
+  {
+   "strength": 0.0,
+   "yes": 31,
+   "rated": 40,
+   "missing": 0,
+   "per_query": {
+    "laughter": 3,
+    "music": 2,
+    "sports": 4,
+    "news": 4,
+    "calm": 4,
+    "whispering": 3,
+    "rain": 1,
+    "crime": 4,
+    "a children's story": 2,
+    "football": 4
+   }
+  },
+  {
+   "strength": 0.5,
+   "yes": 28,
+   "rated": 40,
+   "missing": 0,
+   "per_query": {
+    "laughter": 3,
+    "music": 1,
+    "sports": 4,
+    "news": 4,
+    "calm": 4,
+    "whispering": 2,
+    "rain": 1,
+    "crime": 4,
+    "a children's story": 1,
+    "football": 4
+   }
+  },
+  {
+   "strength": 1.0,
+   "yes": 26,
+   "rated": 40,
+   "missing": 0,
+   "per_query": {
+    "laughter": 3,
+    "music": 0,
+    "sports": 4,
+    "news": 4,
+    "calm": 4,
+    "whispering": 1,
+    "rain": 1,
+    "crime": 4,
+    "a children's story": 1,
+    "football": 4
+   }
+  }
+ ],
+ "category": [
+  {
+   "strength": 0,
+   "share": 0.7125
+  },
+  {
+   "strength": 0.25,
+   "share": 0.7250000000000001
+  },
+  {
+   "strength": 0.5,
+   "share": 0.7250000000000001
+  },
+  {
+   "strength": 0.75,
+   "share": 0.7250000000000001
+  },
+  {
+   "strength": 1,
+   "share": 0.7250000000000001
+  }
+ ]
+}

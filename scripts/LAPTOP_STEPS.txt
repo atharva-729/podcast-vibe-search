@@ -1,0 +1,39 @@
+VIBE SEARCH - building the offline bundle on a personal Windows laptop
+=======================================================================
+
+You need: about 10 GB free disk space, about 30-60 minutes (depends on internet speed).
+Put fetch_bundle.py and feeds.yaml in the same folder, e.g. C:\vibe-kit\
+
+1. Install Python 3.10 or newer (skip if you already have it)
+     winget install Python.Python.3.12
+   (or from python.org; tick "Add python.exe to PATH")
+
+2. Install ffmpeg
+     winget install Gyan.FFmpeg
+
+3. Close the terminal and open a NEW one (so PATH picks up both), then check:
+     python --version
+     ffmpeg -version
+
+4. Install the one Python package needed
+     python -m pip install huggingface_hub
+
+5. Run it
+     cd C:\vibe-kit
+     python fetch_bundle.py
+
+   It downloads, in order:
+     - 3 models (~2.6 GB): EmbeddingGemma 2, LAION-CLAP, faster-whisper small
+     - 45 RSS feeds (40 shows + 5 spares)
+     - the first 15 minutes of 3 episodes per show (~135 clips, ~1-2 GB)
+   If it stops or your wifi drops, just run the same command again.
+   Finished pieces are skipped.
+
+6. When it prints "zip ready", you will have:
+     C:\vibe-kit\bundle.zip    (about 4-4.5 GB)
+   Also glance at bundle\failures.txt. A few failures are fine (spares cover them);
+   send it to Claude if many shows failed.
+
+7. Upload bundle.zip to Google Drive. Keep it PRIVATE (don't share the link
+   publicly: the audio clips are third-party copyrighted). Download it on the work
+   laptop into the repo folder and tell Claude. Delete it from Drive after import.

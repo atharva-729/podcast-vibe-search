@@ -1,0 +1,70 @@
+# Vibe-spread corpus: 10 vibes x 4 shows, plus spares.
+# `vibe` is our own grouping for picking shows; the iTunes category (the eval label)
+# is read from each feed at fetch time.
+shows:
+  # comedy chat
+  - {id: conan, vibe: comedy chat, name: "Conan O'Brien Needs A Friend", feed: "https://feeds.simplecast.com/dHoohVNH"}
+  - {id: smartless, vibe: comedy chat, name: "SmartLess", feed: "https://feeds.simplecast.com/hNaFxXpO"}
+  - {id: off-menu, vibe: comedy chat, name: "Off Menu with Ed Gamble and James Acaster", feed: "https://feeds.acast.com/public/shows/b19ac1f5-6adf-4c8b-aa1a-2af2160f99e4"}
+  - {id: adam-buxton, vibe: comedy chat, name: "The Adam Buxton Podcast", feed: "https://feeds.acast.com/public/shows/18dcd5db-f898-42c6-ab31-3a1853c1a645"}
+
+  # sleep / meditation
+  - {id: nothing-much-happens, vibe: sleep/meditation, name: "Nothing Much Happens", feed: "https://feeds.megaphone.fm/SSM2868305742"}
+  - {id: get-sleepy, vibe: sleep/meditation, name: "Get Sleepy", feed: "https://feeds.megaphone.fm/SGP8517078272"}
+  - {id: sleep-with-me, vibe: sleep/meditation, name: "Sleep With Me", feed: "https://rss.pdrl.fm/5d8327/feed.sleepwithmepodcast.com/"}
+  - {id: tara-brach, vibe: sleep/meditation, name: "Tara Brach", feed: "https://rss.libsyn.com/shows/43741/destinations/138667.xml"}
+
+  # true crime
+  - {id: casefile, vibe: true crime, name: "Casefile True Crime", feed: "https://feeds.acast.com/public/shows/679acff465f74095106abfaa"}
+  - {id: crime-junkie, vibe: true crime, name: "Crime Junkie", feed: "https://feeds.simplecast.com/qm_9xx0g"}
+  - {id: criminal, vibe: true crime, name: "Criminal", feed: "https://feeds.megaphone.fm/VMP7924981569"}
+  - {id: morbid, vibe: true crime, name: "Morbid", feed: "https://feeds.simplecast.com/ohmVlJZQ"}
+
+  # sports banter
+  - {id: pardon-my-take, vibe: sports banter, name: "Pardon My Take", feed: "https://mcsorleys.barstoolsports.com/feed/pardon-my-take"}
+  - {id: bill-simmons, vibe: sports banter, name: "The Bill Simmons Podcast", feed: "https://feeds.megaphone.fm/the-bill-simmons-podcast"}
+  - {id: totally-football, vibe: sports banter, name: "The Totally Football Show", feed: "https://feeds.acast.com/public/shows/6818cd43eb146d8e35d312c7"}
+  - {id: men-in-blazers, vibe: sports banter, name: "Men In Blazers", feed: "https://rss.art19.com/men-in-blazers"}
+
+  # news briefing
+  - {id: the-daily, vibe: news briefing, name: "The Daily", feed: "https://feeds.simplecast.com/Sl5CSM3S"}
+  - {id: up-first, vibe: news briefing, name: "Up First", feed: "https://feeds.npr.org/510318/podcast.xml"}
+  - {id: global-news, vibe: news briefing, name: "Global News Podcast", feed: "https://podcasts.files.bbci.co.uk/p02nq0gn.rss"}
+  - {id: the-journal, vibe: news briefing, name: "The Journal.", feed: "https://video-api.shdsvc.dowjones.io/api/podcasts/feed/the%20journal"}
+
+  # interview
+  - {id: fresh-air, vibe: interview, name: "Fresh Air", feed: "https://feeds.npr.org/381444908/podcast.xml"}
+  - {id: wtf-maron, vibe: interview, name: "WTF with Marc Maron", feed: "https://feeds.acast.com/public/shows/62a222737c02140013aa4c03"}
+  - {id: armchair-expert, vibe: interview, name: "Armchair Expert", feed: "https://rss.art19.com/armchair-expert"}
+  - {id: desert-island-discs, vibe: interview, name: "Desert Island Discs", feed: "https://podcasts.files.bbci.co.uk/b006qnmr.rss"}
+
+  # asmr / ambient
+  - {id: gentle-whispering, vibe: asmr/ambient, name: "ASMR by GentleWhispering", feed: "https://anchor.fm/s/1c698c20/podcast/rss"}
+  - {id: asmr-sleep-relax, vibe: asmr/ambient, name: "ASMR For Sleep And Relaxation", feed: "https://feeds.megaphone.fm/ASAHO5663642867"}
+  - {id: slow-radio, vibe: asmr/ambient, name: "Slow Radio", feed: "https://podcasts.files.bbci.co.uk/p05k5bq0.rss"}
+  - {id: relaxing-nature, vibe: asmr/ambient, name: "Relaxing Nature Sounds", feed: "https://anchor.fm/s/c64b9878/podcast/rss"}
+
+  # debate
+  - {id: open-to-debate, vibe: debate, name: "Open to Debate", feed: "https://feeds.megaphone.fm/PNP1207584390"}
+  - {id: rest-is-politics, vibe: debate, name: "The Rest Is Politics", feed: "https://feeds.megaphone.fm/GLT9190936013"}
+  - {id: left-right-center, vibe: debate, name: "Left, Right & Center", feed: "https://leftrightandcenter-feed.kcrw.com"}
+  - {id: moral-maze, vibe: debate, name: "Moral Maze", feed: "https://podcasts.files.bbci.co.uk/b006qk11.rss"}
+
+  # kids stories
+  - {id: circle-round, vibe: kids stories, name: "Circle Round", feed: "https://rss.wbur.org/circleround/podcast"}
+  - {id: stories-podcast, vibe: kids stories, name: "Stories Podcast", feed: "https://feeds.megaphone.fm/STM4306131571"}
+  - {id: brains-on, vibe: kids stories, name: "Brains On!", feed: "https://www.spreaker.com/show/7350160/episodes/feed"}
+  - {id: story-seeds, vibe: kids stories, name: "The Story Seeds Podcast", feed: "https://anchor.fm/s/11054647c/podcast/rss"}
+
+  # music-heavy
+  - {id: song-exploder, vibe: music-heavy, name: "Song Exploder", feed: "https://feed.songexploder.net/SongExploder"}
+  - {id: switched-on-pop, vibe: music-heavy, name: "Switched on Pop", feed: "https://feeds.megaphone.fm/switchedonpop"}
+  - {id: all-songs-considered, vibe: music-heavy, name: "All Songs Considered", feed: "https://feeds.npr.org/g-s1-111189/podcast.xml"}
+  - {id: dissect, vibe: music-heavy, name: "Dissect", feed: "https://feeds.megaphone.fm/dissectwide"}
+
+  # spares (fetched too, used only if a main show fails)
+  - {id: meditation-minis, vibe: sleep/meditation, spare: true, name: "Meditation Minis", feed: "https://rss.buzzsprout.com/2556039.rss"}
+  - {id: intrigue, vibe: true crime, spare: true, name: "Intrigue", feed: "https://podcasts.files.bbci.co.uk/m0000nfh.rss"}
+  - {id: football-daily, vibe: sports banter, spare: true, name: "Football Daily", feed: "https://podcasts.files.bbci.co.uk/p02nrsln.rss"}
+  - {id: today-in-focus, vibe: news briefing, spare: true, name: "Today in Focus", feed: "https://www.theguardian.com/news/series/todayinfocus/podcast.xml"}
+  - {id: any-questions, vibe: debate, spare: true, name: "Any Questions?", feed: "https://podcasts.files.bbci.co.uk/p02nrtn5.rss"}
