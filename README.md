@@ -12,7 +12,8 @@ Normal podcast search matches titles, descriptions and transcripts (the *topic*)
 Context: an innovation-team build with a Spotify hook. It's also the product version of `gemma-study`: a shared audio–text embedding space used for something real.
 
 > **Status:** this README is the original build plan. For what was actually built, what changed and why, and the
-> current results, see **[PROJECT_STATUS.md](PROJECT_STATUS.md)**.
+> current results, see **[PROJECT_STATUS.md](PROJECT_STATUS.md)**. For every finding, number and open question in one
+> briefing (for follow-up projects), see **[FINDINGS.md](FINDINGS.md)**.
 
 ## Running the demo
 
