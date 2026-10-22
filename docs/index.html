@@ -62,7 +62,7 @@ nav .sep { color: var(--rule); }
 
 /* hero */
 .hero { padding: 30px 0 32px; }
-.hero .herogrid { margin-top: 44px; }
+.hero .herogrid { margin-top: 18px; }
 .hero .tag { color: var(--soft); font-size: 1.05rem; margin: 8px 0 18px; }
 .herogrid { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 16px; align-items: stretch; }
 @media (max-width: 880px) { .herogrid { grid-template-columns: 1fr; } }
@@ -86,10 +86,6 @@ nav .sep { color: var(--rule); }
 .arrow { width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--rule); background: var(--bg3); color: var(--fg); font-size: 22px; line-height: 1; cursor: pointer; }
 .arrow:hover { border-color: var(--fg); }
 .arrow.next { border-color: var(--hl); color: var(--hl); }
-.hint { position: absolute; right: -6px; top: -58px; width: 170px; height: 70px; overflow: visible; pointer-events: none; }
-.hintt { fill: var(--hl); font: italic 600 15px var(--serif); }
-.hintp { fill: none; stroke: var(--hl); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
-@media (max-width: 880px) { .hint { display: none; } }
 .exlt { display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: var(--mut); margin-top: 8px; }
 .prog { grid-column: 2 / 4; height: 3px; background: var(--bg3); border-radius: 2px; overflow: hidden; display: none; margin-top: 4px; }
 .prog i { display: block; height: 100%; width: 0; background: var(--hl); }
@@ -293,11 +289,6 @@ footer a { color: var(--soft); }
   <div class="tag">Type a vibe. Get the exact 20-second moments that sound like it. Along the way, a study of how audio–text embeddings behave. <a class="down" href="#learned">What we learned ↓</a></div>
   <div class="herogrid">
     <div class="box exbox">
-      <svg class="hint" viewBox="0 0 170 70" aria-hidden="true">
-        <text x="4" y="16" class="hintt">more examples</text>
-        <path d="M70 22 C 105 20, 128 30, 141 52" class="hintp"/>
-        <path d="M131 46 L 142 55 L 146 41" class="hintp"/>
-      </svg>
       <div class="exhead">
         <div class="fakesearch"><span class="ic">⌕</span><span id="exq"></span></div>
         <div class="exnav"><button class="arrow" id="exprev" aria-label="Previous example">‹</button><span id="excount"></span><button class="arrow next" id="exnext" aria-label="Next example">›</button></div>
@@ -675,7 +666,6 @@ function draw() {
     ctx.beginPath(); ctx.arc(x, y, 7 * dpr, 0, 7); ctx.fillStyle = surf; ctx.fill();
     ctx.beginPath(); ctx.arc(x, y, 5.5 * dpr, 0, 7); ctx.fillStyle = groupColor(groupOf(SH[SEG[i].s].vibe)); ctx.fill();
     ctx.lineWidth = 2 * dpr; ctx.strokeStyle = css("--hl"); ctx.stroke(); });
-  if (playing !== null) { const [x, y] = pos(SEG[playing]); ctx.beginPath(); ctx.arc(x, y, 10 * dpr, 0, 7); ctx.lineWidth = 2.5 * dpr; ctx.strokeStyle = css("--fg"); ctx.stroke(); }
 }
 function nearest(ev) {
   const b = cv.getBoundingClientRect(), k = cv.width / b.width, mx = (ev.clientX - b.left) * k, my = (ev.clientY - b.top) * k;
