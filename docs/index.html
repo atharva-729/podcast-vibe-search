@@ -1,0 +1,897 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vibe Search</title>
+<script src="theme.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans:wght@400;600&display=swap">
+<style>
+:root {
+  --bg: #0d1016; --bg2: #141922; --bg3: #1c2230; --rule: #2a3241;
+  --fg: #ece8df; --soft: #c9c4b8; --mut: #8d95a3;
+  --ok: #2fd3a7; --ok-bg: rgba(47,211,167,.12); --bad: #ff6a5e; --bad-bg: rgba(255,106,94,.13);
+  --hl: #f6b93b; --sky: #5aa9ff;
+  /* categorical, dark-mode steps (validated default palette) */
+  --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500; --s5: #d55181; --s6: #008300; --s7: #9085e9; --s8: #e66767;
+  --serif: "Fraunces", Georgia, serif; --sans: "IBM Plex Sans", system-ui, "Segoe UI", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+  --navbg: rgba(13,16,22,.92);
+}
+/* light theme: same roles, light-surface steps (categorical = the palette's light-mode slots) */
+:root[data-theme="light"] {
+  --bg: #f6f5f1; --bg2: #ffffff; --bg3: #eeede8; --rule: #d9d7cf;
+  --fg: #15171c; --soft: #3d4048; --mut: #6a6f78;
+  --ok: #0e8a62; --ok-bg: rgba(14,138,98,.09); --bad: #c63a30; --bad-bg: rgba(198,58,48,.09);
+  --hl: #a86f00; --sky: #1d68c8;
+  --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a; --s4: #eda100; --s5: #e87ba4; --s6: #008300; --s7: #6250d6; --s8: #e34948;
+  --navbg: rgba(246,245,241,.92);
+}
+.themebtn { margin-left: auto; font: inherit; font-size: 13px; cursor: pointer; border: 1px solid var(--rule); background: var(--bg3); color: var(--fg); border-radius: 999px; padding: 4px 12px; white-space: nowrap; }
+.themebtn:hover { border-color: var(--hl); }
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 15px/1.55 var(--sans); -webkit-font-smoothing: antialiased; }
+a { color: inherit; }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 20px; }
+section { padding: 38px 0; border-bottom: 1px solid var(--rule); }
+section.alt { background: var(--bg2); }
+h1, h2, h3 { font-family: var(--serif); font-weight: 600; letter-spacing: -.01em; line-height: 1.15; margin: 0; }
+h1 { font-size: clamp(1.7rem, 3vw, 2.3rem); }
+h2 { font-size: clamp(1.3rem, 2.2vw, 1.7rem); margin-bottom: 6px; }
+h3 { font-size: 1rem; font-family: var(--sans); }
+.lead { color: var(--soft); max-width: 70ch; margin: 6px 0 0; }
+.mut { color: var(--mut); }
+.kicker { font: 500 11.5px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--mut);
+  display: flex; gap: 12px; align-items: center; margin-bottom: 12px; }
+.kicker b { color: var(--hl); font-weight: 500; }
+.kicker::after { content: ""; flex: 1; height: 1px; background: currentColor; opacity: .3; }
+.em { color: var(--hl); font-weight: 600; }
+.down { color: var(--sky); text-decoration: none; white-space: nowrap; font-size: 13.5px; }
+.down:hover { text-decoration: underline; }
+code { font-family: var(--mono); font-size: 13px; color: var(--soft); }
+
+nav { position: sticky; top: 0; z-index: 20; background: var(--navbg); backdrop-filter: blur(6px); border-bottom: 1px solid var(--rule); }
+nav .wrap { display: flex; gap: 18px; align-items: center; height: 46px; overflow-x: auto; white-space: nowrap; }
+nav .brand { font-weight: 600; font-size: 14px; }
+nav .brand span { color: var(--mut); font-weight: 400; }
+nav a { text-decoration: none; color: var(--soft); font-size: 13.5px; }
+nav a:hover { color: var(--fg); }
+nav .sep { color: var(--rule); }
+
+/* hero */
+.hero { padding: 30px 0 32px; }
+.hero .herogrid { margin-top: 44px; }
+.hero .tag { color: var(--soft); font-size: 1.05rem; margin: 8px 0 18px; }
+.herogrid { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 16px; align-items: stretch; }
+@media (max-width: 880px) { .herogrid { grid-template-columns: 1fr; } }
+.box { background: var(--bg2); border: 1px solid var(--rule); border-radius: 12px; padding: 16px; }
+.fakesearch { display: flex; align-items: center; gap: 10px; border: 1px solid var(--rule); background: var(--bg); border-radius: 10px; padding: 10px 12px; font-size: 15px; }
+.fakesearch .ic { color: var(--mut); }
+.res { display: grid; grid-template-columns: 38px minmax(0, 1fr) auto; gap: 2px 12px; align-items: center; padding: 10px 2px; border-bottom: 1px solid var(--rule); }
+.res:last-child { border-bottom: 0; }
+.res > div { min-width: 0; }
+.res .show { font-weight: 600; font-size: 14.5px; }
+.res .ep { font-size: 12.5px; color: var(--mut); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.res .t { font-size: 12.5px; color: var(--mut); font-variant-numeric: tabular-nums; text-align: right; }
+.why { display: flex; flex-wrap: wrap; gap: 4px; grid-column: 2 / 4; margin-top: 2px; }
+.why span { font-size: 11.5px; padding: 1px 8px; border-radius: 999px; background: var(--bg3); color: var(--soft); }
+.play { width: 34px; height: 34px; border-radius: 50%; padding: 0; display: grid; place-items: center; cursor: pointer; border: 1px solid var(--rule); background: var(--bg3); color: var(--fg); font-size: 12px; }
+.play:hover { border-color: var(--fg); }
+.exbox { position: relative; }
+.exhead { display: flex; gap: 10px; align-items: center; }
+.exhead .fakesearch { flex: 1; min-width: 0; }
+.exnav { display: flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--mut); font-variant-numeric: tabular-nums; }
+.arrow { width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--rule); background: var(--bg3); color: var(--fg); font-size: 22px; line-height: 1; cursor: pointer; }
+.arrow:hover { border-color: var(--fg); }
+.arrow.next { border-color: var(--hl); color: var(--hl); }
+.hint { position: absolute; right: -6px; top: -58px; width: 170px; height: 70px; overflow: visible; pointer-events: none; }
+.hintt { fill: var(--hl); font: italic 600 15px var(--serif); }
+.hintp { fill: none; stroke: var(--hl); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+@media (max-width: 880px) { .hint { display: none; } }
+.exlt { display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: var(--mut); margin-top: 8px; }
+.prog { grid-column: 2 / 4; height: 3px; background: var(--bg3); border-radius: 2px; overflow: hidden; display: none; margin-top: 4px; }
+.prog i { display: block; height: 100%; width: 0; background: var(--hl); }
+.res.playing .prog { display: block; }
+.res.playing .play, .play.on { border-color: var(--hl); color: var(--hl); }
+.verdict { display: flex; flex-direction: column; justify-content: center; background: var(--ok-bg); border-color: rgba(47,211,167,.45); }
+.verdict .big { font: 600 2.6rem/1 var(--serif); color: var(--ok); }
+.verdict .l { font: 600 1.05rem/1.35 var(--serif); margin-top: 6px; }
+.verdict .s { color: var(--soft); font-size: 13.5px; margin-top: 8px; }
+.dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 6px; }
+
+/* embedding flow */
+.flow { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 16px 0 4px; font-size: 13.5px; }
+.flow .n { border: 1px solid var(--rule); border-radius: 8px; padding: 6px 10px; background: var(--bg3); }
+.flow .n.m { border-color: var(--s1); color: var(--fg); }
+.flow .n.v { font-family: var(--mono); font-size: 12px; color: var(--hl); border-color: rgba(246,185,59,.5); }
+.flow .a { color: var(--mut); }
+/* legends sit beside their maps, one entry per line */
+.mapside { display: grid; grid-template-columns: minmax(0, 1fr) 118px; gap: 12px; align-items: start; }
+.vlegend { flex-direction: column; flex-wrap: nowrap; gap: 9px; margin-top: 4px; font-size: 12.5px; }
+.vlegend .dot { width: 11px; height: 11px; }
+@media (max-width: 880px) { .mapside { grid-template-columns: 1fr; } .vlegend { flex-direction: row; flex-wrap: wrap; } }
+.gapgrid.three { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 150px; }
+@media (max-width: 880px) { .gapgrid.three { grid-template-columns: 1fr; } }
+/* findings cards */
+.lgroup { font: 600 15px var(--sans); margin: 26px 0 10px; color: var(--fg); border-bottom: 1px solid var(--rule); padding-bottom: 6px; }
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 12px; }
+.card2 { background: var(--bg2); border: 1px solid var(--rule); border-radius: 12px; padding: 12px 14px; font-size: 13.5px; color: var(--soft); }
+.card2 h4 { margin: 8px 0 4px; font: 600 15px/1.3 var(--serif); color: var(--fg); }
+.card2 p { margin: 0; } .card2 b { color: var(--fg); }
+.tagm, .tagf, .tagh, .tagl { display: inline-block; font: 500 10.5px var(--mono); letter-spacing: .08em; text-transform: uppercase; border-radius: 999px; padding: 2px 8px; border: 1px solid; }
+.tagm { color: var(--ok); border-color: var(--ok); }
+.tagf { color: var(--bad); border-color: var(--bad); }
+.tagh { color: var(--hl); border-color: var(--hl); }
+.tagl { color: var(--sky); border-color: var(--sky); }
+.mapgrid { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 18px; margin-top: 16px; align-items: start; }
+@media (max-width: 880px) { .mapgrid { grid-template-columns: 1fr; } }
+.mapwrap { position: relative; }
+canvas { width: 100%; aspect-ratio: 1.25 / 1; display: block; border-radius: 10px; background: var(--bg); border: 1px solid var(--rule); touch-action: none; }
+.legend { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 12px; color: var(--soft); margin-top: 8px; }
+.tip { position: absolute; pointer-events: none; background: var(--bg3); border: 1px solid var(--rule); font-size: 12px; padding: 6px 8px; border-radius: 6px; white-space: nowrap; display: none; z-index: 2; }
+.words .k { font: 500 11px var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--mut); margin-bottom: 8px; }
+.wbtn { display: block; width: 100%; text-align: left; font: inherit; font-size: 14px; color: var(--fg); background: var(--bg3); border: 1px solid var(--rule);
+  border-radius: 8px; padding: 8px 10px; margin-bottom: 6px; cursor: pointer; }
+.wbtn:hover { border-color: var(--soft); }
+.wbtn.on { border-color: var(--hl); background: rgba(246,185,59,.12); }
+.wbtn .q { color: var(--mut); }
+.wfree { display: flex; gap: 6px; margin-top: 8px; }
+.wfree input { flex: 1; min-width: 0; font: inherit; font-size: 14px; padding: 8px 10px; border-radius: 8px; border: 1px solid var(--rule); background: var(--bg); color: var(--fg); }
+.cap { margin-top: 12px; font-size: 14px; color: var(--soft); min-height: 3em; }
+.cap b { color: var(--fg); }
+
+/* listening grid */
+.ltgrid { display: grid; grid-template-columns: minmax(0, 1fr) 240px; gap: 20px; margin-top: 16px; align-items: start; }
+@media (max-width: 880px) { .ltgrid { grid-template-columns: 1fr; } }
+.ltrow { display: grid; grid-template-columns: minmax(0, 1fr) auto 40px; gap: 12px; align-items: center; width: 100%; text-align: left;
+  background: none; border: 0; border-bottom: 1px solid var(--rule); color: var(--fg); padding: 8px 4px; cursor: pointer; font: inherit; }
+.ltrow:hover, .ltrow:focus-visible { background: var(--bg2); outline: none; }
+section.alt .ltrow:hover { background: var(--bg3); }
+.ltrow .q { font-size: 14px; }
+.ltrow .n { font-weight: 600; text-align: right; font-variant-numeric: tabular-nums; }
+.pips { display: inline-flex; gap: 4px; }
+.pips i { width: 22px; height: 14px; border-radius: 3px; display: inline-block; }
+.pips i.y { background: var(--ok); }
+.pips i.n { background: var(--bad-bg); border: 1px solid var(--bad); }
+.pips i.u { background: var(--bg3); border: 1px solid var(--mut); }
+.side dl { margin: 0; font-size: 13px; }
+.side dt { font-weight: 600; margin-top: 8px; }
+.side dd { margin: 0; color: var(--mut); font-size: 12.5px; }
+.sidek { font: 500 11px var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--mut); }
+.concl { margin-top: 20px; border: 1px solid rgba(246,185,59,.45); background: rgba(246,185,59,.06); border-radius: 12px; padding: 14px 18px; }
+.concl .ck { font: 500 11px var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--hl); }
+.concl ol { margin: 8px 0 0; padding-left: 20px; }
+.concl li { margin: 7px 0; color: var(--soft); font-size: 14.5px; }
+.concl li b { color: var(--fg); }
+.ltgroup { display: flex; justify-content: space-between; align-items: baseline; padding: 14px 4px 4px; border-bottom: 1px solid var(--rule); }
+.ltgroup:first-child { padding-top: 0; }
+.ltgroup .g { font: 600 14px var(--sans); }
+.ltgroup .gs { font-size: 12.5px; color: var(--mut); }
+.ltgroup .gn { font-weight: 600; font-variant-numeric: tabular-nums; }
+.gapresult { display: grid; grid-template-columns: auto auto auto minmax(0, 1fr); gap: 18px; align-items: center; margin-top: 16px;
+  border: 1px solid var(--rule); border-radius: 12px; padding: 14px 18px; background: var(--bg3); }
+@media (max-width: 820px) { .gapresult { grid-template-columns: 1fr; } }
+.gapresult .v { font: 600 1.8rem var(--serif); color: var(--ok); }
+.gapresult .v.bad { color: var(--bad); }
+.gapresult .l { font-size: 12.5px; color: var(--soft); line-height: 1.35; }
+.gapresult .vs { color: var(--mut); font: 500 12px var(--mono); }
+.gapresult .why2 { font-size: 14px; color: var(--soft); }
+.gapresult .why2 b { color: var(--fg); }
+.factbox { border: 1px solid var(--rule); border-radius: 12px; padding: 14px 18px; background: var(--bg3); font-size: 14px; color: var(--soft); }
+.factbox .ck, .studyh + .lead .ck { font: 500 11px var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--mut); }
+.factbox p { margin: 8px 0 0; } .factbox b { color: var(--fg); }
+.studyh { font-family: var(--serif); font-size: 1.25rem; margin: 34px 0 0; }
+.studygrid { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 16px; margin-top: 14px; align-items: start; }
+@media (max-width: 880px) { .studygrid { grid-template-columns: 1fr; } }
+section.alt .box { background: var(--bg3); }
+.charth { font-size: 13.5px; font-weight: 600; margin-bottom: 8px; }
+.charth .mut { font-weight: 400; }
+#stchart { width: 100%; height: auto; display: block; }
+.prow { display: grid; grid-template-columns: minmax(0, 1fr) repeat(3, auto); gap: 6px 14px; align-items: center; padding: 6px 0; border-bottom: 1px solid var(--rule); font-size: 13.5px; }
+.prow.h { font-size: 12px; color: var(--mut); border-bottom: 1px solid var(--rule); }
+.prow .cell2 { display: flex; align-items: center; gap: 6px; justify-content: flex-end; }
+.prow .cell2 b { width: 12px; text-align: right; font-variant-numeric: tabular-nums; }
+.pips.sm i { width: 12px; height: 10px; }
+.gapgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 16px; }
+@media (max-width: 820px) { .gapgrid { grid-template-columns: 1fr; } }
+.gapgrid figure { margin: 0; }
+.gaph { font: 600 14px var(--sans); margin-bottom: 6px; }
+.gapgrid canvas { aspect-ratio: 1 / 1; }
+.gapgrid figcaption { font-size: 13px; color: var(--soft); margin-top: 6px; }
+.gapgrid figcaption b { color: var(--fg); }
+.lift td, .lift th { padding: 5px 6px; border-bottom: 1px solid var(--rule); font-size: 13.5px; text-align: left; font-variant-numeric: tabular-nums; }
+.lift th { color: var(--mut); font-weight: 400; font-size: 12.5px; }
+.lift td.n { text-align: right; }
+.lift .barcell { width: 46%; }
+.lift .b2 { position: relative; height: 16px; }
+.lift .b2 i { position: absolute; left: 0; height: 7px; border-radius: 3px; }
+.lift .b2 i.r { top: 0; background: var(--mut); opacity: .7; }
+.lift .b2 i.c { top: 9px; background: var(--hl); }
+.mapnow { margin-top: 8px; font-size: 13px; color: var(--soft); display: flex; align-items: center; gap: 10px; min-height: 36px; }
+.mapnow .bar { flex: 1; max-width: 220px; height: 3px; background: var(--bg3); border-radius: 2px; overflow: hidden; }
+.mapnow .bar i { display: block; height: 100%; width: 0; background: var(--hl); }
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 18px; }
+@media (max-width: 700px) { .two { grid-template-columns: 1fr; } }
+.two > div { border-left: 2px solid var(--ok); padding: 2px 0 2px 14px; font-size: 14px; color: var(--soft); }
+.two > div.bad { border-color: var(--bad); }
+.two b { color: var(--fg); }
+
+/* try it */
+.searchrow { display: flex; gap: 8px; }
+.searchrow input { flex: 1; min-width: 0; font: inherit; padding: 10px 12px; border-radius: 8px; border: 1px solid var(--rule); background: var(--bg); color: var(--fg); }
+.btn { font: inherit; cursor: pointer; border-radius: 8px; border: 1px solid var(--s1); background: var(--s1); color: #fff; padding: 8px 14px; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.chip { font: inherit; font-size: 13px; padding: 4px 10px; border-radius: 999px; cursor: pointer; border: 1px solid var(--rule); background: var(--bg3); color: var(--fg); }
+.chip.on { background: var(--s1); border-color: var(--s1); color: #fff; }
+.parsed { margin-top: 10px; font-size: 13px; color: var(--mut); min-height: 1.4em; }
+.parsed b { color: var(--soft); font-weight: 600; }
+details { margin-top: 10px; font-size: 13px; color: var(--soft); }
+summary { cursor: pointer; color: var(--mut); }
+.sliders { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 8px 16px; margin-top: 10px; }
+.slider label { display: flex; justify-content: space-between; font-size: 12.5px; color: var(--soft); }
+.slider input { width: 100%; accent-color: var(--s1); }
+.slider.off input { opacity: .45; }
+.mini { font: inherit; background: var(--bg3); border: 1px solid var(--rule); color: var(--fg); border-radius: 6px; padding: 2px 8px; font-size: 12px; cursor: pointer; }
+.empty { color: var(--mut); padding: 16px; text-align: center; }
+
+/* below the line */
+.divider { padding: 30px 0; text-align: center; border-bottom: 1px solid var(--rule); }
+.divider .t { font: 600 1.25rem var(--serif); }
+.divider .s { color: var(--mut); font: 500 11.5px var(--mono); letter-spacing: .12em; text-transform: uppercase; margin-top: 6px; }
+.steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 14px; }
+@media (max-width: 880px) { .steps { grid-template-columns: 1fr 1fr; } }
+.step { border: 1px solid var(--rule); border-radius: 10px; padding: 12px; background: var(--bg2); font-size: 13.5px; color: var(--soft); }
+section.alt .step { background: var(--bg3); }
+.step .no { font: 600 1.2rem var(--serif); color: var(--hl); }
+.step b { color: var(--fg); display: block; margin: 2px 0 4px; font-size: 14px; }
+.stats { display: flex; flex-wrap: wrap; gap: 26px; margin-top: 18px; }
+.stats .v { font: 600 1.3rem var(--serif); }
+.stats .l { font-size: 12.5px; color: var(--mut); }
+ul.pts { margin: 10px 0 0; padding-left: 0; list-style: none; max-width: 80ch; }
+ul.pts li { position: relative; padding-left: 18px; margin: 7px 0; color: var(--soft); font-size: 14px; }
+ul.pts li::before { content: ""; position: absolute; left: 2px; top: .65em; width: 6px; height: 6px; border-radius: 50%; background: var(--hl); }
+ul.pts li b { color: var(--fg); }
+footer { padding: 24px 0 90px; color: var(--mut); font-size: 12px; }
+footer a { color: var(--soft); }
+
+/* modal + player */
+.modal { position: fixed; inset: 0; background: rgba(0,0,0,.6); display: none; align-items: center; justify-content: center; z-index: 50; padding: 16px; }
+.modal.on { display: flex; }
+.mbox { background: var(--bg2); border: 1px solid var(--rule); border-radius: 12px; width: min(600px, 100%); max-height: 84vh; display: flex; flex-direction: column; }
+.mbox header { display: flex; justify-content: space-between; gap: 12px; padding: 14px 16px; border-bottom: 1px solid var(--rule); }
+.mbox .t { font: 600 1.05rem var(--serif); }
+.mbox .s { color: var(--mut); font-size: 13px; }
+.mbox .x { background: none; border: 0; color: var(--soft); font-size: 22px; cursor: pointer; line-height: 1; }
+.mbox .body { overflow: auto; padding: 6px 16px 14px; }
+.item { display: grid; grid-template-columns: 22px minmax(0, 1fr) auto auto; gap: 10px; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--rule); font-size: 13.5px; }
+.item:last-child { border-bottom: 0; }
+.item .ok { color: var(--ok); font-weight: 600; } .item .no { color: var(--bad); font-weight: 600; }
+.item .nm { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.player { position: fixed; left: 50%; transform: translateX(-50%); bottom: 12px; width: min(720px, calc(100% - 24px)); display: none; align-items: center; gap: 12px; z-index: 40;
+  background: var(--bg3); border: 1px solid var(--rule); border-radius: 12px; padding: 8px 12px; box-shadow: 0 8px 30px rgba(0,0,0,.5); }
+.player.on { display: flex; }
+.player audio { flex: 1; min-width: 0; height: 34px; }
+.player .now { font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 45%; }
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <span class="brand">Vibe Search <span>· Oct 2026</span></span>
+  <a href="#why">Why it works</a><a href="#test">Does it work</a><a href="#gap">The gap</a><a href="#learned">What we learned</a><a href="#try">Try it</a>
+  <span class="sep">|</span>
+  <a href="#built">How it was built</a><a href="#caveats">Caveats</a><a href="explain.html" style="color:var(--hl)">Explainer ↗</a>
+  <button class="themebtn" data-theme-toggle>☀️ Light</button>
+</div></nav>
+
+<!-- 1. THE FEATURE -->
+<section class="hero"><div class="wrap">
+  <div class="kicker">The feature</div>
+  <h1>Search podcasts by how they sound.</h1>
+  <div class="tag">Type a vibe. Get the exact 20-second moments that sound like it. Along the way, a study of how audio–text embeddings behave. <a class="down" href="#learned">What we learned ↓</a></div>
+  <div class="herogrid">
+    <div class="box exbox">
+      <svg class="hint" viewBox="0 0 170 70" aria-hidden="true">
+        <text x="4" y="16" class="hintt">more examples</text>
+        <path d="M70 22 C 105 20, 128 30, 141 52" class="hintp"/>
+        <path d="M131 46 L 142 55 L 146 41" class="hintp"/>
+      </svg>
+      <div class="exhead">
+        <div class="fakesearch"><span class="ic">⌕</span><span id="exq"></span></div>
+        <div class="exnav"><button class="arrow" id="exprev" aria-label="Previous example">‹</button><span id="excount"></span><button class="arrow next" id="exnext" aria-label="Next example">›</button></div>
+      </div>
+      <div id="exres" style="margin-top:6px"></div>
+      <div class="exlt" id="exlt"></div>
+    </div>
+    <div class="box verdict">
+      <div class="big" id="v-n">33 of 48</div>
+      <div class="l">top results sounded right to a listener</div>
+      <div class="s">12 searches, top 4 clips each, heard without the show name. <a class="down" href="#test">See the test ↓</a></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- 2. WHY IT WORKS -->
+<section class="alt" id="why"><div class="wrap">
+  <div class="kicker"><b>01</b> Why it works now</div>
+  <h2>Sounds and words land in the same space</h2>
+  <p class="lead">EmbeddingGemma 2 embeds <b>audio and text into one 768-d space</b>. A clip and a text query are compared directly by cosine similarity, with no labels, classifiers or training. Search is nearest-neighbour lookup.</p>
+  <div class="flow">
+    <span class="n">🔊 20 s clip</span><span class="a">→</span><span class="n m">EmbeddingGemma 2</span><span class="a">→</span>
+    <span class="n v">768-d vector</span><span class="a">· cosine ·</span><span class="n v">768-d vector</span><span class="a">←</span><span class="n m">EmbeddingGemma 2</span><span class="a">←</span><span class="n">“people laughing”</span>
+  </div>
+  <div class="mapgrid">
+    <div>
+      <div class="mapside">
+        <div class="mapwrap"><canvas id="map" aria-label="Map of all 2,808 clips; clips that sound alike sit close together"></canvas><div class="tip" id="tip"></div></div>
+        <div class="legend vlegend" id="legend"></div>
+      </div>
+      <div class="mut" style="font-size:12.5px;margin-top:4px">Each dot is one clip: its 768-d audio embedding projected to 2-D with UMAP (cosine), so clips that sound alike sit together. Click a dot to hear it.</div>
+      <div class="mapnow" id="mapnow"></div>
+    </div>
+    <div class="words">
+      <div class="k">Pick a word, see where it lands</div>
+      <div id="wbtns"></div>
+      <div class="wfree" id="wfree" style="display:none"><input id="wq" placeholder="or type your own…" aria-label="Type a word"><button class="mini" id="wgo">Show</button></div>
+      <div class="cap" id="wcap"></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- 3. DOES IT WORK -->
+<section id="test"><div class="wrap">
+  <div class="kicker"><b>02</b> Does it work</div>
+  <h2><span id="t-n">33 of 48</span> top results sounded right</h2>
+  <p class="lead">For 12 searches, the top 4 clips were played without the show name. One question: <b>does it sound like the search?</b> Click a row to hear them.</p>
+  <div class="ltgrid">
+    <div id="lt"></div>
+    <aside class="side">
+      <div class="sidek">How to read a row</div>
+      <div style="display:flex;gap:10px;align-items:center;margin:8px 0 4px"><span class="pips"><i class="y"></i><i class="y"></i><i class="n"></i><i class="y"></i></span><span style="font-size:13px">3 of 4 sounded right</span></div>
+      <dl>
+        <dt style="color:var(--ok)">Green</dt><dd>Sounds like the search.</dd>
+        <dt style="color:var(--bad)">Red</dt><dd>Doesn't.</dd>
+        <dt>Left to right</dt><dd>Result #1 to #4.</dd>
+      </dl>
+    </aside>
+  </div>
+  <div class="concl">
+    <div class="ck">What the 48 ratings tell us</div>
+    <ol>
+      <li><b>How people talk is easy: <span class="em">27 of 32</span>.</b> Banter, bedtime voices, news anchors, kids' character voices, storytelling. The embedding captures <span class="em">speaking style and mood</span> very well.</li>
+      <li><b>Specific sounds are hard: <span class="em">5 of 12</span>.</b> Whispering, music, rain. These need fine distinctions, or sounds that podcasts rarely contain.</li>
+      <li><b>Interaction is hardest: <span class="em">1 of 4</span>.</b> It found the <span class="em">mechanics</span> (people talking over each other) but not the <span class="em">emotion</span> (hostility). The shows here rarely argue for real.</li>
+      <li><b>Misses are near-misses.</b> “Whispering” returned <span class="em">soft bedtime voices</span>; “rain” returned <span class="em">calm ASMR</span>. Right mood, wrong detail.</li>
+      <li><b>The top 4 are about equally good</b> (#1 right <span id="r-r1">8</span> of 12 times, #4 <span id="r-r4">9</span>). It finds the right neighbourhood, but not the single best clip.</li>
+    </ol>
+  </div>
+</div></section>
+
+<!-- 3b. THE FINDING: MODALITY GAP -->
+<section class="alt" id="gap"><div class="wrap">
+  <div class="kicker"><b>03</b> A finding about the space</div>
+  <h2>Closing the gap between words and sounds finds the right <i>shows</i>, but loses the <i>vibe</i></h2>
+  <p class="lead">In the raw space, text sits closer to other text and audio to other audio than either does to the other: the <b>modality gap</b>. Subtracting each side's average vector (<b>centring</b>) moves words in among the clips they describe. A second listening round then showed what that costs.</p>
+  <div class="gapresult">
+    <div><div class="v" id="gr-raw">33 of 48</div><div class="l">original embeddings<br><span class="mut">live search uses this</span></div></div>
+    <div class="vs">vs</div>
+    <div><div class="v bad" id="gr-cen">27 of 48</div><div class="l">after centring<br><span class="mut">same 12 searches, top 4 each</span></div></div>
+    <div class="why2">Centring pulled results toward what shows are <b>about</b>: “upbeat music and singing” returned shows that <span class="em">talk about</span> music, and “excited sports talk” returned <span class="em">calm</span> stretches of sports shows. <span id="gr-flip"></span></div>
+  </div>
+  <div class="gapgrid three">
+    <figure><div class="gaph">Original embeddings</div><canvas id="gapRaw" aria-label="Clips and words, original embeddings: words form their own island"></canvas>
+      <figcaption id="capRaw"></figcaption></figure>
+    <figure><div class="gaph">After centring</div><canvas id="gapCen" aria-label="Clips and words after centring: words sit among matching clips"></canvas>
+      <figcaption id="capCen"></figcaption></figure>
+    <div class="legend vlegend" id="gaplegend" style="padding-top:26px"></div>
+  </div>
+  <div class="gapgrid" style="margin-top:20px;align-items:start">
+    <div>
+      <h3 style="margin-bottom:6px">Single words find the right <i>kind of show</i> far more often</h3>
+      <div class="mut" style="font-size:12.5px;margin-bottom:6px">Of each word's 25 nearest clips, how many come from the show type it describes. That's a category test, not a vibe test.</div>
+      <table class="lift" id="lift"></table>
+    </div>
+    <div class="factbox">
+      <div class="ck">The gap, in numbers</div>
+      <p><b>Mean cosine:</b> <span id="g-cos"></span>. Search still works without the fix: it only needs a word's <i>nearest</i> clips to be right, not for the word to sit among them.</p>
+      <p><b>The fix is two fixed vectors:</b> the audio mean over the catalogue and the text mean over <span id="g-np"></span> neutral phrases. At query time it's one subtraction, so it would be cheap at Spotify scale.</p>
+    </div>
+  </div>
+
+  <!-- the study -->
+  <h3 class="studyh">The study: how much of the gap should search close?</h3>
+  <p class="lead" style="margin-top:2px">Search was run at 0%, 25%, 50%, 75% and 100% of the correction. A listener rated each version's top 4 clips (<span id="st-n"></span> ratings in all, blind to the version), and the automatic category check ran alongside.</p>
+  <div class="studygrid">
+    <div class="box">
+      <div class="charth">Share of top results that sounded right, by how much of the gap is closed <span class="mut">(axis starts at 40%)</span></div>
+      <svg id="stchart" viewBox="0 0 560 300" role="img" aria-label="Listener score and automatic score against centring strength"></svg>
+      <div class="legend" id="stlegend"></div>
+    </div>
+    <div class="box">
+      <div class="charth">Short searches, clip by clip <span class="mut">(top 4 · green = sounded right)</span></div>
+      <div id="stpips"></div>
+    </div>
+  </div>
+  <div class="concl">
+    <div class="ck">What we learned</div>
+    <ol>
+      <li><b>It's a cliff, not a slope.</b> Long searches hold at <span class="em" id="c1a"></span> from 0% to 75% of the correction, then drop to <span class="em" id="c1b"></span> at 100%.</li>
+      <li><b>Centring never helps by ear.</b> Short searches go <span class="em" id="c2"></span> as more of the gap is closed.</li>
+      <li><b>It strips the sound and keeps the topic.</b> Searches <i>defined by a sound</i> lose (“music” <span id="c3m"></span>, “whispering” <span id="c3w"></span>), while <i>topic</i> searches (“sports”, “news”, “crime”, “football”) stay at 4 of 4 throughout.</li>
+      <li><b>The automatic check can't see any of this.</b> It stays flat at <span id="c4"></span>, and the per-word table above counted music <i>talk</i> shows as hits for “music”. Only listening showed the loss.</li>
+      <li><b>Raw embeddings already work for short searches:</b> <span class="em" id="c5"></span> one- or two-word searches sounded right. <b>Decision:</b> search stays uncentred. Centring is a switch (<code>rank.center</code>) for topic lookups, not for vibe.</li>
+    </ol>
+  </div>
+</div></section>
+
+<!-- 3d. WHAT WE LEARNED ABOUT THE MODEL -->
+<section id="learned"><div class="wrap">
+  <div class="kicker"><b>04</b> What we learned about the model</div>
+  <h2>Beyond the search: what this taught us about audio–text embeddings</h2>
+  <p class="lead">Every claim is labelled by how sure we are: <span class="tagm">Measured</span> <span class="tagf">Tried &amp; failed</span> <span class="tagh">Hypothesis</span> <span class="tagl">Lesson</span></p>
+
+  <div class="lgroup">What the model is good and bad at</div>
+  <div class="cards">
+    <div class="card2"><span class="tagm">Measured</span><h4>Speaking style is its strength</h4>
+      <p>Searches about <b>how people talk</b> scored <span class="em">27 of 32</span>; <b>specific sounds</b> 5 of 12; <b>interaction</b> 1 of 4.</p><a class="down" href="#test">The ratings ↑</a></div>
+    <div class="card2"><span class="tagm">Measured</span><h4>It hears the mechanics, not the emotion</h4>
+      <p>For “heated argument” it found people <b>talking over each other</b>, but none of them were <b>hostile</b>. Overlapping voices are a sound; hostility is a meaning.</p></div>
+    <div class="card2"><span class="tagm">Measured</span><h4>Two models, opposite strengths</h4>
+      <p>In the first test, <b>CLAP</b> (trained on sound events) won on laughter and whispering (5 of 5 vs 3 of 5). <b>EmbeddingGemma 2</b> won on speech styles: news anchor 5 vs 2, sports commentary 4 vs 0, crime narration 4 vs 1. <span class="mut">(top 5 from a fitting show type)</span></p></div>
+    <div class="card2"><span class="tagh">Hypothesis</span><h4>It also hears the show itself</h4>
+      <p>“More like this” stays in the <b>same show 58%</b> of the time (2% by chance), and the map clusters by show. Same hosts, mic and music give each show a sound fingerprint, so part of “vibe” is really <b>production</b>.</p></div>
+    <div class="card2"><span class="tagm">Measured</span><h4>The top results are a neighbourhood, not a ranking</h4>
+      <p>Result #1 sounded right <span id="l-r1">8</span> of 12 times, #4 <span id="l-r4">9</span>. The model finds the right <b>area</b>; order within the top few is noise.</p></div>
+  </div>
+
+  <div class="lgroup">The modality gap, and our attempt to close it</div>
+  <div class="cards">
+    <div class="card2"><span class="tagm">Measured</span><h4>Text and audio live apart in the shared space</h4>
+      <p>Mean cosine <span id="l-cos"></span>. Projected together, <b>0 of 10</b> of a word's nearest neighbours are clips.</p><a class="down" href="#gap">The plots ↑</a></div>
+    <div class="card2"><span class="tagm">Measured</span><h4>The gap doesn't break search</h4>
+      <p>Ranking only needs the <b>order</b> of similarity, and every clip pays roughly the same “crossing cost”. Hence 33 of 48 sounded right <i>with</i> the gap.</p></div>
+    <div class="card2"><span class="tagf">Tried &amp; failed</span><h4>Closing the gap made search worse</h4>
+      <p>Subtracting each side's mean (centring) closed the gap on the map (<b>0 → 7 of 10</b> neighbours are clips), but by ear long searches fell <span class="em">33 → 27</span> and short ones <span class="em">31 → 26</span>. Partial centring (25–75%) gained nothing (32–33). <b>Goal not met.</b></p></div>
+    <div class="card2"><span class="tagh">Hypothesis</span><h4>Why: the “average” carries part of the sound</h4>
+      <p>Subtracting the mean seems to remove part of what makes clips <i>sound</i> different, leaving <b>topic</b>. Evidence: “music” started returning shows that <b>talk about</b> music (2 → 0), while topic words stayed 4 of 4. <span class="mut">Untested next step: remove only the main gap direction.</span></p></div>
+  </div>
+
+  <div class="lgroup">Lessons for building with embeddings</div>
+  <div class="cards">
+    <div class="card2"><span class="tagl">Lesson</span><h4>The cheap metric pointed the wrong way</h4>
+      <p>The automatic category check stayed flat or <b>rose</b> with centring while listeners heard it get worse. It even scored “music” 11 → 19 by counting music <i>talk</i> shows. <b>Only listening caught it.</b></p></div>
+    <div class="card2"><span class="tagm">Measured</span><h4>Zero-shot depends on what you contrast with</h4>
+      <p>Laughter as “people laughing” <i>minus</i> “people talking” rated <b>ASMR above comedy</b>: anything non-speech looked like laughter. Contrasting speech with speech fixed it.</p></div>
+    <div class="card2"><span class="tagm">Measured</span><h4>Long LLM prose embeds poorly against audio</h4>
+      <p>The LLM's flowery 30-word sound descriptions pulled in odd matches (“thoughtful slow interview” → ASMR). Embedding the user's own words <i>with</i> the description, together with the empty-transcript fix, lifted the category check from <b>54% to 67%</b> on the first run <span class="mut">(the two fixes weren't measured separately)</span>.</p></div>
+    <div class="card2"><span class="tagm">Measured</span><h4>Empty inputs collapse to one point</h4>
+      <p>87 near-silent clips had empty transcripts, so all got the <b>same</b> text embedding, which happened to sit near “sports”. Slow Radio topped “excited sports talk” until we stopped scoring topic on clips with fewer than 15 words.</p></div>
+    <div class="card2"><span class="tagl">Lesson</span><h4>Precision matters on a laptop</h4>
+      <p>The model defaults to bfloat16, which ran <b>12× slower</b> on this CPU. float32 brought it to 3 s per clip (float16 gives NaNs).</p></div>
+  </div>
+</div></section>
+
+<!-- 4. TRY IT -->
+<section class="alt" id="try"><div class="wrap">
+  <div class="kicker"><b>05</b> Try it</div>
+  <h2>Search by vibe</h2>
+  <p class="lead">Pick an example, or type your own <span class="mut" id="mode"></span></p>
+  <div class="box" style="margin-top:14px">
+    <div class="searchrow"><input id="q" placeholder="two friends laughing about football, late-night energy" aria-label="Vibe search"><button class="btn" id="go">Search</button></div>
+    <div class="chips" id="chips"></div>
+    <div class="parsed" id="parsed"></div>
+    <details><summary>Fine-tune: more or less energy, pace, laughter, calm, music</summary><div class="sliders" id="sliders"></div>
+      <button class="mini" id="reset" style="margin-top:8px">Reset</button></details>
+    <div id="dres" style="margin-top:10px"></div>
+  </div>
+</div></section>
+
+<div class="divider"><div class="wrap">
+  <div class="t">That is the result. Everything below is the how.</div>
+  <div class="s">Optional reading · how it was built, caveats</div>
+</div></div>
+
+<!-- HOW IT WAS BUILT -->
+<section id="built"><div class="wrap">
+  <div class="kicker"><b>06</b> How it was built</div>
+  <h2>Four steps, all on a laptop</h2>
+  <div class="steps">
+    <div class="step"><div class="no">1</div><b>Cut</b><span id="b-cut">39 public podcasts, 3 episodes each, cut into 2,808 clips of 20 seconds.</span></div>
+    <div class="step"><div class="no">2</div><b>Embed</b>Each clip → a 768-d audio embedding (EmbeddingGemma 2, open weights, fp32 on CPU, ~3 s per clip). Beat LAION-CLAP 70% vs 51% in a 15-prompt test.</div>
+    <div class="step"><div class="no">3</div><b>Search</b>An LLM rewrites the query as a sound description; it's embedded and ranked by cosine. Score = 0.4 embedding + 0.4 measured features (pace, pauses, energy, zero-shot laughter) + 0.2 transcript topic.</div>
+    <div class="step"><div class="no">4</div><b>Listen</b>A person rated the top results, without seeing the show names.</div>
+  </div>
+  <div class="stats">
+    <div><div class="v">~4 hours</div><div class="l">laptop CPU for all clips</div></div>
+    <div><div class="v" id="b-usd">under 1¢</div><div class="l">total LLM cost (reading the search)</div></div>
+    <div><div class="v">0</div><div class="l">GPUs or paid audio APIs</div></div>
+  </div>
+</div></section>
+
+<section class="alt" id="caveats"><div class="wrap">
+  <div class="kicker"><b>07</b> Caveats</div>
+  <h2>Read with care</h2>
+  <ul class="pts">
+    <li><b>Small test:</b> one listener (the builder), 48 clips, and no random clips mixed in, so there's no “chance” score to compare with. Next: a few listeners, with random clips mixed in blind.</li>
+    <li><b>Data gaps decide the misses:</b> few shows have crowds, music, real arguments or nature sounds, so those searches are weak. That's why “a crowd cheering” and “music playing” aren't map buttons: their nearest clips are mostly ASMR.</li>
+    <li><b>Small corpus:</b> 39 English-language shows, minutes 2–10 of each episode.</li>
+    <li><b>Playback:</b> audio streams from each publisher; about half are blocked on the office network, where <code>vibe serve</code> plays a local copy.</li>
+    <li><b>Internal prototype</b> using third-party shows. Full numbers, including an earlier automatic check: <code>reports/REPORT.md</code>.</li>
+  </ul>
+</div></section>
+
+<footer><div class="wrap" id="footer"></div></footer>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="m-t">
+  <div class="mbox"><header><div><div class="t" id="m-t"></div><div class="s" id="m-s"></div></div><button class="x" id="m-x" aria-label="Close">×</button></header>
+  <div class="body" id="m-b"></div></div>
+</div>
+
+<script src="data.js"></script>
+<script>
+(() => {
+const D = window.VIBE, F = D.features, SEG = D.segments, SH = D.shows;
+const API = "http://127.0.0.1:8765";
+let live = false;
+const $ = id => document.getElementById(id);
+const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const mmss = t => `${Math.floor(t / 60)}:${String(Math.floor(t % 60)).padStart(2, "0")}`;
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"}[c]));
+const byId = Object.fromEntries(SEG.map((s, i) => [s.id, i]));
+const titleCase = s => s === s.toUpperCase() ? s.toLowerCase().replace(/\b\w/g, c => c.toUpperCase()) : s;
+const short = n => titleCase(n.replace(/:.*$/, "").replace(/ with .*$/i, "").replace(/ Podcast$/i, ""));
+
+// colour by show type: 8 validated slots, fixed order
+const GROUPS = [["comedy chat", "Comedy"], ["sleep/meditation|asmr/ambient", "Calm & sleep"], ["true crime", "True crime"],
+  ["sports banter", "Sports"], ["news briefing", "News"], ["interview|debate", "Talk & debate"], ["kids stories", "Kids' stories"], ["music-heavy", "Music"]];
+const groupOf = v => GROUPS.findIndex(([k]) => k.split("|").includes(v));
+const groupColor = g => css(`--s${g + 1}`);   // resolved colour, for canvas
+const groupVar = g => `var(--s${g + 1})`;       // CSS variable, for HTML/SVG (follows the theme)
+
+// ---------- shared: in-place audio ----------
+// One audio element; the clip plays where its ▶ button is (the button turns to ⏸, a progress line runs under the row).
+const audio = new Audio(); let playing = null, clipStart = 0, local = false;
+const CLIP_S = 20;
+function setButtons() {
+  document.querySelectorAll("[data-play]").forEach(b => {
+    const on = +b.dataset.play === playing && !audio.paused;
+    b.textContent = on ? "⏸" : "▶"; b.classList.toggle("on", on);
+    const row = b.closest(".res"); if (row) row.classList.toggle("playing", +b.dataset.play === playing);
+  });
+}
+function play(i) {
+  if (playing === i) { audio.paused ? audio.play() : audio.pause(); return; }
+  const s = SEG[i], sh = SH[s.s]; playing = i; clipStart = s.t;
+  // With the local server running, play the exact clip from disk (publisher feeds may be blocked or shifted by ads).
+  local = live;
+  audio.onerror = () => {
+    if (live && !local) { local = true; audio.src = `${API}/audio/${s.id}.mp3`; audio.play(); return; }
+    mapNow(`<b>${esc(short(sh.name))}</b> can't stream here: <a class="down" href="${esc(sh.url)}" target="_blank" rel="noopener">open episode</a>`);
+  };
+  audio.onloadedmetadata = () => { if (!local) audio.currentTime = s.t; };
+  audio.src = local ? `${API}/audio/${s.id}.mp3` : sh.url;
+  audio.play().catch(() => {}); setButtons(); draw(); mapNow();
+}
+audio.ontimeupdate = () => {
+  const el = local ? audio.currentTime : audio.currentTime - clipStart, f = Math.max(0, Math.min(1, el / CLIP_S));
+  if (!local && el >= CLIP_S) audio.pause();  // publisher stream: stop at the end of the 20 s clip
+  document.querySelectorAll(".res.playing .prog i, #mapnow .bar i").forEach(x => x.style.width = `${f * 100}%`);
+};
+audio.onplay = audio.onpause = audio.onended = () => { setButtons(); mapNow(); };
+document.addEventListener("click", e => { const p = e.target.closest("[data-play]"); if (p) play(+p.dataset.play); });
+// Under the map: what a dot click is playing (so map clicks also play in place).
+function mapNow(msg) {
+  if (msg) { $("mapnow").innerHTML = msg; return; }
+  if (playing === null) { $("mapnow").innerHTML = ""; return; }
+  const s = SEG[playing];
+  $("mapnow").innerHTML = `<button class="play" data-play="${playing}">${audio.paused ? "▶" : "⏸"}</button>
+    <span><b>${esc(short(SH[s.s].name))}</b> @ ${mmss(s.t)}</span><span class="bar"><i></i></span>`;
+}
+
+const resRow = (i, why) => { const s = SEG[i], sh = SH[s.s]; return `<div class="res${i === playing ? " playing" : ""}">
+  <button class="play" data-play="${i}" aria-label="Play ${esc(short(sh.name))} at ${mmss(s.t)}">${i === playing && !audio.paused ? "⏸" : "▶"}</button>
+  <div><div class="show"><span class="dot" style="background:${groupVar(groupOf(sh.vibe))}"></span>${esc(short(sh.name))}</div><div class="ep">${esc(sh.episode)}</div></div>
+  <div class="t">${mmss(s.t)}</div>${why && why.length ? `<div class="why">${why.map(w => `<span>${esc(w)}</span>`).join("")}</div>` : ""}
+  <div class="prog"><i></i></div></div>`; };
+
+// ---------- 1. hero examples (carousel) ----------
+const EXAMPLES = ["two friends laughing about football, late-night energy", "calm, slow, one voice, like a bedtime story",
+  "kids story with funny voices", "serious news voice reading the headlines", "excited fast talking about sports"].filter(q => D.queries[q]);
+let exi = 0;
+function showExample() {
+  const q = EXAMPLES[exi], d = D.queries[q];
+  $("exq").textContent = q; $("excount").textContent = `${exi + 1} / ${EXAMPLES.length}`;
+  $("exres").innerHTML = d.top.slice(0, 3).map(t => resRow(byId[t.id], t.why)).join("");
+  const lt = (D.listening || []).filter(x => x.q === q).sort((a, b) => a.rank - b.rank);
+  $("exlt").innerHTML = lt.length ? `<span class="pips">${lt.map(x => `<i class="${x.v || "u"}"></i>`).join("")}</span>
+    <span>listener: <b style="color:var(--fg)">${lt.filter(x => x.v === "y").length} of ${lt.length}</b> of the top 4 sounded right</span>` : "";
+}
+$("exnext").onclick = () => { exi = (exi + 1) % EXAMPLES.length; showExample(); };
+$("exprev").onclick = () => { exi = (exi - 1 + EXAMPLES.length) % EXAMPLES.length; showExample(); };
+showExample();
+
+// ---------- 3. listening test ----------
+// Current search's listening round if done, otherwise the first round (raw embeddings).
+const LT = D.listening || D.listening_v1 || [];
+const Y = LT.filter(x => x.v === "y").length, N = LT.filter(x => x.v === "n").length;
+if (LT.length) {
+  $("v-n").textContent = $("t-n").textContent = `${Y} of ${Y + N}`;
+  const rk = r => LT.filter(x => x.rank === r && x.v === "y").length; $("r-r1").textContent = rk(1); $("r-r4").textContent = rk(4);
+  $("l-r1").textContent = rk(1); $("l-r4").textContent = rk(4);
+}
+const ltq = [...new Set(LT.map(x => x.q))], ltrows = ltq.map(q => LT.filter(x => x.q === q).sort((a, b) => a.rank - b.rank));
+// The three kinds of search, which is where the pattern in the ratings shows.
+const LTGROUPS = [
+  ["How people talk", "speaking style and mood", ["two friends laughing about football, late-night energy", "calm, slow, one voice, like a bedtime story",
+    "excited fast talking about sports", "serious news voice reading the headlines", "dramatic storytelling about a murder",
+    "thoughtful slow interview about life", "kids story with funny voices", "relaxed chat between comedians, lots of laughs"]],
+  ["Specific sounds", "textures and non-speech audio", ["soft whispering, very quiet", "rain and nature sounds, no talking", "upbeat music and singing"]],
+  ["Interaction", "how speakers relate", ["heated argument, people talking over each other"]],
+];
+const yes = r => r.filter(x => x.v === "y").length;
+const ltRow = i => { const r = ltrows[i]; return `<button class="ltrow" data-lt="${i}" aria-label="${esc(ltq[i])}: ${yes(r)} of ${r.length}. Hear the clips">
+  <span class="q">“${esc(ltq[i])}”</span><span class="pips">${r.map(x => `<i class="${x.v || "u"}"></i>`).join("")}</span>
+  <span class="n">${yes(r)}/${r.length}</span></button>`; };
+const grouped = new Set(LTGROUPS.flatMap(g => g[2]));
+$("lt").innerHTML = LTGROUPS.map(([name, sub, qs]) => {
+  const idx = qs.map(q => ltq.indexOf(q)).filter(i => i >= 0); if (!idx.length) return "";
+  const y = idx.reduce((a, i) => a + yes(ltrows[i]), 0), n = idx.reduce((a, i) => a + ltrows[i].length, 0);
+  return `<div class="ltgroup"><span><span class="g">${name}</span> <span class="gs">· ${sub}</span></span><span class="gn" style="color:${y / n >= 0.7 ? "var(--ok)" : "var(--bad)"}">${y} of ${n}</span></div>` + idx.map(ltRow).join("");
+}).join("") + ltq.map((q, i) => grouped.has(q) ? "" : ltRow(i)).join("");
+$("lt").addEventListener("click", e => {
+  const b = e.target.closest("[data-lt]"); if (!b) return; const i = +b.dataset.lt, r = ltrows[i];
+  $("m-t").textContent = `“${ltq[i]}”`; $("m-s").textContent = `${r.filter(x => x.v === "y").length} of ${r.length} sounded right`;
+  $("m-b").innerHTML = r.map(x => { const si = byId[x.id], s = SEG[si];
+    return `<div class="item"><span class="${x.v === "y" ? "ok" : "no"}">${x.v === "y" ? "✓" : x.v === "n" ? "✗" : "?"}</span>
+      <span class="nm">#${x.rank} ${esc(short(SH[s.s].name))} <span class="mut">@ ${mmss(s.t)}</span></span>
+      <span class="mut" style="font-size:12px">${x.v === "y" ? "sounds right" : x.v === "n" ? "doesn't" : "not sure"}</span>
+      <button class="mini" data-play="${si}">▶ play</button></div>`; }).join("");
+  openModal();
+});
+
+// ---------- modal ----------
+let lastFocus = null;
+function openModal() { lastFocus = document.activeElement; $("modal").classList.add("on"); $("m-x").focus(); }
+function closeModal() { $("modal").classList.remove("on"); if (lastFocus) lastFocus.focus(); }
+$("m-x").onclick = closeModal;
+$("modal").addEventListener("click", e => { if (e.target.id === "modal") closeModal(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
+
+// ---------- 2. the map with words ----------
+const cv = $("map"), ctx = cv.getContext("2d");
+let lit = new Set(), hover = null;
+const pos = s => { const p = 14 * (window.devicePixelRatio || 1), w = cv.width - 2 * p, h = cv.height - 2 * p; return [p + s.x * w, p + (1 - s.y) * h]; };
+function draw() {
+  const dpr = window.devicePixelRatio || 1, w = cv.clientWidth * dpr; if (!w) return;
+  if (cv.width !== Math.round(w)) { cv.width = Math.round(w); cv.height = Math.round(w / 1.25); }
+  ctx.clearRect(0, 0, cv.width, cv.height);
+  const r = 3 * dpr, surf = css("--bg"), any = lit.size > 0;
+  SEG.forEach((s, i) => { if (lit.has(i)) return; const [x, y] = pos(s);
+    ctx.globalAlpha = any ? 0.22 : 0.9; ctx.beginPath(); ctx.arc(x, y, r, 0, 7); ctx.fillStyle = groupColor(groupOf(SH[s.s].vibe)); ctx.fill(); });
+  ctx.globalAlpha = 1;
+  lit.forEach(i => { const [x, y] = pos(SEG[i]);
+    ctx.beginPath(); ctx.arc(x, y, 7 * dpr, 0, 7); ctx.fillStyle = surf; ctx.fill();
+    ctx.beginPath(); ctx.arc(x, y, 5.5 * dpr, 0, 7); ctx.fillStyle = groupColor(groupOf(SH[SEG[i].s].vibe)); ctx.fill();
+    ctx.lineWidth = 2 * dpr; ctx.strokeStyle = css("--hl"); ctx.stroke(); });
+  if (playing !== null) { const [x, y] = pos(SEG[playing]); ctx.beginPath(); ctx.arc(x, y, 10 * dpr, 0, 7); ctx.lineWidth = 2.5 * dpr; ctx.strokeStyle = css("--fg"); ctx.stroke(); }
+}
+function nearest(ev) {
+  const b = cv.getBoundingClientRect(), k = cv.width / b.width, mx = (ev.clientX - b.left) * k, my = (ev.clientY - b.top) * k;
+  let best = null, bd = (12 * k) ** 2;
+  SEG.forEach((s, i) => { const [x, y] = pos(s), d = (x - mx) ** 2 + (y - my) ** 2; if (d < bd) { bd = d; best = i; } }); return best;
+}
+cv.addEventListener("mousemove", ev => {
+  const i = nearest(ev), tip = $("tip"); if (i === null) { tip.style.display = "none"; cv.style.cursor = "default"; return; }
+  const s = SEG[i], b = cv.getBoundingClientRect(); cv.style.cursor = "pointer";
+  tip.innerHTML = `<b>${esc(short(SH[s.s].name))}</b> @ ${mmss(s.t)}`; tip.style.display = "block";
+  tip.style.left = Math.min(ev.clientX - b.left + 12, b.width - tip.offsetWidth - 4) + "px"; tip.style.top = (ev.clientY - b.top + 12) + "px";
+});
+cv.addEventListener("mouseleave", () => $("tip").style.display = "none");
+cv.addEventListener("click", ev => { const i = nearest(ev); if (i !== null) play(i); });
+$("legend").innerHTML = GROUPS.map(([, n], g) => `<span><span class="dot" style="background:${groupVar(g)}"></span>${n}</span>`).join("");
+
+const GLABEL = g => GROUPS[g][1].toLowerCase();
+function showWord(w, idx) {
+  lit = new Set(idx); draw();
+  document.querySelectorAll(".wbtn").forEach(b => b.classList.toggle("on", b.dataset.w === w));
+  const counts = {}; idx.forEach(i => { const g = groupOf(SH[SEG[i].s].vibe); counts[g] = (counts[g] || 0) + 1; });
+  const [g, n] = Object.entries(counts).sort((a, b) => b[1] - a[1])[0];
+  $("wcap").innerHTML = `The <b>${idx.length} clips</b> closest to “${esc(w)}”: <b>${n} are ${esc(GLABEL(+g))}</b> shows.
+    <span class="mut">Lit up on the map. Click one to hear it.</span>`;
+}
+$("wbtns").innerHTML = D.words.map(x => `<button class="wbtn" data-w="${esc(x.w)}"><span class="q">“</span>${esc(x.w)}<span class="q">”</span></button>`).join("");
+$("wbtns").addEventListener("click", e => { const b = e.target.closest(".wbtn"); if (b) showWord(b.dataset.w, D.words.find(x => x.w === b.dataset.w).ids); });
+async function freeWord() {
+  const w = $("wq").value.trim(); if (!w) return;
+  $("wcap").textContent = "Finding…";
+  try { const r = await (await fetch(`${API}/near?q=${encodeURIComponent(w)}`)).json(); showWord(w, r.idx); }
+  catch (e) { $("wcap").textContent = "Needs the local server (vibe serve)."; }
+}
+$("wgo").onclick = freeWord; $("wq").addEventListener("keydown", e => { if (e.key === "Enter") freeWord(); });
+window.addEventListener("resize", draw);
+
+// ---------- 4. try it ----------
+const FI = Object.fromEntries(F.map((f, i) => [f, i]));
+const WORDS = {energy: ["low energy", "high energy"], expressiveness: ["flat delivery", "expressive voices"], pace_wpm: ["slow pace", "fast pace"],
+  pause_ratio: ["few pauses", "lots of pauses"], music_score: ["no music", "music"], laughter_score: ["no laughter", "lots of laughter"], crowd_score: ["no crowd", "crowd noise"]};
+const LABEL = {energy: "Energy", pace_wpm: "Pace", laughter_score: "Laughter", pause_ratio: "Calm / pauses", music_score: "Music"};
+const SLIDERS = ["energy", "pace_wpm", "laughter_score", "pause_ratio", "music_score"], slider = {};
+function describe(seg, targets) {
+  let out = Object.entries(targets).map(([f, v]) => [1 - Math.abs(seg.f[FI[f]] - v), f, v]).filter(x => x[0] >= 0.75)
+    .sort((a, b) => b[0] - a[0]).slice(0, 3).map(([, f, v]) => WORDS[f][v > 0.5 ? 1 : 0]);
+  if (!out.length) out = F.map(f => [Math.abs(seg.f[FI[f]] - 0.5), f]).filter(x => x[0] >= 0.35).sort((a, b) => b[0] - a[0]).slice(0, 3)
+    .map(([, f]) => WORDS[f][seg.f[FI[f]] > 0.5 ? 1 : 0]);
+  return out;
+}
+let current = null;
+function ranked() {
+  const active = Object.entries(slider).filter(([, v]) => v !== null), base = current ? current.score : null;
+  if (!base && !active.length) return [];
+  let lo = 0, hi = 1; if (base) { lo = Math.min(...base); hi = Math.max(...base); }
+  const fit = i => active.reduce((a, [f, v]) => a + 1 - Math.abs(SEG[i].f[FI[f]] - v), 0) / (active.length || 1);
+  const score = SEG.map((_, i) => base && active.length ? 0.5 * (base[i] - lo) / (hi - lo || 1) + 0.5 * fit(i) : base ? base[i] : fit(i));
+  const ord = score.map((s, i) => [s, i]).sort((a, b) => b[0] - a[0]), out = [], per = {};
+  for (const [, i] of ord) { const s = SEG[i]; if ((per[s.s] || 0) >= 2 || out.some(j => SEG[j].s === s.s && Math.abs(SEG[j].t - s.t) <= 20)) continue;
+    out.push(i); per[s.s] = (per[s.s] || 0) + 1; if (out.length === 6) break; }
+  return out;
+}
+const lv = t => Object.fromEntries(Object.entries(t || {}).map(([f, v]) => [f, {low: .2, mid: .5, high: .8}[v]]));
+function render() {
+  const active = Object.fromEntries(Object.entries(slider).filter(([, v]) => v !== null));
+  const pre = current ? Object.fromEntries(current.top.map(t => [t.id, t.why])) : {};
+  const targets = {...(current ? lv(current.parsed.targets) : {}), ...active}, rows = ranked();
+  $("dres").innerHTML = rows.length ? rows.map(i => resRow(i, !Object.keys(active).length && pre[SEG[i].id] ? pre[SEG[i].id] : describe(SEG[i], targets))).join("")
+    : `<div class="empty">Pick an example above.</div>`;
+}
+function useDemo(q) {
+  const d = D.queries[q]; current = {parsed: d.parsed, score: d.score, top: d.top}; $("q").value = q;
+  $("parsed").innerHTML = `Heard as: <b>${esc(d.parsed.vibe_text)}</b>`;
+  document.querySelectorAll(".chip[data-q]").forEach(c => c.classList.toggle("on", c.dataset.q === q)); render();
+}
+async function doSearch() {
+  const q = $("q").value.trim(); if (!q) return;
+  const known = Object.keys(D.queries).find(k => k.toLowerCase() === q.toLowerCase()); if (known) return useDemo(known);
+  if (!live) { $("parsed").innerHTML = "Your own searches need the local server (<code>vibe serve</code>). Try an example."; return; }
+  $("parsed").textContent = "Searching…";
+  try { const r = await (await fetch(`${API}/search?q=${encodeURIComponent(q)}`)).json(); if (r.error) throw new Error(r.error);
+    current = {parsed: r.parsed, score: r.score, top: r.top}; $("parsed").innerHTML = `Heard as: <b>${esc(r.parsed.vibe_text)}</b>`;
+    document.querySelectorAll(".chip[data-q]").forEach(c => c.classList.remove("on")); render();
+  } catch (e) { $("parsed").textContent = "Search failed: " + e.message; }
+}
+$("chips").innerHTML = Object.keys(D.queries).map(q => `<button class="chip" data-q="${esc(q)}">${esc(q)}</button>`).join("");
+$("chips").onclick = e => { const q = e.target.dataset && e.target.dataset.q; if (q) useDemo(q); };
+$("go").onclick = doSearch; $("q").addEventListener("keydown", e => { if (e.key === "Enter") doSearch(); });
+$("sliders").innerHTML = SLIDERS.map(f => `<div class="slider off" id="sl-${f}"><label for="in-${f}">${LABEL[f]} <span id="v-${f}">any</span></label>
+  <input type="range" id="in-${f}" min="0" max="100" value="50"></div>`).join("");
+SLIDERS.forEach(f => { slider[f] = null; $(`in-${f}`).addEventListener("input", e => { slider[f] = e.target.value / 100;
+  $(`v-${f}`).textContent = e.target.value < 34 ? "low" : e.target.value > 66 ? "high" : "mid"; $(`sl-${f}`).classList.remove("off"); render(); }); });
+$("reset").onclick = () => { SLIDERS.forEach(f => { slider[f] = null; $(`in-${f}`).value = 50; $(`v-${f}`).textContent = "any"; $(`sl-${f}`).classList.add("off"); }); render(); };
+
+// ---------- 3b. modality gap: two plots ----------
+(function gapPlots() {
+  const G = D.gap; if (!G) return;
+  const segGroup = SEG.map(s => groupOf(SH[s.s].vibe));
+  function plot(id, P, labels) {
+    const c = $(id), x = c.getContext("2d"), dpr = window.devicePixelRatio || 1, w = Math.round(c.clientWidth * dpr); if (!w) return;
+    c.width = c.height = w; x.clearRect(0, 0, w, w);
+    const pad = 22 * dpr, X = p => pad + p[0] * (w - 2 * pad), Y = p => pad + (1 - p[1]) * (w - 2 * pad);
+    P.clips.forEach((p, i) => { x.globalAlpha = 0.55; x.beginPath(); x.arc(X(p), Y(p), 2.2 * dpr, 0, 7); x.fillStyle = groupColor(segGroup[i]); x.fill(); });
+    x.globalAlpha = 1;
+    P.phrases.forEach(p => { x.beginPath(); x.arc(X(p), Y(p), 2.6 * dpr, 0, 7); x.lineWidth = 1 * dpr; x.strokeStyle = css("--soft"); x.stroke(); });
+    x.font = `600 ${12 * dpr}px IBM Plex Sans, system-ui, sans-serif`; x.textBaseline = "middle";
+    P.words.forEach(o => { const px = X([o.x, o.y]), py = Y([o.x, o.y]);
+      x.beginPath(); x.arc(px, py, 5 * dpr, 0, 7); x.fillStyle = css("--hl"); x.fill(); x.lineWidth = 2 * dpr; x.strokeStyle = css("--bg"); x.stroke();
+      if (!labels) return;
+      const t = o.w, tw = x.measureText(t).width, right = px + 8 * dpr + tw < w - 4 * dpr, tx = right ? px + 8 * dpr : px - 8 * dpr - tw;
+      x.lineWidth = 3 * dpr; x.strokeStyle = css("--bg"); x.strokeText(t, tx, py); x.fillStyle = css("--fg"); x.fillText(t, tx, py); });
+    if (!labels) {
+      // One ring around the whole text island instead of 10 overlapping labels.
+      const pts = P.words.map(o => [X([o.x, o.y]), Y([o.x, o.y])]);  // the 10 test words (a stray phrase would inflate it)
+      const cx = pts.reduce((a, p) => a + p[0], 0) / pts.length, cy = pts.reduce((a, p) => a + p[1], 0) / pts.length;
+      const r = Math.max(...pts.map(p => Math.hypot(p[0] - cx, p[1] - cy))) + 10 * dpr;
+      x.setLineDash([6 * dpr, 4 * dpr]); x.beginPath(); x.arc(cx, cy, r, 0, 7); x.lineWidth = 2 * dpr; x.strokeStyle = css("--hl"); x.stroke(); x.setLineDash([]);
+      const t = "all 10 words are here", tw = x.measureText(t).width;
+      const tx = Math.min(Math.max(cx - tw / 2, 4 * dpr), w - tw - 4 * dpr), ty = cy - r - 12 * dpr > 12 * dpr ? cy - r - 12 * dpr : cy + r + 14 * dpr;
+      x.lineWidth = 3 * dpr; x.strokeStyle = css("--bg"); x.strokeText(t, tx, ty); x.fillStyle = css("--hl"); x.fillText(t, tx, ty);
+    }
+  }
+  const draw2 = () => { plot("gapRaw", G.raw, false); plot("gapCen", G.centred, true); };
+  draw2(); window.addEventListener("resize", draw2);
+  const k = v => Math.round(v * 10);
+  $("capRaw").innerHTML = `Words (yellow) and phrases (rings) form <b>their own island</b>: <b>${k(G.raw.near_clips)} of 10</b> nearest neighbours of a word are clips.`;
+  $("capCen").innerHTML = `Words land <b>among the clips they describe</b>: <b>${k(G.centred.near_clips)} of 10</b> nearest neighbours are clips.`;
+  $("gaplegend").innerHTML = `<span><span class="dot" style="background:var(--hl)"></span>test word</span><span><span class="dot" style="background:none;border:1px solid var(--soft)"></span>neutral phrase (used for the text mean)</span>` +
+    GROUPS.map(([, n], g) => `<span><span class="dot" style="background:${groupVar(g)}"></span>${n}</span>`).join("");
+  const C = G.cos; $("g-cos").textContent = $("l-cos").textContent = `clip↔clip ${C.audio_audio.toFixed(2)}, word↔word ${C.text_text.toFixed(2)}, word↔clip ${C.text_audio.toFixed(2)}`;
+  $("g-np").textContent = G.phrases_n || (G.raw.phrases || []).length;
+  if (G.lift) $("lift").innerHTML = `<tr><th>Word</th><th class="n">Before</th><th class="n">After</th><th></th></tr>` +
+    G.lift.map(r => `<tr><td>“${esc(r.w)}”</td><td class="n mut">${r.raw}</td><td class="n" style="color:${r.centred >= r.raw ? "var(--ok)" : "var(--bad)"};font-weight:600">${r.centred}</td>
+      <td class="barcell"><div class="b2"><i class="r" style="width:${r.raw / 25 * 100}%"></i><i class="c" style="width:${r.centred / 25 * 100}%"></i></div></td></tr>`).join("") +
+    `<tr><td colspan="4" class="mut" style="font-size:12px;border:0">grey bar = before · yellow bar = after · out of 25</td></tr>`;
+  // Before/after listening scores, and which searches moved.
+  const v1 = D.listening_v1 || [], v2 = D.listening_centred || [];
+  const yy = a => a.filter(x => x.v === "y").length, dd = a => a.filter(x => x.v === "y" || x.v === "n").length;
+  if (v1.length) $("gr-raw").textContent = `${yy(v1)} of ${dd(v1)}`;
+  if (v2.length) {
+    $("gr-cen").textContent = `${yy(v2)} of ${dd(v2)}`;
+    const qs = [...new Set(v1.map(x => x.q))], delta = qs.map(q => [q, yy(v2.filter(x => x.q === q)) - yy(v1.filter(x => x.q === q))]);
+    const up = delta.filter(d => d[1] > 0).map(d => `“${esc(d[0].split(",")[0])}”`), down = delta.filter(d => d[1] < 0).length;
+    if (up.length) $("gr-flip").innerHTML = `It helped where topic and sound go together (${up.join(", ")}) and hurt in ${down} other searches.`;
+  }
+})();
+
+// ---------- 3c. the centring-strength study ----------
+(function studyCharts() {
+  const S = D.study; if (!S) return;
+  const pct = (y, n) => n ? y / n : 0, pc0 = v => `${Math.round(v * 100)}%`;
+  const series = [
+    {name: "Long searches · listener", c: "var(--s1)", pts: S.long.map(r => [r.strength, pct(r.yes, r.rated), `${r.yes} of ${r.rated}`])},
+    {name: "Short searches · listener", c: "var(--s3)", pts: S.short.map(r => [r.strength, pct(r.yes, r.rated), `${r.yes} of ${r.rated}`])},
+    {name: "Automatic category check", c: "var(--mut)", dash: "6 5", pts: S.category.map(r => [r.strength, r.share, pc0(r.share)])},
+  ];
+  // chart: x = share of the gap closed (0..1), y = share sounded right (0..1)
+  const W = 560, H = 300, m = {l: 48, r: 150, t: 16, b: 40};
+  // y is zoomed to 40-90% (a line chart needs no zero baseline) so the drop at 100% is visible
+  const Y0 = 0.4, Y1 = 0.9;
+  const X = v => m.l + v * (W - m.l - m.r), Y = v => H - m.b - (v - Y0) / (Y1 - Y0) * (H - m.t - m.b);
+  let g = "";
+  [.4, .5, .6, .7, .8, .9].forEach(v => {
+    g += `<line x1="${m.l}" x2="${W - m.r}" y1="${Y(v)}" y2="${Y(v)}" style="stroke:var(--rule)" />
+      <text x="${m.l - 8}" y="${Y(v) + 4}" style="fill:var(--mut)" font-size="11.5" text-anchor="end">${Math.round(v * 100)}%</text>`;
+  });
+  [0, .25, .5, .75, 1].forEach(v => {
+    g += `<text x="${X(v)}" y="${H - m.b + 17}" style="fill:var(--mut)" font-size="11.5" text-anchor="middle">${v * 100}%</text>`;
+  });
+  g += `<text x="${(m.l + W - m.r) / 2}" y="${H - 6}" style="fill:var(--soft)" font-size="12" text-anchor="middle">share of the modality gap closed (0% = original embeddings)</text>`;
+  const labelY = [];
+  series.forEach(s => {
+    g += `<polyline fill="none" style="stroke:${s.c}" stroke-width="2" ${s.dash ? `stroke-dasharray="${s.dash}"` : ""} points="${s.pts.map(p => `${X(p[0])},${Y(p[1])}`).join(" ")}" />`;
+    s.pts.forEach(p => { g += `<circle cx="${X(p[0])}" cy="${Y(p[1])}" r="5" style="fill:${s.c};stroke:var(--bg3)" stroke-width="2"><title>${s.name}: ${p[2]} at ${pc0(p[0])} of the gap closed</title></circle>`; });
+    // direct label at the line's end, nudged apart if two collide
+    const last = s.pts[s.pts.length - 1]; let ly = Y(last[1]) + 4; while (labelY.some(y => Math.abs(y - ly) < 15)) ly += 15; labelY.push(ly);
+    g += `<text x="${X(last[0]) + 10}" y="${ly}" style="fill:var(--fg)" font-size="12">${s.name.split(" · ")[0]} <tspan style="fill:var(--mut)">${last[2]}</tspan></text>`;
+  });
+  const longCliff = S.long[S.long.length - 1];
+  g += `<text x="${X(1) - 6}" y="${Y(pct(longCliff.yes, longCliff.rated)) + 20}" style="fill:var(--bad)" font-size="11.5" text-anchor="end">the cliff</text>`;
+  $("stchart").innerHTML = g;
+  $("stlegend").innerHTML = series.map(s => `<span><span style="display:inline-block;width:18px;height:0;border-top:2px ${s.dash ? "dashed" : "solid"} ${s.c};vertical-align:middle;margin-right:6px"></span>${s.name}</span>`).join("");
+
+  // short-search pip grid
+  const P = S.pips.short, strengths = Object.keys(P).sort((a, b) => a - b), words = Object.keys(P[strengths[0]]);
+  const yesN = arr => arr.filter(x => x.v === "y").length;
+  $("stpips").innerHTML = `<div class="prow h"><span></span>${strengths.map(s => `<span style="text-align:right">${s === "0" ? "original" : `${Math.round(s * 100)}% closed`}</span>`).join("")}</div>` +
+    words.map(w => `<div class="prow"><span>“${esc(w)}”</span>${strengths.map(s => { const a = P[s][w];
+      return `<span class="cell2"><span class="pips sm">${a.map(x => `<i class="${x.v || "u"}" data-clip="${byId[x.id]}" title="play" style="cursor:pointer"></i>`).join("")}</span><b>${yesN(a)}</b></span>`; }).join("")}</div>`).join("");
+  $("stpips").addEventListener("click", e => { const p = e.target.closest("[data-clip]"); if (p) play(+p.dataset.clip); });
+
+  // numbers in the conclusions
+  const keys = new Set(); Object.values(S.pips).forEach(st => Object.values(st).forEach(qm => Object.entries(qm).forEach(([q, a]) => a.forEach(x => keys.add(q + "|" + x.id)))));
+  $("st-n").textContent = keys.size;
+  const pre = S.long.filter(r => r.strength < 1).map(r => r.yes);
+  $("c1a").textContent = `${Math.min(...pre)}–${Math.max(...pre)} of 48`; $("c1b").textContent = `${longCliff.yes}`;
+  $("c2").textContent = S.short.map(r => r.yes).join(" → ") + ` of ${S.short[0].rated}`;
+  const w0 = strengths[0], w1 = strengths[strengths.length - 1], chg = w => `${yesN(P[w0][w])} → ${yesN(P[w1][w])}`;
+  if (P[w0].music) $("c3m").textContent = chg("music"); if (P[w0].whispering) $("c3w").textContent = chg("whispering");
+  const cats = S.category.map(r => r.share); $("c4").textContent = `${pc0(Math.min(...cats))}–${pc0(Math.max(...cats))}`;
+  $("c5").textContent = `${S.short[0].yes} of ${S.short[0].rated}`;
+})();
+
+// ---------- below the line ----------
+$("b-cut").textContent = `${D.stats.shows} public podcasts, 3 episodes each, cut into ${D.stats.segments.toLocaleString("en")} clips of 20 seconds.`;
+if (D.eval && D.eval.spend_usd) $("b-usd").textContent = `$${D.eval.spend_usd.toFixed(3)}`;
+$("footer").innerHTML = `Shows (audio streams from each publisher; nothing is hosted here): ` +
+  SH.map(s => s.link ? `<a href="${esc(s.link)}" target="_blank" rel="noopener">${esc(short(s.name))}</a>` : esc(short(s.name))).join(" · ") +
+  `<br>Internal prototype. Transcripts are used for ranking only and are not shown.`;
+
+useDemo(EXAMPLES[0]);
+// Open on the cleanest example; "people laughing" is spread out more, one click away.
+const W0 = D.words.find(x => x.w === "a news anchor") || D.words[0];
+showWord(W0.w, W0.ids);
+fetch(`${API}/health`).then(r => r.json()).then(() => { live = true; $("mode").textContent = "(live: any search works)."; $("wfree").style.display = "flex"; })
+  .catch(() => { $("mode").textContent = "(your own searches need the local server running)."; });
+})();
+</script>
+</body>
+</html>

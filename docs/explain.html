@@ -1,0 +1,612 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vibe Search Explained</title>
+<script src="theme.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;1,9..144,500&family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans:ital,wght@0,400;0,600;1,400&display=swap">
+<style>
+:root {
+  --bg: #0d1016; --bg2: #141922; --bg3: #1c2230; --rule: #2a3241;
+  --fg: #ece8df; --soft: #c9c4b8; --mut: #8d95a3;
+  --ok: #2fd3a7; --bad: #ff6a5e; --hl: #f6b93b; --sky: #5aa9ff;
+  --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500; --s5: #d55181; --s6: #008300; --s7: #9085e9; --s8: #e66767;
+  --serif: "Fraunces", Georgia, serif; --sans: "IBM Plex Sans", system-ui, "Segoe UI", sans-serif; --mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+/* light theme: same roles, light-surface steps (categorical = the palette's light-mode slots) */
+:root[data-theme="light"] {
+  --bg: #f6f5f1; --bg2: #ffffff; --bg3: #eeede8; --rule: #d9d7cf;
+  --fg: #15171c; --soft: #3d4048; --mut: #6a6f78;
+  --ok: #0e8a62; --bad: #c63a30; --hl: #a86f00; --sky: #1d68c8;
+  --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a; --s4: #eda100; --s5: #e87ba4; --s6: #008300; --s7: #6250d6; --s8: #e34948;
+}
+.themebtn { position: fixed; top: 12px; right: 14px; z-index: 30; font: inherit; font-size: 13px; cursor: pointer; border: 1px solid var(--rule);
+  background: var(--bg3); color: var(--fg); border-radius: 999px; padding: 5px 13px; box-shadow: 0 2px 10px rgba(0,0,0,.25); }
+.themebtn:hover { border-color: var(--hl); }
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.65 var(--sans); -webkit-font-smoothing: antialiased; }
+a { color: var(--sky); }
+.wrap { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+header.top { padding: 40px 0 26px; border-bottom: 1px solid var(--rule); }
+h1, h2, h3 { font-family: var(--serif); font-weight: 600; letter-spacing: -.01em; line-height: 1.2; margin: 0; }
+h1 { font-size: clamp(1.8rem, 3.4vw, 2.5rem); }
+h2 { font-size: clamp(1.4rem, 2.4vw, 1.8rem); margin: 0 0 8px; }
+h3 { font-size: 1.12rem; margin: 22px 0 6px; }
+p { margin: 10px 0; color: var(--soft); }
+p b, li b { color: var(--fg); }
+.mut { color: var(--mut); }
+.k { font: 500 11.5px var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--mut); }
+.k b { color: var(--hl); font-weight: 500; }
+section { padding: 38px 0; border-bottom: 1px solid var(--rule); }
+.hl { color: var(--hl); font-weight: 600; }
+code, .mono { font-family: var(--mono); font-size: 13.5px; color: var(--hl); }
+.toc { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 8px; margin-top: 18px; }
+.toc a { text-decoration: none; color: var(--fg); background: var(--bg2); border: 1px solid var(--rule); border-radius: 10px; padding: 10px 12px; font-size: 14.5px; }
+.toc a:hover { border-color: var(--hl); }
+.toc a span { color: var(--hl); font-family: var(--mono); font-size: 12px; margin-right: 8px; }
+.tldr { background: rgba(246,185,59,.08); border: 1px solid rgba(246,185,59,.45); border-radius: 12px; padding: 12px 16px; margin: 14px 0; }
+.tldr .k { color: var(--hl); }
+.tldr p { margin: 4px 0 0; color: var(--fg); }
+.analogy { background: var(--bg2); border-left: 3px solid var(--s3); border-radius: 0 10px 10px 0; padding: 10px 16px; margin: 14px 0; }
+.analogy .k { color: var(--s3); }
+.ours { background: var(--bg2); border-left: 3px solid var(--s1); border-radius: 0 10px 10px 0; padding: 10px 16px; margin: 14px 0; }
+.ours .k { color: var(--sky); }
+.warn { background: rgba(255,106,94,.07); border-left: 3px solid var(--bad); border-radius: 0 10px 10px 0; padding: 10px 16px; margin: 14px 0; }
+.warn .k { color: var(--bad); }
+.analogy p, .ours p, .warn p { margin: 6px 0; }
+ul, ol { color: var(--soft); padding-left: 22px; }
+li { margin: 5px 0; }
+.fig { position: relative; background: var(--bg2); border: 1px solid var(--rule); border-radius: 12px; padding: 14px; margin: 18px 0; }
+.fig canvas, .fig svg.plot { width: 100%; display: block; border-radius: 8px; }
+.cap { font-size: 13.5px; color: var(--mut); margin-top: 8px; }
+.cap b { color: var(--soft); }
+.ctrl { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin-top: 10px; font-size: 14px; color: var(--soft); }
+.ctrl input[type=range] { width: 220px; accent-color: var(--hl); }
+.readout { font-family: var(--mono); font-size: 13.5px; color: var(--fg); background: var(--bg3); border: 1px solid var(--rule); border-radius: 8px; padding: 6px 10px; }
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 720px) { .two { grid-template-columns: 1fr; } }
+.pill { display: inline-block; font-size: 12.5px; padding: 1px 9px; border-radius: 999px; background: var(--bg3); color: var(--soft); border: 1px solid var(--rule); }
+.flow { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 14px 0; font-size: 14px; }
+.flow .n { border: 1px solid var(--rule); border-radius: 8px; padding: 6px 10px; background: var(--bg3); }
+.flow .m { border-color: var(--s1); }
+.flow .v { color: var(--hl); border-color: rgba(246,185,59,.5); font-family: var(--mono); font-size: 12.5px; }
+.flow .a { color: var(--mut); }
+table { border-collapse: collapse; width: 100%; font-size: 14px; font-variant-numeric: tabular-nums; }
+th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--rule); }
+th { color: var(--mut); font-weight: 400; }
+td.n, th.n { text-align: right; }
+.bars .row { display: grid; grid-template-columns: 130px minmax(0, 1fr) 44px; gap: 10px; align-items: center; font-size: 13.5px; margin: 5px 0; }
+.bars .track { height: 12px; background: var(--bg3); border-radius: 6px; overflow: hidden; }
+.bars .track i { display: block; height: 100%; border-radius: 6px; }
+.formula { font-family: var(--mono); font-size: 14px; background: var(--bg); border: 1px solid var(--rule); border-radius: 10px; padding: 12px 14px; color: var(--fg); overflow-x: auto; white-space: pre; }
+.quiz details { background: var(--bg2); border: 1px solid var(--rule); border-radius: 10px; padding: 10px 14px; margin: 8px 0; }
+.quiz summary { cursor: pointer; font-weight: 600; color: var(--fg); }
+.quiz details[open] summary { color: var(--hl); }
+.quiz details p { margin: 8px 0 2px; }
+.gloss { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px; }
+.gloss div { background: var(--bg2); border: 1px solid var(--rule); border-radius: 10px; padding: 10px 12px; font-size: 14px; color: var(--soft); }
+.gloss b { color: var(--hl); display: block; font-family: var(--mono); font-size: 13px; margin-bottom: 2px; }
+/* hand-drawn yellow arrows */
+svg.arrows { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
+svg.arrows path { fill: none; stroke: var(--hl); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+svg.arrows text { fill: var(--hl); font: italic 500 14px var(--serif); paint-order: stroke; stroke: var(--bg); stroke-width: 4px; }
+.pips { display: inline-flex; gap: 3px; vertical-align: middle; }
+.pips i { width: 14px; height: 10px; border-radius: 2px; display: inline-block; }
+.pips i.y { background: var(--ok); } .pips i.n { background: rgba(255,106,94,.13); border: 1px solid var(--bad); }
+footer { padding: 30px 0 60px; color: var(--mut); font-size: 13px; }
+</style>
+</head>
+<body>
+<button class="themebtn" data-theme-toggle>☀️ Light</button>
+
+<header class="top"><div class="wrap">
+  <div class="k">Vibe Search · the explainer</div>
+  <h1>Everything technical in this project, explained like you're smart but sleepy</h1>
+  <p>Embeddings, cosine, multimodal models, UMAP, the modality gap, centring, why our metric lied to us, and what every chart on the demo page is saying. Real examples, real data from this project, some toys you can drag, and a quiz at the end. <span class="hl">Yellow arrows point at the thing to look at.</span></p>
+  <div class="toc">
+    <a href="#emb"><span>01</span>Embeddings: a map of meaning</a>
+    <a href="#cos"><span>02</span>Cosine similarity (drag the toy)</a>
+    <a href="#multi"><span>03</span>Multimodal: sound and words, one map</a>
+    <a href="#pipe"><span>04</span>What we actually built</a>
+    <a href="#umap"><span>05</span>UMAP: squashing 768-d into 2-D</a>
+    <a href="#eval"><span>06</span>How we tested (and why metrics lie)</a>
+    <a href="#gap"><span>07</span>The modality gap (slider toy)</a>
+    <a href="#centre"><span>08</span>Centring, and the twist</a>
+    <a href="#plots"><span>09</span>Every chart on the demo page, decoded</a>
+    <a href="#quiz"><span>10</span>Quiz + glossary</a>
+  </div>
+</div></header>
+
+<!-- 01 EMBEDDINGS -->
+<section id="emb"><div class="wrap">
+  <div class="k"><b>01</b> Embeddings</div>
+  <h2>An embedding is a list of numbers that says where a thing lives on a map of meaning</h2>
+  <div class="analogy"><div class="k">Real life</div>
+    <p>Describe a song with sliders: <b>energy 0.9, sadness 0.1, tempo 0.8, acoustic 0.2</b>. Now every song is a point in a 4-slider space, and <b>songs with similar slider values sound similar</b>. You could find “songs like this one” by finding the nearest points. That's the whole trick.</p>
+  </div>
+  <p>An <b>embedding model</b> does this automatically, but with <b>768 sliders</b> instead of 4, and nobody chose what the sliders mean. The model learned them from huge amounts of data, so that <b>things with similar meaning get similar numbers</b>. A 768-slider list is called a <b>768-dimensional vector</b>, or just “768-d”.</p>
+  <div class="fig" id="figToySpace">
+    <canvas id="toySpace" height="300"></canvas>
+    <svg class="arrows" id="arrToySpace"></svg>
+    <div class="cap">A pretend 2-slider version. <b>Similar things cluster:</b> laughing near giggling, rain near waves. Real embeddings do exactly this, just in 768 dimensions you can't draw.</div>
+  </div>
+  <div class="ours"><div class="k">In our project</div>
+    <p>Every 20-second podcast clip goes into <b>EmbeddingGemma 2</b> and comes out as 768 numbers. We have <b id="nclips">2,808</b> clips, so the whole catalogue is a table of 2,808 rows × 768 columns (<code>index/audio_emb.npy</code>). Searching is “find the rows nearest to the query's row”.</p>
+  </div>
+  <div class="tldr"><div class="k">TL;DR</div><p>Embedding = coordinates on a meaning map. Near = similar. 768-d = 768 coordinates.</p></div>
+</div></section>
+
+<!-- 02 COSINE -->
+<section id="cos"><div class="wrap">
+  <div class="k"><b>02</b> Cosine similarity</div>
+  <h2>“Near” is measured by the angle between arrows, not the distance</h2>
+  <p>Picture every embedding as an <b>arrow from the centre of the map</b>. Two things are similar when their arrows <b>point the same way</b>. <b>Cosine similarity</b> is the cosine of the angle between them:</p>
+  <ul>
+    <li><b>same direction</b> (0°) → cosine <span class="hl">1.0</span>: identical meaning</li>
+    <li><b>at right angles</b> (90°) → cosine <span class="hl">0</span>: unrelated</li>
+    <li><b>opposite</b> (180°) → cosine <span class="hl">−1</span>: opposite meaning</li>
+  </ul>
+  <p>We also make every arrow length 1 first (<b>L2-normalising</b>), so only the direction counts. A loud clip and a quiet clip of the same vibe shouldn't differ just because one arrow is longer.</p>
+  <div class="fig" id="figCos">
+    <canvas id="cosToy" height="320"></canvas>
+    <svg class="arrows" id="arrCos"></svg>
+    <div class="ctrl"><span>Drag on the canvas to point the <b style="color:var(--hl)">query arrow</b>.</span><span class="readout" id="cosRead"></span></div>
+    <div class="cap">Each grey arrow is a “clip”. The one with the highest cosine to your query wins, and that's literally how our search ranks clips (in 768-d instead of 2-d).</div>
+  </div>
+  <div class="ours"><div class="k">In our project</div>
+    <p>Search embeds your text, takes the cosine with all 2,808 clip vectors (one matrix multiply, milliseconds), and keeps the highest. That's <b>nearest-neighbour search</b>. No database tricks needed at this size.</p>
+  </div>
+</div></section>
+
+<!-- 03 MULTIMODAL -->
+<section id="multi"><div class="wrap">
+  <div class="k"><b>03</b> Multimodal</div>
+  <h2>“Multimodal” means sound and text get coordinates on the <i>same</i> map</h2>
+  <p>A <b>modality</b> is just a type of input: text, audio, images, video. Older models had one map per modality: a text map and a separate sound map. The coordinates meant different things, so you couldn't compare a sentence with a clip.</p>
+  <div class="analogy"><div class="k">Real life</div>
+    <p>An English speaker and a Japanese speaker each describe the same sunset. Translate both into one shared language and you can compare the descriptions directly. A multimodal model is that translator: <b>it maps a laughing sound and the words “people laughing” to nearby coordinates.</b></p>
+  </div>
+  <h3>How does it learn that? Contrastive training, roughly</h3>
+  <p>The model is shown millions of <b>(audio, caption) pairs</b>, like a clip of rain with the caption “rain on a window”. Training pulls each true pair's arrows <b>together</b> and pushes mismatched pairs <b>apart</b>. Do that enough times and “rain”-sounding audio ends up pointing the same way as the word “rain”.</p>
+  <div class="flow"><span class="n">🔊 20 s clip</span><span class="a">→</span><span class="n m">EmbeddingGemma 2</span><span class="a">→</span><span class="n v">768-d</span><span class="a">· cosine ·</span><span class="n v">768-d</span><span class="a">←</span><span class="n m">EmbeddingGemma 2</span><span class="a">←</span><span class="n">“people laughing”</span></div>
+  <div class="ours"><div class="k">In our project</div>
+    <p>This is <b>the</b> idea the project tests: <b>can a text vibe find matching sound with no labels at all?</b> We tried two multimodal models on 15 prompts × 300 random clips. <b>EmbeddingGemma 2</b> put a fitting show in the top 5 <span class="hl">70%</span> of the time, against <b>CLAP</b> (an older audio-text model) at <span class="hl">51%</span> and random picking at 13%. It costs about 8× more compute (3.1 s vs 0.37 s per clip on a laptop CPU), and it was worth it.</p>
+  </div>
+  <div class="warn"><div class="k">Gotcha we hit</div><p>EmbeddingGemma 2 loads in <b>bfloat16</b> by default, which is <b>12× slower</b> on a laptop CPU without native support. We force <b>float32</b>. (And never float16: it produces NaNs.)</p></div>
+</div></section>
+
+<!-- 04 PIPELINE -->
+<section id="pipe"><div class="wrap">
+  <div class="k"><b>04</b> What we built</div>
+  <h2>From podcast feeds to ranked moments, step by step</h2>
+  <ol>
+    <li><b>Feeds → clips.</b> 39 public podcasts (picked for a spread of vibes), 3 recent episodes each, <b>minutes 2–10</b> (skipping intros and ads), cut into <b>20-second clips</b>: 2,808 in total.</li>
+    <li><b>Audio embedding</b> of every clip (section 03): <code>index/audio_emb.npy</code>.</li>
+    <li><b>Transcript</b> of every clip with <b>Whisper</b> (an open speech-to-text model, run locally). It gives the words plus <i>when</i> each word was said.</li>
+    <li><b>Measured features</b> (plain code, no AI):
+      <ul>
+        <li><b>energy</b>: loudness (RMS volume in decibels, via <b>librosa</b>) and how much it varies</li>
+        <li><b>pauses</b>: share of the clip that is more than 25 dB quieter than the episode's loud parts</li>
+        <li><b>expressiveness</b>: how much the voice pitch moves (librosa's <code>yin</code> pitch tracker)</li>
+        <li><b>pace</b>: words per minute, from Whisper's word timings</li>
+        <li><b>laughter / music / crowd</b>: zero-shot with the embedding (see the box below)</li>
+      </ul></li>
+    <li><b>Percentiles.</b> Every feature becomes a 0–1 rank within the corpus: 0.9 energy means louder than 90% of our clips. That puts “pace” and “decibels” on the same scale.</li>
+  </ol>
+  <div class="analogy"><div class="k">Zero-shot, explained</div>
+    <p>We have no laughter detector. So we ask the embedding: is this clip's arrow closer to <b>“a group of friends laughing out loud at a joke”</b> or to <b>“a person speaking seriously”</b>? The difference is the laughter score. “Zero-shot” = no training, just comparing with text.</p>
+    <p class="mut">The first version compared “people laughing” with “people talking”, and ASMR scored as laughter because it wasn't talking! Contrasting <i>speech with speech</i> fixed it: comedy now scores highest on laughter.</p>
+  </div>
+  <h3>At search time</h3>
+  <p>Your query goes to a cheap LLM (gpt-5-mini, about $0.0003, cached), which rewrites it as <b>(a)</b> a description of the sound, <b>(b)</b> feature targets like <code>energy: high, laughter: high</code>, and <b>(c)</b> a topic like <code>football</code>. Then every clip gets a score:</p>
+  <div class="formula">score = 0.4 × sound match   (cosine: query ↔ clip audio)
+      + 0.4 × feature fit   (how close the clip's percentiles are to the targets)
+      + 0.2 × topic match   (cosine: topic ↔ clip transcript)</div>
+  <p class="mut">Each part is rescaled to 0–1 per query (min-max), so they add fairly. Max 2 clips per show, and adjacent clips are merged. The “why it matched” chips (“high energy · lots of laughter”) are written from these numbers, not by an LLM.</p>
+  <div class="fig">
+    <div class="bars" id="workedBars"></div>
+    <svg class="arrows" id="arrWorked"></svg>
+    <div class="cap" id="workedCap"></div>
+  </div>
+  <div class="warn"><div class="k">Two fixes we learned the hard way</div>
+    <p><b>1.</b> Clips with no speech (rain, ambient) have empty transcripts, and all empty transcripts got the <i>same</i> embedding, which happened to match “sports”. Slow Radio came top for “excited sports talk”. Now clips with fewer than 15 words get no topic score.</p>
+    <p><b>2.</b> The LLM's sound descriptions are long and flowery, and long text embeds poorly against audio. So the sound match uses <b>your words + the LLM's description</b> together.</p>
+  </div>
+</div></section>
+
+<!-- 05 UMAP -->
+<section id="umap"><div class="wrap">
+  <div class="k"><b>05</b> UMAP</div>
+  <h2>You can't draw 768 dimensions, so UMAP squashes them to 2 while keeping neighbours together</h2>
+  <div class="analogy"><div class="k">Real life</div>
+    <p>A world map squashes a 3-D globe onto flat paper. Something gets distorted (Greenland looks huge), but neighbouring countries stay neighbours. <b>UMAP</b> does that for 768-d → 2-d: it tries hard to keep <b>each point's nearest neighbours</b> nearby on the flat picture.</p>
+  </div>
+  <div class="fig" id="figUmap">
+    <canvas id="umapMap" height="420"></canvas>
+    <svg class="arrows" id="arrUmap"></svg>
+    <div class="cap">Our real map: all 2,808 clips, coloured by show type. <b>Clusters = clips that sound alike.</b></div>
+  </div>
+  <p><b>How to read it:</b></p>
+  <ul>
+    <li><b>Close dots</b> really are similar in 768-d. That's the part UMAP protects.</li>
+    <li><b>Distances between far-apart clusters mean little.</b> Two islands on opposite sides aren't necessarily “most different”.</li>
+    <li><b>Axes have no meaning.</b> There's no “x = energy”. Don't read them.</li>
+    <li>Clips cluster <b>by show</b> a lot, because a show keeps its sound (same hosts, same mic, same music). That's also why “more like this” stays in the same show 58% of the time.</li>
+  </ul>
+</div></section>
+
+<!-- 06 EVAL -->
+<section id="eval"><div class="wrap">
+  <div class="k"><b>06</b> Testing</div>
+  <h2>We had two ways to test, and one of them lied</h2>
+  <div class="two">
+    <div class="analogy" style="border-left-color:var(--mut)"><div class="k" style="color:var(--mut)">Test 1: the automatic category check</div>
+      <p>Search “sports talk” and count how many of the top 10 come from shows labelled <b>Sports</b> in iTunes. Free and instant.</p>
+      <p><b>Result:</b> 71% vs 13% for random picks.</p></div>
+    <div class="analogy"><div class="k">Test 2: the listening test</div>
+      <p>A person listens to the top 4 clips for 12 searches, <b>without seeing the show name</b>, and answers one question: <b>does it sound like the search?</b></p>
+      <p><b>Result:</b> <span class="hl" id="lt1">33 of 48</span> sounded right.</p></div>
+  </div>
+  <div class="analogy"><div class="k">Why test 1 is a proxy</div>
+    <p>Judging a restaurant by the cuisine on its sign vs actually tasting the food. “Italian” on the sign doesn't mean this dish is good pasta. Likewise, <b>a category describes the show, not the 20 seconds</b>: a quiet, serious stretch of a comedy show still counts as “Comedy”, and the label can't tell you whether anyone is laughing.</p>
+  </div>
+  <h3>What the listening test said, grouped by kind of search</h3>
+  <div class="bars" id="groupBars"></div>
+  <ul>
+    <li><b>How people talk</b> (banter, bedtime voice, news anchor) is easy: the embedding captures speaking style and mood.</li>
+    <li><b>Specific sounds</b> (music, rain, whispering) are hard: they need fine detail, or the podcasts just don't contain them.</li>
+    <li><b>Interaction</b> is hardest: “heated argument” found people talking over each other, but not the <i>hostility</i>. It got the mechanics, not the emotion.</li>
+    <li>Misses are usually <b>near-misses</b>: “whispering” returned soft bedtime voices, which have the right mood but the wrong detail.</li>
+  </ul>
+  <div class="tldr"><div class="k">TL;DR</div><p>Proxy metrics are cheap but measure something adjacent. When they disagree with a human listening, believe the human. Section 08 shows the metric pointing exactly the wrong way.</p></div>
+</div></section>
+
+<!-- 07 GAP -->
+<section id="gap"><div class="wrap">
+  <div class="k"><b>07</b> The modality gap</div>
+  <h2>Text and audio share one map, but they live in different neighbourhoods of it</h2>
+  <p>“Same map” doesn't mean “mixed together”. We measured the average cosine between random pairs:</p>
+  <div class="bars" id="cosBars"></div>
+  <p>Text is more similar to <i>other text</i>, and audio to <i>other audio</i>, than either is to the other. Every text arrow carries a shared “I am text” lean, and every audio arrow a shared “I am audio” lean. That systematic offset between the two clouds is called the <b>modality gap</b>. It's well known; CLIP (images + text) has it too.</p>
+  <div class="analogy"><div class="k">Real life</div>
+    <p>Two groups of people standing in a field: the audio people near the left fence, the text people near the right fence. Within each group, people stand near whoever they're similar to: the rain fan next to the rain fan. But <b>everyone on the text side is far from everyone on the audio side</b>, just because of which fence they're at.</p>
+    <p>Here's the key: if you ask “which audio person is <i>closest</i> to text-person ‘rain’?”, you can still get the right answer. Everyone pays the <b>same walking tax</b> to cross the field, so the ranking survives. That's why our search worked before we knew about the gap.</p>
+  </div>
+  <div class="fig" id="figGapToy">
+    <canvas id="gapToy" height="340"></canvas>
+    <svg class="arrows" id="arrGapToy"></svg>
+    <div class="ctrl"><span>Close the gap:</span><input type="range" id="gapSlider" min="0" max="100" value="0"><span class="readout" id="gapRead"></span></div>
+    <div class="cap"><b>Circles = clips (audio), squares = words (text).</b> Lines join each word to its nearest clip, green if it's the right partner. Slide to subtract the offset: watch the clouds overlap. Notice the lines are mostly right <i>even at 0%</i>. That's the “same walking tax”.</div>
+  </div>
+  <div class="ours"><div class="k">In our project</div>
+    <p>With all clips and words projected together (section 09 has the real plot), <b>0 of 10</b> of a word's nearest neighbours are clips. The words sit on their own island.</p>
+  </div>
+</div></section>
+
+<!-- 08 CENTRING -->
+<section id="centre"><div class="wrap">
+  <div class="k"><b>08</b> Centring</div>
+  <h2>Centring: subtract each side's average, and the clouds line up</h2>
+  <div class="analogy"><div class="k">Real life</div>
+    <p>A basketball team and a jockey club each measure “tall”. Raw heights say every basketball player is taller than every jockey. Pointless. Measure each person <b>relative to their own group's average</b> (subtract the group mean) and now “tall for a jockey” and “tall for a player” are comparable. That's centring.</p>
+  </div>
+  <div class="formula">clip'  = normalise( clip  − strength × mean(all clips) )
+query' = normalise( query − strength × mean(77 neutral phrases) )</div>
+  <ul>
+    <li><b>The audio mean</b> is computed once over the whole catalogue.</li>
+    <li><b>The text mean</b> is computed once over 77 neutral phrases (“a man talking”, “rain”, “applause”…). They're deliberately <i>not</i> our test searches, so we couldn't accidentally tune to them.</li>
+    <li><b>At query time it's one subtraction.</b> Spotify could do this at full scale with no retraining. <code>strength</code> is how much of the gap to close: 0 = raw, 1 = full centring.</li>
+  </ul>
+  <h3>What it fixed</h3>
+  <p>Single words found the right <i>kind of show</i> far more often (of each word's 25 nearest clips):</p>
+  <div class="bars" id="liftBars"></div>
+  <h3>The twist: by ear, it got worse</h3>
+  <p>Your listening test: <span class="hl" id="tw1">33 → 27 of 48</span> after full centring. Then a study at 0 / 25 / 50 / 75 / 100% of the correction:</p>
+  <div class="fig" id="figStudy">
+    <svg class="plot" id="studyPlot" viewBox="0 0 640 320"></svg>
+    <svg class="arrows" id="arrStudy"></svg>
+    <div class="cap">Listener score (solid lines) vs the automatic category check (dashed), against how much of the gap is closed. The axis starts at 40%.</div>
+  </div>
+  <ul>
+    <li><b>It's a cliff, not a slope:</b> long searches are flat until 75%, then fall at 100%.</li>
+    <li><b>Short searches slide steadily down.</b></li>
+    <li><b>The automatic check stays flat:</b> completely blind to what you heard.</li>
+  </ul>
+  <h3>Why? Centring strips the sound and keeps the topic</h3>
+  <p>Look at <i>which</i> searches lost: “music” went <span class="hl" id="tw2"></span> (it started returning shows that <b>talk about</b> music) and “whispering” <span class="hl" id="tw3"></span> (soft, normal voices). Topic words like “sports”, “news”, “crime” and “football” stayed at <b>4 of 4</b> throughout.</p>
+  <div class="analogy"><div class="k">Our best explanation (a hypothesis, honestly labelled)</div>
+    <p>The average audio vector isn't just an “I am audio” tag. Part of what makes clips <i>sound</i> different, like music vs speech or whisper vs voice, seems to live along that shared direction. Subtract it and re-normalise, and what's left is weighted more toward <b>meaning/topic</b>. So matching gets more “on-topic” and less “on-sound”.</p>
+    <p>Like adjusting a photo to remove a yellow tint: great when the tint was the lamp, bad when the subject was a sunflower.</p>
+  </div>
+  <div class="tldr"><div class="k">TL;DR</div><p>Centring closes the gap (words land among their clips) and finds the right <b>shows</b>, but loses the <b>vibe</b>. A category metric said ship it; listening said don't. Search stays uncentred (<code>rank.center: false</code>).</p></div>
+</div></section>
+
+<!-- 09 PLOTS DECODED -->
+<section id="plots"><div class="wrap">
+  <div class="k"><b>09</b> The demo page's charts, decoded</div>
+  <h2>Every chart on the demo page, with arrows</h2>
+
+  <h3>A. The vibe map with word buttons (demo section 01)</h3>
+  <div class="fig" id="figWords"><canvas id="wordsMap" height="420"></canvas><svg class="arrows" id="arrWords"></svg>
+    <div class="cap">The same UMAP map. Pressing a word button lights up the <b>25 clips whose audio is closest (cosine) to that word</b>. Here: “a news anchor”. It's the embedding alone: no LLM, no features.</div></div>
+  <p><b>What it proves:</b> the lit clips sit mostly on <b>news shows</b>, so a text word really does point at matching sound. <b>What it doesn't:</b> the lit dots can be spread across the map. UMAP only promises local neighbourhoods, and “news anchor” clips come from several shows in different clusters.</p>
+
+  <h3>B. Listening grid (demo section 02)</h3>
+  <p>Each row is a search; each little square is one of its top 4 clips, green if it sounded right to the listener. Rows are grouped (how people talk / specific sounds / interaction) because that grouping is where the pattern is. Example: <span id="exRow"></span></p>
+
+  <h3>C. The two “gap” plots (demo section 03)</h3>
+  <div class="two">
+    <div class="fig" id="figRaw" style="margin:0"><canvas id="rawPlot" height="330"></canvas><svg class="arrows" id="arrRaw"></svg><div class="cap"><b>Original embeddings.</b></div></div>
+    <div class="fig" id="figCen" style="margin:0"><canvas id="cenPlot" height="330"></canvas><svg class="arrows" id="arrCen"></svg><div class="cap"><b>After centring.</b></div></div>
+  </div>
+  <p>Both are UMAP projections of <b>clips + words together</b> (dots = clips, yellow = test words, rings = the 77 neutral phrases). <b>Left:</b> every word huddles on its own island, away from all clips: that's the gap, made visible. <b>Right:</b> after centring, “news” sits by news shows and “football” by sports. The caption numbers count how many of a word's 10 nearest map-neighbours are clips: <span class="hl" id="nnNums"></span>.</p>
+
+  <h3>D. Per-word table (demo section 03)</h3>
+  <p>The grey bar is before and the yellow bar after: of each word's 25 nearest clips, how many come from the expected show type. <b>Careful:</b> it's a category test. “Music” jumps 11 → 19 because music <i>talk</i> shows count as hits. The study chart (E) shows that jump was mostly fake.</p>
+
+  <h3>E. The study chart + short-search grid (demo section 03)</h3>
+  <p>Already decoded in section 08 above. The grid next to it shows the 10 short searches clip by clip at 0%, 50% and 100%; read across a row to see “music” go from 2 green to 0.</p>
+</div></section>
+
+<!-- 10 QUIZ + GLOSSARY -->
+<section id="quiz"><div class="wrap">
+  <div class="k"><b>10</b> Quiz</div>
+  <h2>Check yourself (click to reveal)</h2>
+  <div class="quiz">
+    <details><summary>1. Why can a text search find audio at all?</summary><p>Because a multimodal model puts both into one shared 768-d space, trained so that matching (sound, caption) pairs point the same way. Cosine between them measures match.</p></details>
+    <details><summary>2. If text and audio live in separate neighbourhoods (the gap), why did search still work?</summary><p>Ranking only needs the <i>order</i> of closeness. Every clip pays roughly the same “crossing tax”, so the nearest clip to a word is still the right one, as in the slider toy at 0%.</p></details>
+    <details><summary>3. What exactly does centring subtract?</summary><p>The average audio vector (over all clips) from every clip, and the average text vector (over 77 neutral phrases) from every query, then it re-normalises. Two fixed vectors, one subtraction each.</p></details>
+    <details><summary>4. Centring improved the automatic check. Why didn't we turn it on?</summary><p>The listening test went 33 → 27 of 48 (long) and 31 → 26 of 40 (short). The automatic check measures show <i>category</i> (≈ topic), and centring improves topic while hurting sound. The metric was blind to the loss.</p></details>
+    <details><summary>5. Why did “music” fail after centring?</summary><p>It returned shows that <i>talk about</i> music (Dissect, Song Exploder): right topic, no actual music. Centring shifted matching from sound toward meaning.</p></details>
+    <details><summary>6. What do the axes of the UMAP map mean?</summary><p>Nothing. Only local neighbourhoods are meaningful; far-apart distances and directions aren't.</p></details>
+    <details><summary>7. Why is “laughter” a zero-shot score and not a detector?</summary><p>We never trained on laughter. We compare each clip's embedding with two text descriptions (laughing friends vs serious speaker) and use the difference.</p></details>
+  </div>
+  <h3>Glossary</h3>
+  <div class="gloss">
+    <div><b>embedding / vector</b>A list of numbers (here 768) giving something's position on a meaning map.</div>
+    <div><b>768-d</b>768 dimensions = 768 numbers per item.</div>
+    <div><b>cosine similarity</b>How aligned two arrows are: 1 same direction, 0 unrelated.</div>
+    <div><b>L2-normalise</b>Rescale an arrow to length 1 so only direction counts.</div>
+    <div><b>modality</b>A type of input: text, audio, image, video.</div>
+    <div><b>multimodal model</b>One model that embeds several modalities into one space.</div>
+    <div><b>contrastive training</b>Pull true pairs together, push mismatched pairs apart.</div>
+    <div><b>modality gap</b>Text and audio vectors sit in offset regions of the shared space.</div>
+    <div><b>centring</b>Subtract each modality's mean vector (by a strength 0–1) and re-normalise.</div>
+    <div><b>nearest-neighbour search</b>Return the items with the highest cosine to the query.</div>
+    <div><b>UMAP</b>Squashes high-d data to 2-d while keeping each point's neighbours close.</div>
+    <div><b>zero-shot</b>Classifying by comparing with text descriptions, no training.</div>
+    <div><b>percentile</b>Rank within our corpus, 0–1. 0.9 = more than 90% of clips.</div>
+    <div><b>min-max</b>Rescale scores so the lowest is 0 and highest 1, per query.</div>
+    <div><b>proxy metric</b>Something cheap that's correlated with what you care about, but isn't it.</div>
+    <div><b>Whisper</b>Open speech-to-text model; gives words + timestamps.</div>
+  </div>
+</div></section>
+
+<footer><div class="wrap">Built from this project's real data (<code>docs/data.js</code>). Back to the <a href="index.html">demo page</a>. Full numbers: <code>reports/REPORT.md</code>.</div></footer>
+
+<script src="data.js"></script>
+<script>
+(() => {
+const D = window.VIBE, SEG = D.segments, SH = D.shows;
+const $ = id => document.getElementById(id);
+const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"}[c]));
+const GROUPS = [["comedy chat", "Comedy"], ["sleep/meditation|asmr/ambient", "Calm & sleep"], ["true crime", "True crime"], ["sports banter", "Sports"],
+  ["news briefing", "News"], ["interview|debate", "Talk & debate"], ["kids stories", "Kids"], ["music-heavy", "Music"]];
+const groupOf = v => GROUPS.findIndex(([k]) => k.split("|").includes(v));
+const gc = g => css(`--s${g + 1}`);
+const segGroup = SEG.map(s => groupOf(SH[s.s].vibe));
+
+// ---------- canvas helper ----------
+function setup(c) {
+  const dpr = window.devicePixelRatio || 1, w = c.clientWidth, h = +c.getAttribute("height");
+  c.style.height = h + "px"; c.width = Math.round(w * dpr); c.height = Math.round(h * dpr);
+  const x = c.getContext("2d"); x.setTransform(dpr, 0, 0, dpr, 0, 0); return [x, w, h];
+}
+// ---------- yellow hand-drawn arrows: points are in fractions (0-1) of the figure box ----------
+function arrows(svgId, list) {
+  const svg = $(svgId), box = svg.parentNode, W = box.clientWidth, H = box.clientHeight; let g = "";
+  list.forEach(a => {
+    const [x1, y1] = [a.from[0] * W, a.from[1] * H], [x2, y2] = [a.to[0] * W, a.to[1] * H];
+    const mx = (x1 + x2) / 2 + (a.bend ?? 0.25) * (y2 - y1), my = (y1 + y2) / 2 - (a.bend ?? 0.25) * (x2 - x1);
+    const ang = Math.atan2(y2 - my, x2 - mx), L = 11;
+    g += `<path d="M${x1},${y1} Q${mx},${my} ${x2},${y2}"/>
+      <path d="M${x2 - L * Math.cos(ang - .45)},${y2 - L * Math.sin(ang - .45)} L${x2},${y2} L${x2 - L * Math.cos(ang + .45)},${y2 - L * Math.sin(ang + .45)}"/>
+      <text x="${x1 + (a.dx ?? 0)}" y="${y1 + (a.dy ?? -6)}" text-anchor="${a.anchor || "middle"}">${a.text}</text>`;
+  });
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`); svg.innerHTML = g;
+}
+// position of an element inside a figure, as fractions, for pointing arrows at canvas content
+const frac = (fig, el, px, py) => { const f = fig.getBoundingClientRect(), e = el.getBoundingClientRect(); return [(e.left - f.left + px) / f.width, (e.top - f.top + py) / f.height]; };
+
+const draws = [];
+function redrawAll() { draws.forEach(f => f()); }
+window.addEventListener("resize", redrawAll);
+
+$("nclips").textContent = SEG.length.toLocaleString("en");
+
+// ---------- 01 toy space ----------
+const TOY = [["laughing", .2, .3, 0], ["giggling", .27, .24, 0], ["applause", .34, .4, 0], ["rain", .78, .72, 1], ["ocean waves", .86, .64, 1],
+  ["thunder", .72, .82, 1], ["news anchor", .74, .22, 4], ["lecture", .84, .3, 4], ["lullaby", .3, .8, 1], ["bedtime story", .22, .72, 6]];
+draws.push(() => {
+  const c = $("toySpace"), [x, w, h] = setup(c); x.clearRect(0, 0, w, h);
+  x.font = "13px IBM Plex Sans, system-ui"; x.textBaseline = "middle";
+  TOY.forEach(([n, px, py, g]) => { const X = 30 + px * (w - 140), Y = 20 + py * (h - 40);
+    x.beginPath(); x.arc(X, Y, 6, 0, 7); x.fillStyle = gc(g); x.fill(); x.fillStyle = css("--soft"); x.fillText(n, X + 10, Y); });
+  x.fillStyle = css("--mut"); x.fillText("slider 1 → (meaning unknown, learned)", w / 2 - 110, h - 8);
+  const at = (px, py) => frac($("figToySpace"), c, 30 + px * (w - 140), 20 + py * (h - 40));
+  arrows("arrToySpace", [{from: [.45, .1], to: at(.27, .27), text: "similar sounds cluster", bend: .2},
+    {from: [.55, .55], to: at(.74, .72), text: "nature noises hang out here", bend: -.2}]);
+});
+
+// ---------- 02 cosine toy ----------
+let qAng = 0.05;  // starts between "laughing" and "rain" so the labels don't overlap
+const CL = [["laughing clip", -0.75], ["rain clip", 1.15], ["news clip", -2.2], ["whisper clip", 2.4]];
+draws.push(() => {
+  const c = $("cosToy"), [x, w, h] = setup(c), cx = w / 2, cy = h / 2, R = Math.min(w, h) / 2 - 30;
+  x.clearRect(0, 0, w, h);
+  x.beginPath(); x.arc(cx, cy, R, 0, 7); x.strokeStyle = css("--rule"); x.lineWidth = 1; x.stroke();
+  const sims = CL.map(([n, a]) => [n, a, Math.cos(a - qAng)]), best = sims.reduce((a, b) => b[2] > a[2] ? b : a);
+  const arrow = (a, col, lw) => { const X = cx + R * Math.cos(a), Y = cy + R * Math.sin(a);
+    x.beginPath(); x.moveTo(cx, cy); x.lineTo(X, Y); x.strokeStyle = col; x.lineWidth = lw; x.stroke();
+    x.beginPath(); x.arc(X, Y, lw + 2.5, 0, 7); x.fillStyle = col; x.fill(); return [X, Y]; };
+  x.font = "13px IBM Plex Sans, system-ui"; x.textBaseline = "middle";
+  sims.forEach(([n, a, s]) => { const isB = n === best[0], [X, Y] = arrow(a, isB ? css("--ok") : css("--mut"), isB ? 3 : 2);
+    x.fillStyle = isB ? css("--ok") : css("--soft"); x.textAlign = X < cx ? "right" : "left"; x.fillText(`${n}  cos ${s.toFixed(2)}`, X + (X < cx ? -10 : 10), Y); });
+  const [QX, QY] = arrow(qAng, css("--hl"), 3.5); x.textAlign = "center"; x.fillStyle = css("--hl"); x.fillText("your query", QX, QY - 16);
+  const ang = Math.abs(((best[1] - qAng + Math.PI) % (2 * Math.PI)) - Math.PI);
+  $("cosRead").textContent = `closest: ${best[0]} · angle ${Math.round(ang * 180 / Math.PI)}° · cosine ${best[2].toFixed(2)}`;
+  arrows("arrCos", [{from: [.12, .1], to: frac($("figCos"), c, QX, QY), text: "drag me", bend: .3}]);
+});
+(() => { const c = $("cosToy"); let down = false;
+  const set = e => { const r = c.getBoundingClientRect(), p = e.touches ? e.touches[0] : e; qAng = Math.atan2(p.clientY - r.top - r.height / 2, p.clientX - r.left - r.width / 2); draws[1](); };
+  c.addEventListener("pointerdown", e => { down = true; set(e); }); window.addEventListener("pointerup", () => down = false);
+  c.addEventListener("pointermove", e => { if (down) set(e); }); c.style.cursor = "grab"; })();
+
+// ---------- 04 worked example ----------
+(() => {
+  const q = Object.keys(D.queries)[0], top = D.queries[q].top.slice(0, 3), byId = Object.fromEntries(SEG.map((s, i) => [s.id, i]));
+  const short = n => n.replace(/:.*$/, "").replace(/ with .*$/i, "");
+  const cols = {vibe: "var(--s1)", feature: "var(--s3)", topic: "var(--s4)"};
+  $("workedBars").innerHTML = `<div class="k" style="margin-bottom:6px">Worked example · “${esc(q)}” · top 3 · the score's three parts (each 0–1)</div>` +
+    top.map(t => { const s = SEG[byId[t.id]]; return `<div style="margin:8px 0 2px;font-size:14px;color:var(--fg)"><b>${esc(short(SH[s.s].name))}</b> <span class="mut">· ${t.why.join(" · ")}</span></div>` +
+      ["vibe", "feature", "topic"].map(k => `<div class="row"><span class="mut">${k === "vibe" ? "sound match" : k === "feature" ? "feature fit" : "topic match"}</span><span class="track"><i style="width:${t.parts[k] * 100}%;background:${cols[k]}"></i></span><span>${t.parts[k].toFixed(2)}</span></div>`).join(""); }).join("");
+  $("workedCap").innerHTML = `Real numbers from the live index. Total = 0.4 × sound + 0.4 × features + 0.2 × topic.`;
+  // Point at a bar that is actually 1.00 (the best of all 2,808 clips on that part), wherever it is.
+  draws.push(() => {
+    const fig = $("workedBars").parentNode, bar = [...$("workedBars").querySelectorAll(".track i")].find(i => parseFloat(i.style.width) >= 99.5);
+    if (!bar) return;
+    const r = bar.getBoundingClientRect(), f = fig.getBoundingClientRect();
+    arrows("arrWorked", [{from: [.62, .02], to: [(r.right - f.left - 6) / f.width, (r.top - f.top) / f.height], text: "1.00 = best of all 2,808 clips on this part", bend: -.25}]);
+  });
+})();
+
+// ---------- 05 / 09A maps ----------
+function drawMap(id, lit) {
+  const c = $(id), [x, w, h] = setup(c); x.clearRect(0, 0, w, h);
+  const pad = 14, P = s => [pad + s.x * (w - 2 * pad), pad + (1 - s.y) * (h - 2 * pad)];
+  SEG.forEach((s, i) => { if (lit && lit.has(i)) return; const [X, Y] = P(s); x.globalAlpha = lit ? .25 : .85; x.beginPath(); x.arc(X, Y, 2.4, 0, 7); x.fillStyle = gc(segGroup[i]); x.fill(); });
+  x.globalAlpha = 1;
+  if (lit) lit.forEach(i => { const [X, Y] = P(SEG[i]); x.beginPath(); x.arc(X, Y, 5, 0, 7); x.fillStyle = gc(segGroup[i]); x.fill(); x.lineWidth = 2; x.strokeStyle = css("--hl"); x.stroke(); });
+  return [w, h, P];
+}
+// biggest cluster centre for a group, to point arrows at
+const groupCentre = g => { const pts = SEG.filter((s, i) => segGroup[i] === g); return [pts.reduce((a, s) => a + s.x, 0) / pts.length, pts.reduce((a, s) => a + s.y, 0) / pts.length]; };
+draws.push(() => {
+  const [w, h] = drawMap("umapMap");
+  const fig = $("figUmap"), c = $("umapMap"), sc = groupCentre(3), cc = groupCentre(1);
+  const at = (p) => frac(fig, c, 14 + p[0] * (w - 28), 14 + (1 - p[1]) * (h - 28));
+  arrows("arrUmap", [{from: [.85, .1], to: at(sc), text: "sports shows", bend: .25}, {from: [.85, .9], to: at(cc), text: "calm & sleep", bend: -.25},
+    {from: [.15, .92], to: [.05, .78], text: "axes mean nothing", bend: .3}]);
+});
+draws.push(() => {
+  const w0 = D.words.find(w => w.w === "a news anchor") || D.words[0], lit = new Set(w0.ids);
+  const [w, h, P] = drawMap("wordsMap", lit);
+  const fig = $("figWords"), c = $("wordsMap"), n = [...lit].filter(i => segGroup[i] === 4).length;
+  const li = [...lit][0], [lx, ly] = P(SEG[li]);
+  arrows("arrWords", [{from: [.82, .08], to: frac(fig, c, lx, ly), text: `${n} of 25 lit clips are news`, bend: .25}]);
+});
+
+// ---------- 06 bars ----------
+const LT = D.listening_v1 || D.listening || [];
+const yes = a => a.filter(x => x.v === "y").length;
+$("lt1").textContent = `${yes(LT)} of ${LT.length}`;
+const LTG = [["How people talk", ["two friends laughing about football, late-night energy", "calm, slow, one voice, like a bedtime story", "excited fast talking about sports",
+  "serious news voice reading the headlines", "dramatic storytelling about a murder", "thoughtful slow interview about life", "kids story with funny voices", "relaxed chat between comedians, lots of laughs"]],
+  ["Specific sounds", ["soft whispering, very quiet", "rain and nature sounds, no talking", "upbeat music and singing"]], ["Interaction", ["heated argument, people talking over each other"]]];
+$("groupBars").innerHTML = LTG.map(([n, qs]) => { const a = LT.filter(x => qs.includes(x.q)), y = yes(a), t = a.length;
+  return `<div class="row"><span>${n}</span><span class="track"><i style="width:${y / t * 100}%;background:${y / t >= .7 ? "var(--ok)" : "var(--bad)"}"></i></span><span>${y}/${t}</span></div>`; }).join("");
+const ex = LT.filter(x => x.q === "heated argument, people talking over each other").sort((a, b) => a.rank - b.rank);
+$("exRow").innerHTML = `“heated argument…” <span class="pips">${ex.map(x => `<i class="${x.v}"></i>`).join("")}</span> = ${yes(ex)} of 4 sounded right.`;
+
+// ---------- 07 cosine bars + gap toy ----------
+const C = D.gap.cos;
+$("cosBars").innerHTML = [["clip ↔ clip", C.audio_audio, "var(--s1)"], ["word ↔ word", C.text_text, "var(--s4)"], ["word ↔ clip", C.text_audio, "var(--bad)"]]
+  .map(([n, v, col]) => `<div class="row"><span>${n}</span><span class="track"><i style="width:${v * 100}%;background:${col}"></i></span><span>${v.toFixed(2)}</span></div>`).join("") +
+  `<div class="mut" style="font-size:12.5px;margin-top:4px">mean cosine of random pairs · higher = more alike</div>`;
+const PAIRS = [["laughing", .15], ["music", .35], ["news", .55], ["rain", .75], ["whisper", .92]];
+let drawGapToy;
+draws.push(drawGapToy = () => {
+  const s = $("gapSlider").value / 100, c = $("gapToy"), [x, w, h] = setup(c); x.clearRect(0, 0, w, h);
+  const off = (1 - s) * 0.55, X = v => 40 + v * (w - 80), Yd = (base, j) => h * base + j;
+  const clips = PAIRS.map(([n, v], i) => [n, X(v + (i % 2 ? .02 : -.02)), Yd(.7, (i % 3 - 1) * 14)]);
+  const words = PAIRS.map(([n, v], i) => [n, X(v), Yd(.7 - off, (i % 2 ? 10 : -10))]);
+  words.forEach(([n, wx, wy], i) => { let best = 0, bd = 1e9; clips.forEach(([, cx, cy], j) => { const d = Math.hypot(cx - wx, cy - wy); if (d < bd) { bd = d; best = j; } });
+    x.beginPath(); x.moveTo(wx, wy); x.lineTo(clips[best][1], clips[best][2]); x.strokeStyle = best === i ? css("--ok") : css("--bad"); x.lineWidth = 1.5; x.setLineDash([4, 4]); x.stroke(); x.setLineDash([]); });
+  x.font = "13px IBM Plex Sans, system-ui"; x.textAlign = "center";
+  clips.forEach(([n, cx, cy]) => { x.beginPath(); x.arc(cx, cy, 8, 0, 7); x.fillStyle = css("--s1"); x.fill(); x.fillStyle = css("--soft"); x.fillText(`${n} clip`, cx, cy + 22); });
+  words.forEach(([n, wx, wy]) => { x.fillStyle = css("--hl"); x.fillRect(wx - 7, wy - 7, 14, 14); x.fillStyle = css("--fg"); x.fillText(`“${n}”`, wx, wy - 14); });
+  x.textAlign = "left"; x.fillStyle = css("--mut"); x.fillText("text cloud", 8, h * (.7 - off) - 30); x.fillText("audio cloud", 8, h * .7 + 40);
+  $("gapRead").textContent = `${Math.round(s * 100)}% closed · gap = ${(off / .55 * 100).toFixed(0)}% of original`;
+  const fg = $("figGapToy"), mid = frac(fg, c, w * .63, h * (.7 - off / 2));
+  arrows("arrGapToy", s < .5 ? [{from: [.98, .52], to: mid, text: "the gap: same tax for everyone", anchor: "end", dy: 18, bend: .2}]
+    : [{from: [.98, .52], to: frac(fg, c, w * .63, h * .66), text: "clouds overlap now", anchor: "end", dy: 18, bend: .2}]);
+});
+$("gapSlider").addEventListener("input", () => drawGapToy());
+
+// ---------- 08 lift + study ----------
+$("liftBars").innerHTML = D.gap.lift.map(r => `<div class="row"><span>“${esc(r.w)}”</span><span class="track" style="position:relative;height:14px">
+  <i style="position:absolute;top:0;height:6px;width:${r.raw / 25 * 100}%;background:var(--mut)"></i><i style="position:absolute;top:8px;height:6px;width:${r.centred / 25 * 100}%;background:${r.centred >= r.raw ? "var(--hl)" : "var(--bad)"}"></i></span>
+  <span>${r.raw}→${r.centred}</span></div>`).join("") + `<div class="mut" style="font-size:12.5px">grey = before · yellow = after centring · out of 25</div>`;
+const S = D.study, v1 = D.listening_v1 || [], vC = D.listening_centred || [];
+if (vC.length) $("tw1").textContent = `${yes(v1)} → ${yes(vC)} of 48`;
+if (S) {
+  const P = S.pips.short, ks = Object.keys(P).sort((a, b) => a - b), chg = w => `${yes(P[ks[0]][w])} → ${yes(P[ks[ks.length - 1]][w])}`;
+  $("tw2").textContent = chg("music"); $("tw3").textContent = chg("whispering");
+  draws.push(() => {
+    const W = 640, H = 320, m = {l: 48, r: 160, t: 16, b: 40}, Y0 = .4, Y1 = .9;
+    const X = v => m.l + v * (W - m.l - m.r), Y = v => H - m.b - (v - Y0) / (Y1 - Y0) * (H - m.t - m.b);
+    const ser = [["Long · listener", css("--s1"), S.long.map(r => [r.strength, r.yes / r.rated])], ["Short · listener", css("--s3"), S.short.map(r => [r.strength, r.yes / r.rated])],
+      ["Automatic check", css("--mut"), S.category.map(r => [r.strength, r.share]), "6 5"]];
+    let g = "";
+    [.4, .5, .6, .7, .8, .9].forEach(v => g += `<line x1="${m.l}" x2="${W - m.r}" y1="${Y(v)}" y2="${Y(v)}" stroke="${css("--rule")}"/><text x="${m.l - 8}" y="${Y(v) + 4}" fill="${css("--mut")}" font-size="12" text-anchor="end">${Math.round(v * 100)}%</text>`);
+    [0, .25, .5, .75, 1].forEach(v => g += `<text x="${X(v)}" y="${H - m.b + 18}" fill="${css("--mut")}" font-size="12" text-anchor="middle">${v * 100}%</text>`);
+    g += `<text x="${(m.l + W - m.r) / 2}" y="${H - 6}" fill="${css("--soft")}" font-size="12.5" text-anchor="middle">share of the gap closed</text>`;
+    const ly = [];
+    ser.forEach(([n, col, pts, dash]) => { g += `<polyline fill="none" stroke="${col}" stroke-width="2.2" ${dash ? `stroke-dasharray="${dash}"` : ""} points="${pts.map(p => `${X(p[0])},${Y(p[1])}`).join(" ")}"/>`;
+      pts.forEach(p => g += `<circle cx="${X(p[0])}" cy="${Y(p[1])}" r="5" fill="${col}" stroke="${css("--bg2")}" stroke-width="2"/>`);
+      const l = pts[pts.length - 1]; let y = Y(l[1]) + 4; while (ly.some(z => Math.abs(z - y) < 16)) y += 16; ly.push(y);
+      g += `<text x="${X(l[0]) + 10}" y="${y}" fill="${css("--fg")}" font-size="12.5">${n}</text>`; });
+    $("studyPlot").innerHTML = g;
+    const fig = $("figStudy"), sv = $("studyPlot"), r = sv.getBoundingClientRect(), k = r.width / W;
+    const pt = (vx, vy) => frac(fig, sv, X(vx) * k, Y(vy) * k), L = S.long, last = L[L.length - 1];
+    const sh = S.short[S.short.length - 1];
+    arrows("arrStudy", [{from: [.55, .12], to: pt(1, last.yes / last.rated), text: "the cliff: full centring breaks it", bend: -.35},
+      {from: [.2, .1], to: pt(.25, S.category[1].share), text: "metric: flat, sees nothing", bend: .3},
+      {from: [.42, .82], to: pt(.98, sh.yes / sh.rated), text: "short searches slide down", bend: .3}]);
+  });
+}
+
+// ---------- 09C gap plots ----------
+function gapPlot(id, P, labels) {
+  const c = $(id), [x, w, h] = setup(c); x.clearRect(0, 0, w, h);
+  const pad = 16, X = p => pad + p[0] * (w - 2 * pad), Y = p => pad + (1 - p[1]) * (h - 2 * pad);
+  P.clips.forEach((p, i) => { x.globalAlpha = .5; x.beginPath(); x.arc(X(p), Y(p), 1.8, 0, 7); x.fillStyle = gc(segGroup[i]); x.fill(); });
+  x.globalAlpha = 1;
+  P.phrases.forEach(p => { x.beginPath(); x.arc(X(p), Y(p), 2.4, 0, 7); x.strokeStyle = css("--soft"); x.lineWidth = 1; x.stroke(); });
+  x.font = "600 11.5px IBM Plex Sans, system-ui"; x.textBaseline = "middle";
+  P.words.forEach(o => { const px = X([o.x, o.y]), py = Y([o.x, o.y]); x.beginPath(); x.arc(px, py, 4.5, 0, 7); x.fillStyle = css("--hl"); x.fill();
+    if (labels) { const tw = x.measureText(o.w).width, right = px + 7 + tw < w - 2;  // flip left near the edge
+      x.lineWidth = 3; x.strokeStyle = css("--bg2"); x.strokeText(o.w, right ? px + 7 : px - 7 - tw, py);
+      x.fillStyle = css("--fg"); x.fillText(o.w, right ? px + 7 : px - 7 - tw, py); } });
+  return [w, h, X, Y];
+}
+draws.push(() => {
+  const G = D.gap, [w, h, X, Y] = gapPlot("rawPlot", G.raw, false);
+  const cx = G.raw.words.reduce((a, o) => a + o.x, 0) / G.raw.words.length, cy = G.raw.words.reduce((a, o) => a + o.y, 0) / G.raw.words.length;
+  arrows("arrRaw", [{from: [.62, .14], to: frac($("figRaw"), $("rawPlot"), X([cx, cy]) + 6, Y([cx, cy]) + 4), text: "all the words: own island", bend: .3},
+    {from: [.7, .92], to: [.45, .62], text: "all the clips", bend: .25}]);
+  const [w2, h2, X2, Y2] = gapPlot("cenPlot", G.centred, true), nw = G.centred.words.find(o => o.w === "news") || G.centred.words[0];
+  arrows("arrCen", [{from: [.3, .1], to: frac($("figCen"), $("cenPlot"), X2([nw.x, nw.y]) - 4, Y2([nw.x, nw.y])), text: "“news” among news clips", bend: -.3}]);
+  $("nnNums").textContent = `${Math.round(G.raw.near_clips * 10)} of 10 before, ${Math.round(G.centred.near_clips * 10)} of 10 after`;
+});
+
+redrawAll();
+document.fonts && document.fonts.ready.then(redrawAll);
+})();
+</script>
+</body>
+</html>

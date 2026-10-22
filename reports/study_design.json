@@ -1,0 +1,562 @@
+{
+ "long": {
+  "0": {
+   "two friends laughing about football, late-night energy": [
+    "football-daily_b104aae9_014",
+    "men-in-blazers_939c7510_009",
+    "off-menu_8cdd99ef_022",
+    "football-daily_7fbd9e6f_010"
+   ],
+   "calm, slow, one voice, like a bedtime story": [
+    "get-sleepy_174ad3b2_010",
+    "nothing-much-happens_695d6681_021",
+    "nothing-much-happens_3f9ee5d1_011",
+    "get-sleepy_13ac547f_007"
+   ],
+   "heated argument, people talking over each other": [
+    "fresh-air_6912f163_013",
+    "fresh-air_6e2abd6f_018",
+    "the-journal_a4961bf9_021",
+    "slow-radio_31562cae_007"
+   ],
+   "soft whispering, very quiet": [
+    "gentle-whispering_2a536005_017",
+    "nothing-much-happens_3f9ee5d1_011",
+    "gentle-whispering_152b1544_023",
+    "nothing-much-happens_695d6681_020"
+   ],
+   "excited fast talking about sports": [
+    "men-in-blazers_0a71fad6_005",
+    "bill-simmons_451dd9fd_012",
+    "bill-simmons_451dd9fd_009",
+    "men-in-blazers_0a71fad6_009"
+   ],
+   "serious news voice reading the headlines": [
+    "up-first_126470c9_003",
+    "up-first_e14310fa_011",
+    "criminal_21d1910e_010",
+    "global-news_3d787c13_014"
+   ],
+   "dramatic storytelling about a murder": [
+    "fresh-air_6912f163_013",
+    "nothing-much-happens_695d6681_015",
+    "casefile_d3b0e512_010",
+    "crime-junkie_24713fd6_017"
+   ],
+   "rain and nature sounds, no talking": [
+    "get-sleepy_174ad3b2_012",
+    "gentle-whispering_947b5686_023",
+    "gentle-whispering_947b5686_015",
+    "relaxing-nature_a5b44b96_021"
+   ],
+   "upbeat music and singing": [
+    "stories-podcast_3ff2fd43_002",
+    "story-seeds_df504267_011",
+    "switched-on-pop_f6e96b3e_012",
+    "gentle-whispering_152b1544_011"
+   ],
+   "thoughtful slow interview about life": [
+    "get-sleepy_13ac547f_018",
+    "fresh-air_d7648ae5_023",
+    "tara-brach_b07a0c42_015",
+    "tara-brach_b07a0c42_002"
+   ],
+   "kids story with funny voices": [
+    "circle-round_ad9a2c84_001",
+    "circle-round_e909aa71_021",
+    "stories-podcast_8212d2b4_015",
+    "stories-podcast_8212d2b4_008"
+   ],
+   "relaxed chat between comedians, lots of laughs": [
+    "armchair-expert_5382e5b7_007",
+    "conan_fd93eacb_019",
+    "off-menu_0bedc9ad_012",
+    "smartless_fc612d6d_000"
+   ]
+  },
+  "0.25": {
+   "two friends laughing about football, late-night energy": [
+    "football-daily_b104aae9_014",
+    "men-in-blazers_939c7510_009",
+    "off-menu_8cdd99ef_022",
+    "football-daily_7fbd9e6f_010"
+   ],
+   "calm, slow, one voice, like a bedtime story": [
+    "get-sleepy_174ad3b2_010",
+    "nothing-much-happens_3f9ee5d1_001",
+    "nothing-much-happens_3f9ee5d1_011",
+    "get-sleepy_13ac547f_007"
+   ],
+   "heated argument, people talking over each other": [
+    "fresh-air_6912f163_013",
+    "fresh-air_6e2abd6f_018",
+    "the-journal_a4961bf9_021",
+    "armchair-expert_5382e5b7_016"
+   ],
+   "soft whispering, very quiet": [
+    "gentle-whispering_2a536005_017",
+    "nothing-much-happens_3f9ee5d1_011",
+    "gentle-whispering_152b1544_023",
+    "get-sleepy_f898b7f2_002"
+   ],
+   "excited fast talking about sports": [
+    "bill-simmons_451dd9fd_012",
+    "men-in-blazers_0a71fad6_005",
+    "bill-simmons_451dd9fd_009",
+    "men-in-blazers_0a71fad6_009"
+   ],
+   "serious news voice reading the headlines": [
+    "up-first_126470c9_003",
+    "up-first_126470c9_007",
+    "global-news_3d787c13_014",
+    "criminal_21d1910e_010"
+   ],
+   "dramatic storytelling about a murder": [
+    "fresh-air_6912f163_013",
+    "crime-junkie_24713fd6_017",
+    "nothing-much-happens_695d6681_015",
+    "casefile_d3b0e512_010"
+   ],
+   "rain and nature sounds, no talking": [
+    "gentle-whispering_947b5686_023",
+    "get-sleepy_174ad3b2_012",
+    "gentle-whispering_947b5686_015",
+    "get-sleepy_174ad3b2_022"
+   ],
+   "upbeat music and singing": [
+    "stories-podcast_3ff2fd43_002",
+    "story-seeds_df504267_011",
+    "switched-on-pop_f6e96b3e_012",
+    "switched-on-pop_f6e96b3e_020"
+   ],
+   "thoughtful slow interview about life": [
+    "get-sleepy_13ac547f_018",
+    "fresh-air_d7648ae5_023",
+    "tara-brach_b07a0c42_015",
+    "sleep-with-me_afd7d55b_013"
+   ],
+   "kids story with funny voices": [
+    "circle-round_ad9a2c84_001",
+    "stories-podcast_8212d2b4_015",
+    "circle-round_e909aa71_021",
+    "stories-podcast_8212d2b4_023"
+   ],
+   "relaxed chat between comedians, lots of laughs": [
+    "armchair-expert_5382e5b7_007",
+    "conan_fd93eacb_019",
+    "off-menu_0bedc9ad_012",
+    "conan_fd93eacb_009"
+   ]
+  },
+  "0.5": {
+   "two friends laughing about football, late-night energy": [
+    "football-daily_b104aae9_014",
+    "men-in-blazers_939c7510_009",
+    "bill-simmons_451dd9fd_013",
+    "off-menu_8cdd99ef_022"
+   ],
+   "calm, slow, one voice, like a bedtime story": [
+    "get-sleepy_174ad3b2_010",
+    "nothing-much-happens_3f9ee5d1_001",
+    "nothing-much-happens_695d6681_013",
+    "get-sleepy_13ac547f_007"
+   ],
+   "heated argument, people talking over each other": [
+    "fresh-air_6912f163_013",
+    "fresh-air_6e2abd6f_018",
+    "armchair-expert_5382e5b7_016",
+    "conan_6e27c531_013"
+   ],
+   "soft whispering, very quiet": [
+    "gentle-whispering_2a536005_017",
+    "nothing-much-happens_3f9ee5d1_011",
+    "get-sleepy_f898b7f2_002",
+    "gentle-whispering_152b1544_023"
+   ],
+   "excited fast talking about sports": [
+    "bill-simmons_f35434d6_000",
+    "bill-simmons_451dd9fd_004",
+    "men-in-blazers_0a71fad6_005",
+    "men-in-blazers_0a71fad6_009"
+   ],
+   "serious news voice reading the headlines": [
+    "up-first_126470c9_003",
+    "up-first_e14310fa_000",
+    "the-daily_9edc09c1_008",
+    "crime-junkie_24713fd6_020"
+   ],
+   "dramatic storytelling about a murder": [
+    "fresh-air_6912f163_013",
+    "crime-junkie_24713fd6_017",
+    "nothing-much-happens_695d6681_015",
+    "crime-junkie_bf22de3d_018"
+   ],
+   "rain and nature sounds, no talking": [
+    "gentle-whispering_947b5686_023",
+    "get-sleepy_174ad3b2_012",
+    "gentle-whispering_947b5686_015",
+    "get-sleepy_174ad3b2_022"
+   ],
+   "upbeat music and singing": [
+    "stories-podcast_3ff2fd43_002",
+    "switched-on-pop_f6e96b3e_020",
+    "switched-on-pop_f6e96b3e_012",
+    "desert-island-discs_2946e10f_013"
+   ],
+   "thoughtful slow interview about life": [
+    "get-sleepy_13ac547f_018",
+    "sleep-with-me_afd7d55b_013",
+    "tara-brach_b07a0c42_015",
+    "fresh-air_d7648ae5_023"
+   ],
+   "kids story with funny voices": [
+    "circle-round_ad9a2c84_001",
+    "stories-podcast_8212d2b4_015",
+    "circle-round_e909aa71_021",
+    "stories-podcast_8212d2b4_023"
+   ],
+   "relaxed chat between comedians, lots of laughs": [
+    "conan_fd93eacb_019",
+    "off-menu_0bedc9ad_012",
+    "armchair-expert_5382e5b7_007",
+    "conan_fd93eacb_009"
+   ]
+  },
+  "0.75": {
+   "two friends laughing about football, late-night energy": [
+    "football-daily_b104aae9_014",
+    "men-in-blazers_939c7510_009",
+    "bill-simmons_451dd9fd_013",
+    "off-menu_8cdd99ef_022"
+   ],
+   "calm, slow, one voice, like a bedtime story": [
+    "get-sleepy_174ad3b2_010",
+    "nothing-much-happens_3f9ee5d1_001",
+    "nothing-much-happens_695d6681_013",
+    "get-sleepy_13ac547f_007"
+   ],
+   "heated argument, people talking over each other": [
+    "fresh-air_6912f163_013",
+    "armchair-expert_5382e5b7_016",
+    "fresh-air_6e2abd6f_018",
+    "smartless_0429c819_008"
+   ],
+   "soft whispering, very quiet": [
+    "nothing-much-happens_3f9ee5d1_011",
+    "gentle-whispering_2a536005_017",
+    "get-sleepy_f898b7f2_002",
+    "gentle-whispering_152b1544_023"
+   ],
+   "excited fast talking about sports": [
+    "bill-simmons_f35434d6_000",
+    "bill-simmons_451dd9fd_004",
+    "men-in-blazers_0a71fad6_005",
+    "men-in-blazers_0a71fad6_009"
+   ],
+   "serious news voice reading the headlines": [
+    "up-first_126470c9_003",
+    "up-first_e14310fa_000",
+    "the-daily_9edc09c1_008",
+    "global-news_3d787c13_010"
+   ],
+   "dramatic storytelling about a murder": [
+    "fresh-air_6912f163_013",
+    "crime-junkie_24713fd6_017",
+    "crime-junkie_bf22de3d_018",
+    "casefile_d3b0e512_010"
+   ],
+   "rain and nature sounds, no talking": [
+    "get-sleepy_174ad3b2_012",
+    "gentle-whispering_947b5686_023",
+    "gentle-whispering_947b5686_015",
+    "get-sleepy_174ad3b2_022"
+   ],
+   "upbeat music and singing": [
+    "stories-podcast_3ff2fd43_002",
+    "switched-on-pop_f6e96b3e_020",
+    "switched-on-pop_f6e96b3e_012",
+    "song-exploder_1a57c228_005"
+   ],
+   "thoughtful slow interview about life": [
+    "sleep-with-me_afd7d55b_013",
+    "get-sleepy_13ac547f_018",
+    "tara-brach_b07a0c42_015",
+    "tara-brach_b07a0c42_002"
+   ],
+   "kids story with funny voices": [
+    "circle-round_ad9a2c84_001",
+    "stories-podcast_8212d2b4_015",
+    "circle-round_e909aa71_021",
+    "stories-podcast_8212d2b4_023"
+   ],
+   "relaxed chat between comedians, lots of laughs": [
+    "conan_fd93eacb_019",
+    "off-menu_0bedc9ad_012",
+    "conan_fd93eacb_009",
+    "armchair-expert_5382e5b7_007"
+   ]
+  },
+  "1": {
+   "two friends laughing about football, late-night energy": [
+    "football-daily_b104aae9_014",
+    "men-in-blazers_939c7510_009",
+    "bill-simmons_451dd9fd_013",
+    "all-songs-considered_55aaa665_021"
+   ],
+   "calm, slow, one voice, like a bedtime story": [
+    "get-sleepy_174ad3b2_010",
+    "nothing-much-happens_3f9ee5d1_001",
+    "nothing-much-happens_695d6681_004",
+    "get-sleepy_f898b7f2_002"
+   ],
+   "heated argument, people talking over each other": [
+    "armchair-expert_5382e5b7_016",
+    "smartless_0429c819_008",
+    "conan_6e27c531_013",
+    "fresh-air_6912f163_013"
+   ],
+   "soft whispering, very quiet": [
+    "nothing-much-happens_3f9ee5d1_011",
+    "get-sleepy_f898b7f2_002",
+    "gentle-whispering_2a536005_017",
+    "gentle-whispering_152b1544_023"
+   ],
+   "excited fast talking about sports": [
+    "bill-simmons_f35434d6_000",
+    "bill-simmons_451dd9fd_004",
+    "totally-football_c3501d0d_009",
+    "totally-football_fd49cbf6_006"
+   ],
+   "serious news voice reading the headlines": [
+    "up-first_126470c9_003",
+    "up-first_e14310fa_000",
+    "the-daily_9edc09c1_008",
+    "global-news_3d787c13_010"
+   ],
+   "dramatic storytelling about a murder": [
+    "fresh-air_6912f163_013",
+    "crime-junkie_24713fd6_017",
+    "crime-junkie_bf22de3d_018",
+    "casefile_d3b0e512_010"
+   ],
+   "rain and nature sounds, no talking": [
+    "get-sleepy_174ad3b2_012",
+    "gentle-whispering_947b5686_023",
+    "gentle-whispering_947b5686_015",
+    "get-sleepy_174ad3b2_022"
+   ],
+   "upbeat music and singing": [
+    "stories-podcast_3ff2fd43_002",
+    "dissect_cde67a60_011",
+    "switched-on-pop_f6e96b3e_020",
+    "song-exploder_1a57c228_005"
+   ],
+   "thoughtful slow interview about life": [
+    "sleep-with-me_afd7d55b_013",
+    "get-sleepy_13ac547f_018",
+    "wtf-maron_c68d9aad_007",
+    "moral-maze_dbeef605_018"
+   ],
+   "kids story with funny voices": [
+    "circle-round_ad9a2c84_001",
+    "stories-podcast_8212d2b4_015",
+    "conan_6e27c531_006",
+    "circle-round_e909aa71_019"
+   ],
+   "relaxed chat between comedians, lots of laughs": [
+    "conan_fd93eacb_019",
+    "off-menu_0bedc9ad_012",
+    "conan_fd93eacb_009",
+    "armchair-expert_5382e5b7_007"
+   ]
+  }
+ },
+ "short": {
+  "0": {
+   "laughter": [
+    "morbid_651940d8_005",
+    "smartless_fc612d6d_000",
+    "circle-round_e909aa71_021",
+    "switched-on-pop_35b3af4c_005"
+   ],
+   "music": [
+    "switched-on-pop_35b3af4c_000",
+    "switched-on-pop_7839d7b7_012",
+    "stories-podcast_3ff2fd43_002",
+    "desert-island-discs_2946e10f_012"
+   ],
+   "sports": [
+    "bill-simmons_451dd9fd_012",
+    "men-in-blazers_0a71fad6_005",
+    "wtf-maron_7b924f0a_007",
+    "bill-simmons_52b9e3b5_010"
+   ],
+   "news": [
+    "up-first_126470c9_003",
+    "global-news_575ccfca_009",
+    "casefile_d3b0e512_006",
+    "global-news_575ccfca_011"
+   ],
+   "calm": [
+    "nothing-much-happens_3f9ee5d1_011",
+    "get-sleepy_174ad3b2_010",
+    "get-sleepy_13ac547f_007",
+    "tara-brach_c0463bfc_017"
+   ],
+   "whispering": [
+    "nothing-much-happens_695d6681_020",
+    "gentle-whispering_2a536005_017",
+    "gentle-whispering_947b5686_002",
+    "nothing-much-happens_3f9ee5d1_019"
+   ],
+   "rain": [
+    "adam-buxton_5c2566e8_013",
+    "circle-round_e909aa71_001",
+    "song-exploder_1a57c228_008",
+    "get-sleepy_174ad3b2_022"
+   ],
+   "crime": [
+    "global-news_575ccfca_009",
+    "casefile_d3b0e512_010",
+    "crime-junkie_24713fd6_017",
+    "casefile_d3b0e512_013"
+   ],
+   "a children's story": [
+    "nothing-much-happens_3f9ee5d1_002",
+    "get-sleepy_174ad3b2_018",
+    "stories-podcast_8212d2b4_015",
+    "circle-round_ad9a2c84_022"
+   ],
+   "football": [
+    "football-daily_b104aae9_014",
+    "bill-simmons_451dd9fd_007",
+    "bill-simmons_451dd9fd_012",
+    "men-in-blazers_0a71fad6_009"
+   ]
+  },
+  "0.5": {
+   "laughter": [
+    "morbid_651940d8_005",
+    "morbid_651940d8_009",
+    "armchair-expert_5382e5b7_014",
+    "conan_2dde838c_021"
+   ],
+   "music": [
+    "switched-on-pop_35b3af4c_000",
+    "switched-on-pop_7839d7b7_012",
+    "dissect_cde67a60_020",
+    "fresh-air_d7648ae5_008"
+   ],
+   "sports": [
+    "bill-simmons_451dd9fd_012",
+    "bill-simmons_52b9e3b5_010",
+    "off-menu_0bedc9ad_019",
+    "men-in-blazers_0a71fad6_005"
+   ],
+   "news": [
+    "up-first_126470c9_003",
+    "up-first_126470c9_007",
+    "global-news_deb5fabf_023",
+    "global-news_575ccfca_009"
+   ],
+   "calm": [
+    "nothing-much-happens_3f9ee5d1_011",
+    "get-sleepy_13ac547f_007",
+    "get-sleepy_174ad3b2_010",
+    "tara-brach_c0463bfc_014"
+   ],
+   "whispering": [
+    "nothing-much-happens_695d6681_020",
+    "gentle-whispering_947b5686_002",
+    "nothing-much-happens_3f9ee5d1_012",
+    "gentle-whispering_2a536005_017"
+   ],
+   "rain": [
+    "adam-buxton_5c2566e8_013",
+    "circle-round_e909aa71_001",
+    "get-sleepy_174ad3b2_022",
+    "song-exploder_1a57c228_008"
+   ],
+   "crime": [
+    "global-news_575ccfca_009",
+    "crime-junkie_24713fd6_017",
+    "crime-junkie_bf22de3d_017",
+    "casefile_d3b0e512_010"
+   ],
+   "a children's story": [
+    "story-seeds_f147f17d_016",
+    "story-seeds_f147f17d_022",
+    "stories-podcast_8212d2b4_015",
+    "nothing-much-happens_3f9ee5d1_002"
+   ],
+   "football": [
+    "football-daily_b104aae9_014",
+    "bill-simmons_451dd9fd_007",
+    "totally-football_c3501d0d_023",
+    "men-in-blazers_0a71fad6_009"
+   ]
+  },
+  "1": {
+   "laughter": [
+    "morbid_651940d8_005",
+    "armchair-expert_5382e5b7_014",
+    "conan_2dde838c_021",
+    "morbid_651940d8_009"
+   ],
+   "music": [
+    "switched-on-pop_7839d7b7_012",
+    "dissect_cde67a60_020",
+    "switched-on-pop_35b3af4c_007",
+    "fresh-air_d7648ae5_008"
+   ],
+   "sports": [
+    "bill-simmons_52b9e3b5_010",
+    "bill-simmons_451dd9fd_007",
+    "off-menu_0bedc9ad_019",
+    "men-in-blazers_0a71fad6_006"
+   ],
+   "news": [
+    "up-first_126470c9_003",
+    "global-news_deb5fabf_023",
+    "up-first_126470c9_001",
+    "left-right-center_07c66024_011"
+   ],
+   "calm": [
+    "nothing-much-happens_3f9ee5d1_011",
+    "tara-brach_c0463bfc_014",
+    "get-sleepy_13ac547f_007",
+    "get-sleepy_174ad3b2_010"
+   ],
+   "whispering": [
+    "nothing-much-happens_695d6681_020",
+    "nothing-much-happens_3f9ee5d1_012",
+    "fresh-air_6e2abd6f_019",
+    "gentle-whispering_947b5686_002"
+   ],
+   "rain": [
+    "adam-buxton_5c2566e8_012",
+    "circle-round_e909aa71_001",
+    "get-sleepy_174ad3b2_022",
+    "song-exploder_1a57c228_008"
+   ],
+   "crime": [
+    "global-news_575ccfca_009",
+    "crime-junkie_24713fd6_017",
+    "crime-junkie_bf22de3d_017",
+    "morbid_651940d8_021"
+   ],
+   "a children's story": [
+    "story-seeds_f147f17d_016",
+    "story-seeds_f147f17d_022",
+    "get-sleepy_174ad3b2_002",
+    "stories-podcast_8212d2b4_015"
+   ],
+   "football": [
+    "football-daily_b104aae9_014",
+    "bill-simmons_451dd9fd_007",
+    "football-daily_b104aae9_022",
+    "totally-football_c3501d0d_023"
+   ]
+  }
+ }
+}

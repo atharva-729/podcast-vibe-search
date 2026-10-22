@@ -1,0 +1,392 @@
+{
+ "saved_at": "2026-10-21T09:45:26.048Z",
+ "per_query": 4,
+ "items": [
+  {
+   "q": "two friends laughing about football, late-night energy",
+   "id": "men-in-blazers_939c7510_009",
+   "rank": 2,
+   "show": "Men In Blazers",
+   "start_s": 300
+  },
+  {
+   "q": "two friends laughing about football, late-night energy",
+   "id": "football-daily_7fbd9e6f_010",
+   "rank": 4,
+   "show": "Football Daily",
+   "start_s": 320
+  },
+  {
+   "q": "two friends laughing about football, late-night energy",
+   "id": "off-menu_8cdd99ef_022",
+   "rank": 3,
+   "show": "Off Menu with Ed Gamble and James Acaster",
+   "start_s": 560
+  },
+  {
+   "q": "two friends laughing about football, late-night energy",
+   "id": "football-daily_b104aae9_014",
+   "rank": 1,
+   "show": "Football Daily",
+   "start_s": 400
+  },
+  {
+   "q": "calm, slow, one voice, like a bedtime story",
+   "id": "get-sleepy_13ac547f_007",
+   "rank": 4,
+   "show": "Get Sleepy: stories for sleep",
+   "start_s": 260
+  },
+  {
+   "q": "calm, slow, one voice, like a bedtime story",
+   "id": "nothing-much-happens_695d6681_021",
+   "rank": 2,
+   "show": "Nothing much happens: bedtime stories to help you sleep",
+   "start_s": 540
+  },
+  {
+   "q": "calm, slow, one voice, like a bedtime story",
+   "id": "nothing-much-happens_3f9ee5d1_011",
+   "rank": 3,
+   "show": "Nothing much happens: bedtime stories to help you sleep",
+   "start_s": 340
+  },
+  {
+   "q": "calm, slow, one voice, like a bedtime story",
+   "id": "get-sleepy_174ad3b2_010",
+   "rank": 1,
+   "show": "Get Sleepy: stories for sleep",
+   "start_s": 320
+  },
+  {
+   "q": "heated argument, people talking over each other",
+   "id": "fresh-air_6912f163_013",
+   "rank": 1,
+   "show": "Fresh Air",
+   "start_s": 380
+  },
+  {
+   "q": "heated argument, people talking over each other",
+   "id": "slow-radio_31562cae_007",
+   "rank": 4,
+   "show": "Slow Radio",
+   "start_s": 260
+  },
+  {
+   "q": "heated argument, people talking over each other",
+   "id": "the-journal_a4961bf9_021",
+   "rank": 3,
+   "show": "The Journal.",
+   "start_s": 540
+  },
+  {
+   "q": "heated argument, people talking over each other",
+   "id": "fresh-air_6e2abd6f_018",
+   "rank": 2,
+   "show": "Fresh Air",
+   "start_s": 480
+  },
+  {
+   "q": "soft whispering, very quiet",
+   "id": "gentle-whispering_2a536005_017",
+   "rank": 1,
+   "show": "ASMR by GentleWhispering",
+   "start_s": 460
+  },
+  {
+   "q": "soft whispering, very quiet",
+   "id": "nothing-much-happens_3f9ee5d1_011",
+   "rank": 2,
+   "show": "Nothing much happens: bedtime stories to help you sleep",
+   "start_s": 340
+  },
+  {
+   "q": "soft whispering, very quiet",
+   "id": "nothing-much-happens_695d6681_020",
+   "rank": 4,
+   "show": "Nothing much happens: bedtime stories to help you sleep",
+   "start_s": 520
+  },
+  {
+   "q": "soft whispering, very quiet",
+   "id": "gentle-whispering_152b1544_023",
+   "rank": 3,
+   "show": "ASMR by GentleWhispering",
+   "start_s": 580
+  },
+  {
+   "q": "excited fast talking about sports",
+   "id": "bill-simmons_451dd9fd_012",
+   "rank": 2,
+   "show": "The Bill Simmons Podcast",
+   "start_s": 360
+  },
+  {
+   "q": "excited fast talking about sports",
+   "id": "bill-simmons_451dd9fd_009",
+   "rank": 3,
+   "show": "The Bill Simmons Podcast",
+   "start_s": 300
+  },
+  {
+   "q": "excited fast talking about sports",
+   "id": "men-in-blazers_0a71fad6_005",
+   "rank": 1,
+   "show": "Men In Blazers",
+   "start_s": 220
+  },
+  {
+   "q": "excited fast talking about sports",
+   "id": "men-in-blazers_0a71fad6_009",
+   "rank": 4,
+   "show": "Men In Blazers",
+   "start_s": 300
+  },
+  {
+   "q": "serious news voice reading the headlines",
+   "id": "up-first_e14310fa_011",
+   "rank": 2,
+   "show": "Up First from NPR",
+   "start_s": 340
+  },
+  {
+   "q": "serious news voice reading the headlines",
+   "id": "up-first_126470c9_003",
+   "rank": 1,
+   "show": "Up First from NPR",
+   "start_s": 180
+  },
+  {
+   "q": "serious news voice reading the headlines",
+   "id": "global-news_3d787c13_014",
+   "rank": 4,
+   "show": "Global News Podcast",
+   "start_s": 400
+  },
+  {
+   "q": "serious news voice reading the headlines",
+   "id": "criminal_21d1910e_010",
+   "rank": 3,
+   "show": "Criminal",
+   "start_s": 320
+  },
+  {
+   "q": "dramatic storytelling about a murder",
+   "id": "fresh-air_6912f163_013",
+   "rank": 1,
+   "show": "Fresh Air",
+   "start_s": 380
+  },
+  {
+   "q": "dramatic storytelling about a murder",
+   "id": "crime-junkie_24713fd6_017",
+   "rank": 4,
+   "show": "Crime Junkie",
+   "start_s": 460
+  },
+  {
+   "q": "dramatic storytelling about a murder",
+   "id": "nothing-much-happens_695d6681_015",
+   "rank": 2,
+   "show": "Nothing much happens: bedtime stories to help you sleep",
+   "start_s": 420
+  },
+  {
+   "q": "dramatic storytelling about a murder",
+   "id": "casefile_d3b0e512_010",
+   "rank": 3,
+   "show": "Casefile True Crime",
+   "start_s": 320
+  },
+  {
+   "q": "rain and nature sounds, no talking",
+   "id": "gentle-whispering_947b5686_015",
+   "rank": 3,
+   "show": "ASMR by GentleWhispering",
+   "start_s": 420
+  },
+  {
+   "q": "rain and nature sounds, no talking",
+   "id": "gentle-whispering_947b5686_023",
+   "rank": 2,
+   "show": "ASMR by GentleWhispering",
+   "start_s": 580
+  },
+  {
+   "q": "rain and nature sounds, no talking",
+   "id": "get-sleepy_174ad3b2_012",
+   "rank": 1,
+   "show": "Get Sleepy: stories for sleep",
+   "start_s": 360
+  },
+  {
+   "q": "rain and nature sounds, no talking",
+   "id": "relaxing-nature_a5b44b96_021",
+   "rank": 4,
+   "show": "Relaxing Nature Sounds",
+   "start_s": 540
+  },
+  {
+   "q": "upbeat music and singing",
+   "id": "stories-podcast_3ff2fd43_002",
+   "rank": 1,
+   "show": "Stories Podcast: A Bedtime Show for Kids of All Ages",
+   "start_s": 160
+  },
+  {
+   "q": "upbeat music and singing",
+   "id": "story-seeds_df504267_011",
+   "rank": 2,
+   "show": "The Story Seeds Podcast",
+   "start_s": 340
+  },
+  {
+   "q": "upbeat music and singing",
+   "id": "switched-on-pop_f6e96b3e_012",
+   "rank": 3,
+   "show": "Switched on Pop",
+   "start_s": 360
+  },
+  {
+   "q": "upbeat music and singing",
+   "id": "gentle-whispering_152b1544_011",
+   "rank": 4,
+   "show": "ASMR by GentleWhispering",
+   "start_s": 340
+  },
+  {
+   "q": "thoughtful slow interview about life",
+   "id": "get-sleepy_13ac547f_018",
+   "rank": 1,
+   "show": "Get Sleepy: stories for sleep",
+   "start_s": 480
+  },
+  {
+   "q": "thoughtful slow interview about life",
+   "id": "fresh-air_d7648ae5_023",
+   "rank": 2,
+   "show": "Fresh Air",
+   "start_s": 580
+  },
+  {
+   "q": "thoughtful slow interview about life",
+   "id": "tara-brach_b07a0c42_002",
+   "rank": 4,
+   "show": "Tara Brach",
+   "start_s": 160
+  },
+  {
+   "q": "thoughtful slow interview about life",
+   "id": "tara-brach_b07a0c42_015",
+   "rank": 3,
+   "show": "Tara Brach",
+   "start_s": 420
+  },
+  {
+   "q": "kids story with funny voices",
+   "id": "circle-round_ad9a2c84_001",
+   "rank": 1,
+   "show": "Circle Round",
+   "start_s": 140
+  },
+  {
+   "q": "kids story with funny voices",
+   "id": "stories-podcast_8212d2b4_015",
+   "rank": 3,
+   "show": "Stories Podcast: A Bedtime Show for Kids of All Ages",
+   "start_s": 420
+  },
+  {
+   "q": "kids story with funny voices",
+   "id": "stories-podcast_8212d2b4_008",
+   "rank": 4,
+   "show": "Stories Podcast: A Bedtime Show for Kids of All Ages",
+   "start_s": 280
+  },
+  {
+   "q": "kids story with funny voices",
+   "id": "circle-round_e909aa71_021",
+   "rank": 2,
+   "show": "Circle Round",
+   "start_s": 540
+  },
+  {
+   "q": "relaxed chat between comedians, lots of laughs",
+   "id": "smartless_fc612d6d_000",
+   "rank": 4,
+   "show": "SmartLess",
+   "start_s": 120
+  },
+  {
+   "q": "relaxed chat between comedians, lots of laughs",
+   "id": "off-menu_0bedc9ad_012",
+   "rank": 3,
+   "show": "Off Menu with Ed Gamble and James Acaster",
+   "start_s": 360
+  },
+  {
+   "q": "relaxed chat between comedians, lots of laughs",
+   "id": "armchair-expert_5382e5b7_007",
+   "rank": 1,
+   "show": "Armchair Expert with Dax Shepard",
+   "start_s": 260
+  },
+  {
+   "q": "relaxed chat between comedians, lots of laughs",
+   "id": "conan_fd93eacb_019",
+   "rank": 2,
+   "show": "Conan O\u2019Brien Needs A Friend",
+   "start_s": 500
+  }
+ ],
+ "ratings": {
+  "two friends laughing about football, late-night energy|men-in-blazers_939c7510_009": "y",
+  "two friends laughing about football, late-night energy|football-daily_7fbd9e6f_010": "y",
+  "two friends laughing about football, late-night energy|off-menu_8cdd99ef_022": "y",
+  "two friends laughing about football, late-night energy|football-daily_b104aae9_014": "y",
+  "calm, slow, one voice, like a bedtime story|get-sleepy_13ac547f_007": "y",
+  "calm, slow, one voice, like a bedtime story|nothing-much-happens_695d6681_021": "y",
+  "calm, slow, one voice, like a bedtime story|nothing-much-happens_3f9ee5d1_011": "y",
+  "calm, slow, one voice, like a bedtime story|get-sleepy_174ad3b2_010": "y",
+  "heated argument, people talking over each other|fresh-air_6912f163_013": "n",
+  "heated argument, people talking over each other|slow-radio_31562cae_007": "n",
+  "heated argument, people talking over each other|the-journal_a4961bf9_021": "n",
+  "heated argument, people talking over each other|fresh-air_6e2abd6f_018": "y",
+  "soft whispering, very quiet|gentle-whispering_2a536005_017": "y",
+  "soft whispering, very quiet|nothing-much-happens_3f9ee5d1_011": "n",
+  "soft whispering, very quiet|nothing-much-happens_695d6681_020": "n",
+  "soft whispering, very quiet|gentle-whispering_152b1544_023": "y",
+  "excited fast talking about sports|bill-simmons_451dd9fd_012": "y",
+  "excited fast talking about sports|bill-simmons_451dd9fd_009": "n",
+  "excited fast talking about sports|men-in-blazers_0a71fad6_005": "y",
+  "excited fast talking about sports|men-in-blazers_0a71fad6_009": "y",
+  "serious news voice reading the headlines|up-first_e14310fa_011": "y",
+  "serious news voice reading the headlines|up-first_126470c9_003": "y",
+  "serious news voice reading the headlines|global-news_3d787c13_014": "y",
+  "serious news voice reading the headlines|criminal_21d1910e_010": "n",
+  "dramatic storytelling about a murder|fresh-air_6912f163_013": "y",
+  "dramatic storytelling about a murder|crime-junkie_24713fd6_017": "y",
+  "dramatic storytelling about a murder|nothing-much-happens_695d6681_015": "n",
+  "dramatic storytelling about a murder|casefile_d3b0e512_010": "y",
+  "rain and nature sounds, no talking|gentle-whispering_947b5686_015": "n",
+  "rain and nature sounds, no talking|gentle-whispering_947b5686_023": "n",
+  "rain and nature sounds, no talking|get-sleepy_174ad3b2_012": "n",
+  "rain and nature sounds, no talking|relaxing-nature_a5b44b96_021": "y",
+  "upbeat music and singing|stories-podcast_3ff2fd43_002": "n",
+  "upbeat music and singing|story-seeds_df504267_011": "y",
+  "upbeat music and singing|switched-on-pop_f6e96b3e_012": "y",
+  "upbeat music and singing|gentle-whispering_152b1544_011": "n",
+  "thoughtful slow interview about life|get-sleepy_13ac547f_018": "n",
+  "thoughtful slow interview about life|fresh-air_d7648ae5_023": "y",
+  "thoughtful slow interview about life|tara-brach_b07a0c42_002": "y",
+  "thoughtful slow interview about life|tara-brach_b07a0c42_015": "y",
+  "kids story with funny voices|circle-round_ad9a2c84_001": "y",
+  "kids story with funny voices|stories-podcast_8212d2b4_015": "y",
+  "kids story with funny voices|stories-podcast_8212d2b4_008": "y",
+  "kids story with funny voices|circle-round_e909aa71_021": "y",
+  "relaxed chat between comedians, lots of laughs|smartless_fc612d6d_000": "y",
+  "relaxed chat between comedians, lots of laughs|off-menu_0bedc9ad_012": "n",
+  "relaxed chat between comedians, lots of laughs|armchair-expert_5382e5b7_007": "y",
+  "relaxed chat between comedians, lots of laughs|conan_fd93eacb_019": "y"
+ }
+}

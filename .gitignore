@@ -1,0 +1,24 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Large / derived data
+data/audio_cache/
+index/
+models/
+runs/cache/
+reports/phase1_listen/
+
+.env
+
+runs/*.log
+bundle/
+bundle.zip
+data/rss/
+data/bundle_episodes.json
+*.egg-info/
+runs/*.err
+runs/*.pid
+
+config.local.yaml
