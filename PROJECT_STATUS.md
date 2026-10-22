@@ -3,6 +3,9 @@
 Context handoff for anyone (or any AI chat) picking this up. `README.md` is the **original build plan**; this file
 describes **what was actually built, what changed, why, and where things stand**. Last updated 2026-10-22.
 
+> **For a follow-up project that builds on this one's results, read [FINDINGS.md](FINDINGS.md) first:** every
+> method, number, finding, hypothesis and open experiment in one self-contained briefing.
+
 ---
 
 ## 1. In one paragraph
@@ -210,7 +213,7 @@ https://atharva-729.github.io/base64-image-probe/ (dark ink, Fraunces serif head
   3. **Does it work:** the listening-test grid (12 rows × 4 green/red squares, click to hear) and a works/fails pair.
   4. **Try it:** search box and example chips, sliders tucked under "Fine-tune", results with play buttons.
   5. **Below the line:** a 4-step "how it was built" strip (Cut, Embed, Search, Listen), stats, caveats.
-- **Iteration 4 (current), from the user's feedback on iteration 3:**
+- **Iteration 4, from the user's feedback on iteration 3:**
   - **Hero:** a carousel of 5 example searches with ‹ › arrows and a hand-drawn yellow "more examples" arrow; each
     example shows its listening pips.
   - **Audio plays in place:** ▶ becomes ⏸ on the row, with a progress line; there's no sticky bottom player.
@@ -222,18 +225,35 @@ https://atharva-729.github.io/base64-image-probe/ (dark ink, Fraunces serif head
     "what this means" box.
   - **Section order:** feature → why it works (map + word buttons) → does it work (listening) → the gap → try it →
     (below the line) how it was built → caveats.
+- **Iteration 5 (current):**
+  - **The study (section 03):** the centring-strength study added inside it (line chart + short-search pip grid +
+    "what we learned").
+  - **Legends beside the maps:** the vibe map and the gap plots each have a vertical colour key next to them.
+  - **New section 04 "What we learned about the model":** 14 finding cards in 3 groups (good/bad at; the gap and
+    centring; lessons), each tagged Measured / Tried & failed / Hypothesis / Lesson. These mirror `FINDINGS.md` §8.
+  - **Hero:** a line framing the project as a study too, with a link down. The "more examples" hint arrow and the
+    leftover now-playing ring on the map were removed at the user's request.
+  - **Light/dark toggle** on both pages (`docs/theme.js`; the choice is saved; `?theme=light|dark` overrides).
+  - **Section order now:** feature → 01 why it works → 02 does it work → 03 the gap + study → 04 what we learned →
+    05 try it → (below the line) 06 how it was built → 07 caveats. Nav has an "Explainer ↗" link.
+  - **Pending:** the user said "some changes to be made later", not yet specified.
 
 **Other artefacts:**
 
-- `docs/rate.html`: the listening-test page. It posts ratings to `/rate`, which writes
-  `reports/listening_test.json`.
-- **2-minute talking script and plain-English explanations:** given in chat, not saved to a file. They cover the
-  Spotify framing, the three signals per clip and how the features are measured (librosa, Whisper, zero-shot
-  embeddings).
+- `docs/rate.html` / `docs/study.html`: the listening-test pages. They post ratings to `/rate?name=…`, which writes
+  `reports/listening_<name>.json`.
+- `docs/explain.html`: a fun, interactive explainer of every technical idea (embeddings, cosine, multimodal,
+  contrastive training, UMAP, evaluation, modality gap, centring, every demo chart), with draggable toys, real-data
+  charts, yellow annotation arrows, a quiz and a glossary.
+- `TALKING_POINTS.md`: the presentation. The page is meant to be self-explanatory, so this has a 45-second intro plus
+  only the non-obvious points per section, and a Q&A list.
+- `FINDINGS.md`: the detailed findings/context briefing for follow-up projects.
 
 ## 9. Open items and next steps
 
-- **Get the user's reaction to the iteration-4 page** (with the centring finding) and adjust.
+- **The user plans more page changes later** (not yet specified). GitHub Pages needs to be switched on by the user
+  (Settings → Pages → `main` / `/docs`).
+- **A follow-up project relies on these findings;** hand it `FINDINGS.md`.
 - **Partial centring and short-query centring were tested (Finding 3); neither helps by ear.** Possible next
   questions:
   - Why does the mean direction carry sound character? E.g. project out only the top principal direction of the gap
