@@ -23,8 +23,12 @@ top results sounded right to a listener.** The audience is mainly the user's man
   http://127.0.0.1:8765/.
 - **Listening test:** done by the user. 33 of 48 matched; raw ratings are in `reports/listening_test.json`.
 - **Full numbers:** `reports/REPORT.md`.
-- **Git:** local repo on `main`, everything committed. There is **no GitHub remote yet** (no `gh` CLI; the user
-  hasn't provided a repo URL). GitHub Pages is therefore not set up.
+- **Git:** public repo https://github.com/atharva-729/podcast-vibe-search (`main`). It was pushed as one squashed
+  commit after scrubbing company details: the LLM URL is in the uncommitted `config.local.yaml`, proxy vendor names
+  were removed, and run scripts no longer contain user paths. The full local history is kept in the local-only
+  branch `local-history`; don't push it. GitHub Pages: Settings → Pages → Deploy from branch `main`, folder
+  `/docs` → https://atharva-729.github.io/podcast-vibe-search/. On Pages, free-text search, custom map words and
+  the rating pages need `vibe serve`, and publisher audio may be blocked on the corporate network.
 - **LLM spend:** $0.0066 in total.
 
 ## 3. How it diverged from the README plan
