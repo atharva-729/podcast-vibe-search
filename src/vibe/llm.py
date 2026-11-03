@@ -57,9 +57,10 @@ def chat(messages, **params):
     if spent_today() >= c["daily_budget_usd"]:
         raise BudgetExceeded(f"spent ${spent_today():.4f} today, limit ${c['daily_budget_usd']}")
 
-    token = os.environ.get("LLM_API_KEY")
+    token_env = c.get("token_env", "LLM_API_KEY")
+    token = os.environ.get(token_env)
     if not token:
-        raise RuntimeError("LLM_API_KEY not set")
+        raise RuntimeError(f"{token_env} not set")
     r = requests.post(f"{c['base_url']}/chat/completions", json=body, timeout=120,
                       headers={"Authorization": f"Bearer {token}:vibe-search"})
     r.raise_for_status()

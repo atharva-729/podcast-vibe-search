@@ -70,7 +70,7 @@ The page explains itself. Say the intro, then let people read. Only speak up wit
   a "chance" baseline.
 - **Biggest weakness?** Specific sounds (music, rain, crowds) and real arguments, partly because these podcasts
   barely contain them. That's a data gap, not just a model gap.
-- **Rights?** No audio is hosted. Clips stream from each publisher's own link. Third-party shows: internal prototype
+- **Rights?** No audio is hosted. Clips stream from each publisher's own link. Third-party shows: non-commercial prototype
   only.
 - **What next?** More listeners; a corpus with real music, nature sounds and live crowds; and testing whether
   removing only the *main* gap direction (instead of the full average) keeps the vibe.

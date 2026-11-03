@@ -509,7 +509,7 @@ footer a { color: var(--soft); }
     <li><b>Data gaps decide the misses:</b> few shows have crowds, music, real arguments or nature sounds, so those searches are weak. That's why “a crowd cheering” and “music playing” aren't map buttons: their nearest clips are mostly ASMR.</li>
     <li><b>Small corpus:</b> 39 English-language shows, minutes 2–10 of each episode.</li>
     <li><b>Playback:</b> audio streams from each publisher; about half are blocked on the office network, where <code>vibe serve</code> plays a local copy.</li>
-    <li><b>Internal prototype</b> using third-party shows. Full numbers, including an earlier automatic check: <code>reports/REPORT.md</code>.</li>
+    <li><b>Non-commercial prototype</b> using third-party shows. Full numbers, including an earlier automatic check: <code>reports/REPORT.md</code>.</li>
   </ul>
 </div></section>
 
@@ -873,7 +873,7 @@ $("b-cut").textContent = `${D.stats.shows} public podcasts, 3 episodes each, cut
 if (D.eval && D.eval.spend_usd) $("b-usd").textContent = `$${D.eval.spend_usd.toFixed(3)}`;
 $("footer").innerHTML = `Shows (audio streams from each publisher; nothing is hosted here): ` +
   SH.map(s => s.link ? `<a href="${esc(s.link)}" target="_blank" rel="noopener">${esc(short(s.name))}</a>` : esc(short(s.name))).join(" · ") +
-  `<br>Internal prototype. Transcripts are used for ranking only and are not shown.`;
+  `<br>Non-commercial prototype. Transcripts are used for ranking only and are not shown.`;
 
 useDemo(EXAMPLES[0]);
 // Open on the cleanest example; "people laughing" is spread out more, one click away.

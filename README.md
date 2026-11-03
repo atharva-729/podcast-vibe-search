@@ -9,7 +9,7 @@ Search podcasts by **how they sound**, not just by what they're about.
 
 Normal podcast search matches titles, descriptions and transcripts (the *topic*). Vibe Search also matches the *feel*: energy, pace, laughter, calm, music, how many voices, and how chaotic it is. You get back **moments** (timestamped segments), not just shows, and can play them right where the vibe happens.
 
-Context: a personal build with a Spotify hook. It's also the product version of `gemma-study`: a shared audio–text embedding space used for something real.
+Context: a personal project with a Spotify hook. It's also the product version of `gemma-study`: a shared audio–text embedding space used for something real.
 
 > **Status:** this README is the original build plan. For what was actually built, what changed and why, and the
 > current results, see **[PROJECT_STATUS.md](PROJECT_STATUS.md)**. For every finding, number and open question in one
@@ -83,7 +83,7 @@ Everything heavy runs locally. The LLM (through an OpenAI-compatible gateway, bu
 - **Size (v1):** about 40 shows × 3 episodes, **first 15 minutes** of each, which is about 30 hours of audio and about 5,400 segments of 20 s each. This keeps local compute manageable.
 - **Pick shows for vibe spread**, not popularity: comedy chat, sleep/meditation, true crime, sports banter, news briefing, interview, ASMR/ambient, debate, kids' stories, music-heavy shows.
 - `data/feeds.yaml`: list of feed URLs. `data/episodes.parquet`: one row per episode (show, title, category, audio URL, duration, publish date).
-- **Rights:** this is an internal prototype. Audio is processed locally and discarded after feature extraction (`--keep-audio` is off by default). Check before any commercial use with third-party shows.
+- **Rights:** this is a non-commercial prototype. Audio is processed locally and discarded after feature extraction (`--keep-audio` is off by default). Check before any commercial use with third-party shows.
 
 ## Repo layout
 
@@ -241,7 +241,7 @@ Page (`docs/index.html`, single file, no build step):
 2. A **results list**: show, episode, timestamp, the "why it matched" chips, and a **play** button that streams the publisher's audio URL from that timestamp (`<audio>` + `currentTime`). If a feed blocks this, link out instead.
 3. A **vibe map**: a 2-D UMAP of all segments, coloured by category or any feature. Click a dot to play that moment. Hovering a result highlights it on the map.
 4. A **"how it works"** section and **limits** (small corpus, English only, first 15 minutes per episode, zero-shot laughter and music scores, no diarization), plus the Phase 4 numbers.
-5. Footer: shows are credited by name and link, audio is streamed from the publishers, and it's an internal prototype.
+5. Footer: shows are credited by name and link, audio is streamed from the publishers, and it's a non-commercial prototype.
 
 **Don't:** embed or host audio files, put full transcripts on the page, or add a framework or build tooling.
 

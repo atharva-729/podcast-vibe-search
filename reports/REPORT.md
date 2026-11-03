@@ -213,4 +213,4 @@ cache instead.
 - Laughter, music and crowd scores are zero-shot; there is no diarization.
 - Episodes with dynamic ad insertion may be slightly off at the timestamp when streamed.
 - About half the publishers are blocked on a restricted network, so use `vibe serve` there.
-- Internal prototype: flag before any commercial use with third-party shows.
+- Non-commercial prototype: check before any commercial use with third-party shows.

@@ -111,5 +111,5 @@ cache instead.
 
 Small corpus (39 episodes, 6 minutes each), English only, zero-shot laughter/music/crowd scores, no diarization.
 Episodes with dynamic ad insertion may be slightly off at the timestamp when streamed. On a restricted network
-about half the publishers are blocked, so use `vibe serve` for playback there. Internal prototype; flag before any
+about half the publishers are blocked, so use `vibe serve` for playback there. Non-commercial prototype; check before any
 commercial use with third-party shows.
